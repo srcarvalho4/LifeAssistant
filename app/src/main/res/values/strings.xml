@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">LifeAssistant</string>
+
+    <!--Shaurya-->
+
+    <string name="create_event_title">Create Event</string>
+    
+    <string name="event_name_label">Event Name</string>
+    <string name="event_name_hint">Enter Event Name</string>
+    
+    <string name="activity_label">Activity</string>
+    <string name="activity_spinner_hint">Select Activity</string>
+    
+    <string name="event_start_time_label">Start Time</string>
+    <string name="event_start_time_hint">Select Start Time</string>
+
+    <string name="event_end_time_label">End Time</string>
+    <string name="event_end_time_hint">Select End Time</string>
+
+    <string name="cancel_button_text">Cancel</string>
+    <string name="save_button_text">Save</string>
+
+    <string-array name="activities_array">
+        <item>Class</item>
+        <item>Running</item>
+        <item>Driving</item>
+        <item>Reading</item>
+        <item>Sleeping</item>
+    </string-array>
+
+    <!--Shaurya-->
+
 </resources>
