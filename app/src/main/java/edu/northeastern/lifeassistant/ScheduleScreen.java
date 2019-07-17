@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import util.EventAdapterItem;
 public class ScheduleScreen extends AppCompatActivity {
 
     ListView listView;
+
 
     ArrayList<EventAdapterItem> events = new ArrayList<>();
 
