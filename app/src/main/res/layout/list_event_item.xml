@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventItemGrid"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/eventItemName"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/eventItemStartTime"
+        android:layout_column="1"
+        android:layout_row="0"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="right"
+        android:textSize="24sp"
+        />
+
+
+    <TextView
+        android:id="@+id/eventItemEndTime"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="right"
+        android:textSize="24sp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/eventItemSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="Su"/>
+
+        <TextView
+            android:id="@+id/eventItemMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="M"/>
+
+        <TextView
+            android:id="@+id/eventItemTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="Tu"/>
+
+        <TextView
+            android:id="@+id/eventItemWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="W"/>
+
+        <TextView
+            android:id="@+id/eventItemThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="Th"/>
+
+        <TextView
+            android:id="@+id/eventItemFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="F"/>
+
+        <TextView
+            android:id="@+id/eventItemSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:text="Sa"/>
+
+
+    </LinearLayout>
+
+</GridLayout>
