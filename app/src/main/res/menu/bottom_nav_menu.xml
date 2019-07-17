@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_activity"
+        android:icon="@drawable/icon_runningman"
+        android:title="@string/title_activity" />
+
+    <item
+        android:id="@+id/navigation_scheduler"
+        android:icon="@drawable/iconfinder_calendar"
+        android:title="@string/title_scheduler" />
+
+    <item
+        android:id="@+id/navigation_spontaneous"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_spontaneous" />
+
+</menu>
