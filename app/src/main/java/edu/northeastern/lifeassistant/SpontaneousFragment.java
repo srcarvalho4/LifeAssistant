@@ -1,5 +1,6 @@
 package edu.northeastern.lifeassistant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,16 @@ public class SpontaneousFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_spontaneous, null);
+        final View view = inflater.inflate(R.layout.fragment_spontaneous, null);
+        final View button = view.findViewById(R.id.buttonRunning1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SpontaneousActive.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }
