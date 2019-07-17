@@ -11,14 +11,15 @@
 
     <!--Shaurya-->
 
+    <!--Create Event-->
     <string name="create_event_title">Create Event</string>
-    
+
     <string name="event_name_label">Event Name</string>
     <string name="event_name_hint">Enter Event Name</string>
-    
+
     <string name="activity_label">Activity</string>
     <string name="activity_spinner_hint">Select Activity</string>
-    
+
     <string name="event_start_time_label">Start Time</string>
     <string name="event_start_time_hint">Select Start Time</string>
 
@@ -35,6 +36,14 @@
         <item>Reading</item>
         <item>Sleeping</item>
     </string-array>
+
+    <!--Create Activity-->
+    <string name="create_activity_title">Create Activity</string>
+
+    <string name="activity_name_label">Activity Name</string>
+    <string name="activity_name_hint">Enter Activity Name</string>
+
+    <string name="add_rule_button_text">Add Rule</string>
 
     <!--Shaurya-->
 

@@ -6,26 +6,27 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/mainLinearLayout"
+        android:id="@+id/createEventMainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".CreateEventActivity"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/createEventToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#4287f5"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:title="@string/create_event_title" />
+            app:title="@string/create_event_title"
+            app:titleTextColor="#F2F2F2" />
 
         <TextView
-            android:id="@+id/eventNameLabel"
+            android:id="@+id/createEventNameLabel"
             android:text="@string/event_name_label"
             android:textSize="18sp"
-            android:labelFor="@id/eventNameEditText"
+            android:labelFor="@id/createEventNameEditText"
             android:layout_marginTop="25dp"
             android:layout_marginStart="4dp"
             android:layout_gravity="center"
@@ -33,17 +34,17 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/eventNameEditText"
+            android:id="@+id/createEventNameEditText"
             android:hint="@string/event_name_hint"
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/activityLabel"
+            android:id="@+id/createEventActivityLabel"
             android:text="@string/activity_label"
             android:textSize="18sp"
-            android:labelFor="@id/activitySpinner"
+            android:labelFor="@id/createEventActivitySpinner"
             android:layout_marginTop="25dp"
             android:layout_marginStart="4dp"
             android:layout_gravity="center"
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content" />
 
         <Spinner
-            android:id="@+id/activitySpinner"
+            android:id="@+id/createEventActivitySpinner"
             android:spinnerMode="dialog"
             android:prompt="@string/activity_spinner_hint"
             android:layout_gravity="center"
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content" />
 
         <ca.antonious.materialdaypicker.MaterialDayPicker
-            android:id="@+id/dayPicker"
+            android:id="@+id/createEventDayPicker"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginTop="50dp"
@@ -67,14 +68,14 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:id="@+id/parentTimeLinearLayout"
+            android:id="@+id/createEventParentTimeLinearLayout"
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/startTimeLinearLayout"
+                android:id="@+id/createEventStartTimeLinearLayout"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_width="0dp"
@@ -82,8 +83,8 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/eventStartTimeLabel"
-                    android:labelFor="@id/eventStartTimeEditText"
+                    android:id="@+id/createEventStartTimeLabel"
+                    android:labelFor="@id/createEventStartTimeEditText"
                     android:textSize="18sp"
                     android:text="@string/event_start_time_label"
                     android:layout_marginStart="4dp"
@@ -93,7 +94,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
-                    android:id="@+id/eventStartTimeEditText"
+                    android:id="@+id/createEventStartTimeEditText"
                     android:hint="@string/event_start_time_hint"
                     android:textSize="18sp"
                     android:focusable="false"
@@ -107,7 +108,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/endTimeLinearLayout"
+                android:id="@+id/createEventEndTimeLinearLayout"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_width="0dp"
@@ -115,8 +116,8 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/eventEndTimeLabel"
-                    android:labelFor="@id/eventEndTimeEditText"
+                    android:id="@+id/createEventEndTimeLabel"
+                    android:labelFor="@id/createEventEndTimeEditText"
                     android:text="@string/event_end_time_label"
                     android:textSize="18sp"
                     android:layout_marginStart="4dp"
@@ -126,7 +127,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
-                    android:id="@+id/eventEndTimeEditText"
+                    android:id="@+id/createEventEndTimeEditText"
                     android:hint="@string/event_end_time_hint"
                     android:textSize="18sp"
                     android:focusable="false"
@@ -144,13 +145,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/buttonLinearLayout"
+        android:id="@+id/createEventButtonLinearLayout"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/createEventCancelButton"
             android:background="#F85F51"
             android:text="@string/cancel_button_text"
             android:textColor="#F2F2F2"
@@ -161,7 +162,7 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/createEventSaveButton"
             android:background="#93D358"
             android:text="@string/save_button_text"
             android:textColor="#F2F2F2"
