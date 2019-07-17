@@ -15,6 +15,7 @@ public class ActivityScreen extends AppCompatActivity {
 
     ListView listView;
 
+
     ArrayList<ActivityAdapterItem> activities = new ArrayList<>();
 
     @Override

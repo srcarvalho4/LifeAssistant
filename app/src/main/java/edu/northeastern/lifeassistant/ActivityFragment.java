@@ -1,10 +1,12 @@
 package edu.northeastern.lifeassistant;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import util.ActivityAdapterItem;
 public class ActivityFragment extends Fragment {
 
     ListView listView;
+    Button button1;
 
     ArrayList<ActivityAdapterItem> activities = new ArrayList<>();
     @Nullable
@@ -27,6 +30,15 @@ public class ActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_activity_screen, null);
 
         listView = view.findViewById(R.id.activityListView);
+        button1 = view.findViewById(R.id.activityRuleButton);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CreateActivityActivity.class);
+                startActivity(intent);
+            }
+        });
 
         populateList();
 
