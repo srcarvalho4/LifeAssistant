@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent explicitIntent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent explicitIntent = new Intent(SplashScreen.this, MainNavigationActivity.class);
                 startActivity(explicitIntent);
 
             }
