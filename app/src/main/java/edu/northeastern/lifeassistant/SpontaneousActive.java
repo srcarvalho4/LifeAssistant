@@ -50,6 +50,7 @@ public class SpontaneousActive extends AppCompatActivity {
         if (!isRunning) {
             isRunning = true;
             timer.schedule(task, 0, 1000);
+            progressBar.setIndeterminate(true);
         } else {
             Toast.makeText(this, "Activity already started.", Toast.LENGTH_SHORT).show();
         }
@@ -61,7 +62,8 @@ public class SpontaneousActive extends AppCompatActivity {
             task.cancel();
             timer.purge();
             progress = 0;
-            progressBar.setProgress(progress);
+            //progressBar.setProgress(progress);
+            progressBar.setIndeterminate(false);
         } else {
             Toast.makeText(this, "No Activity running to stop.", Toast.LENGTH_SHORT).show();
         }

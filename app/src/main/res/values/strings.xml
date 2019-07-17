@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">LifeAssistant</string>
+    <string name="MainPageTitle">Life Assistant</string>
+    <string name="MainPageStartButton">Let\'s Begin</string>
+    <string name="ActivityPageTitle">Activity</string>
+    <string name="SchedulePageTitle">Schedule</string>
+    <string name="NavigationBarActivity">Activity</string>
+    <string name="NavigationBarSpontaneous">Spontaneous</string>
+    <string name="NavigationBarSchedule">Schedule</string>
 
     <string name="title_activity">Activity</string>
     <string name="title_scheduler">Scheduler</string>
