@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/mainLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CreateEventActivity"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4287f5"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/create_event_title" />
+
+        <TextView
+            android:id="@+id/eventNameLabel"
+            android:text="@string/event_name_label"
+            android:textSize="18sp"
+            android:labelFor="@id/eventNameEditText"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/eventNameEditText"
+            android:hint="@string/event_name_hint"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/activityLabel"
+            android:text="@string/activity_label"
+            android:textSize="18sp"
+            android:labelFor="@id/activitySpinner"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/activitySpinner"
+            android:spinnerMode="dialog"
+            android:prompt="@string/activity_spinner_hint"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <ca.antonious.materialdaypicker.MaterialDayPicker
+            android:id="@+id/dayPicker"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/parentTimeLinearLayout"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/startTimeLinearLayout"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/eventStartTimeLabel"
+                    android:labelFor="@id/eventStartTimeEditText"
+                    android:textSize="18sp"
+                    android:text="@string/event_start_time_label"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/eventStartTimeEditText"
+                    android:hint="@string/event_start_time_hint"
+                    android:textSize="18sp"
+                    android:focusable="false"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/endTimeLinearLayout"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/eventEndTimeLabel"
+                    android:labelFor="@id/eventEndTimeEditText"
+                    android:text="@string/event_end_time_label"
+                    android:textSize="18sp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/eventEndTimeEditText"
+                    android:hint="@string/event_end_time_hint"
+                    android:textSize="18sp"
+                    android:focusable="false"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonLinearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:background="#F85F51"
+            android:text="@string/cancel_button_text"
+            android:textColor="#F2F2F2"
+            android:textSize="18sp"
+            android:layout_gravity="fill"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:background="#93D358"
+            android:text="@string/save_button_text"
+            android:textColor="#F2F2F2"
+            android:textSize="18sp"
+            android:layout_gravity="fill"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>
