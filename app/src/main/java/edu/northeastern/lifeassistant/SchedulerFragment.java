@@ -1,10 +1,12 @@
 package edu.northeastern.lifeassistant;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import util.EventAdapterItem;
 public class SchedulerFragment extends Fragment {
 
     ListView listView;
+    Button button1;
     ArrayList<EventAdapterItem> events = new ArrayList<>();
     @Nullable
     @Override
@@ -27,6 +30,14 @@ public class SchedulerFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_schedule_screen, null);
 
         listView = view.findViewById(R.id.scheduleListView);
+        button1 = view.findViewById(R.id.scheduleActivityButton);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CreateEventActivity.class);
+                startActivity(intent);
+            }
+        });
 
         populateList();
 
