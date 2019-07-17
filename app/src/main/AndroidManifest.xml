@@ -12,8 +12,8 @@
         <activity
             android:name=".MainNavigationActivity"
             android:label="@string/title_activity_main_navigation"></activity>
-        <activity android:name=".SplashScreen" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
