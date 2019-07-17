@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SpontaneousActive">
+
+    <TextView
+        android:id="@+id/spontaneousPageTitle"
+        android:text="@string/spontaneous_page_title"
+        android:textSize="40sp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/spontaneousActivityTypeTitle"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Running"
+        android:textSize="30sp"
+        android:layout_margin="20dp"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/spontaneousStartButton"
+            android:onClick="startButtonClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_button_text"
+            android:textSize="20sp"
+            android:layout_column="0"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/spontaneousEndButton"
+            android:onClick="stopButtonClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_button_text"
+            android:layout_column="1"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"/>
+
+    </GridLayout>
+
+    <ProgressBar
+        android:id="@+id/spontaneousProgress"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:indeterminateOnly="false"
+        android:progress="0"
+        android:max="100"/>
+
+    <TextView
+        android:id="@+id/spontaneousRulesHeading"
+        android:text="Rules:"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp">
+
+    </ListView>
+
+
+
+</LinearLayout>
