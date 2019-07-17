@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LifeAssistant</string>
+
+    <string name="title_activity">Activity</string>
+    <string name="title_scheduler">Scheduler</string>
+    <string name="title_spontaneous">Spontaneous</string>
 </resources>
