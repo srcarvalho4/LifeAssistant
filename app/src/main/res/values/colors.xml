@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--Shaurya-->
+    <color name="dayPressed">#303F9F</color>
+    <color name="daySelected">#4287f5</color>
+    <color name="dayDeselected">@android:color/darker_gray</color>
+    <!--Shaurya-->
+
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#0097A7</color>
+    <color name="colorAccent">#CDDC39</color>
+    <color name="white">#ffffff</color>
 </resources>
