@@ -14,29 +14,38 @@
         <activity android:name=".ActivityScreen" />
       
 
-        <activity
-            android:name=".MainNavigationActivity"
-            android:label="@string/title_activity_main_navigation"></activity>
-        <activity android:name=".MainActivity" />
-        
-          <activity android:name=".CreateEventActivity">
+        <activity android:name=".CreateActivityActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-  
-        <activity android:name=".SpontaneousActive"></activity>
 
-      <activity android:name=".SplashScreen">
-        
+        <activity
+            android:name=".MainNavigationActivity"
+            android:label="@string/title_activity_main_navigation" />
+        <activity android:name=".MainActivity" />
+
+        <activity android:name=".CreateEventActivity">
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+
+        <activity android:name=".SpontaneousActive" />
+
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -43,15 +43,15 @@ public class CreateEventActivity extends AppCompatActivity {
         activities.add("Driving");
         activities.add("Sleeping");
 
-        eventNameEditText = findViewById(R.id.eventNameEditText);
-        activitySpinner = findViewById(R.id.activitySpinner);
-        materialDayPicker = findViewById(R.id.dayPicker);
+        eventNameEditText = findViewById(R.id.createEventNameEditText);
+        activitySpinner = findViewById(R.id.createEventActivitySpinner);
+        materialDayPicker = findViewById(R.id.createEventDayPicker);
 
-        eventStartTimeEditText = findViewById(R.id.eventStartTimeEditText);
-        eventEndTimeEditText = findViewById(R.id.eventEndTimeEditText);
+        eventStartTimeEditText = findViewById(R.id.createEventStartTimeEditText);
+        eventEndTimeEditText = findViewById(R.id.createEventEndTimeEditText);
 
-        cancelButton = findViewById(R.id.cancelButton);
-        saveButton = findViewById(R.id.saveButton);
+        cancelButton = findViewById(R.id.createEventCancelButton);
+        saveButton = findViewById(R.id.createEventSaveButton);
 
         // Add activity list to spinner
         activitySpinner.setAdapter(new ArrayAdapter<>(this,
