@@ -2,12 +2,7 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-
-import util.EventAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

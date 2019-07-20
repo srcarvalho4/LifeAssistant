@@ -1,4 +1,4 @@
-package util;
+package utils;
 
 import android.content.Context;
 import android.view.View;
@@ -13,9 +13,9 @@ import edu.northeastern.lifeassistant.R;
 public class ActivityAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<ActivityAdapterItem> activities;
+    ArrayList<Activity> activities;
 
-    public ActivityAdapter(Context context, ArrayList<ActivityAdapterItem> activities) {
+    public ActivityAdapter(Context context, ArrayList<Activity> activities) {
         this.context = context;
         this.activities = activities;
     }
@@ -54,7 +54,7 @@ public class ActivityAdapter extends BaseAdapter {
         }
 
 
-        viewHolder.textView.setText(activities.get(i).getName());
+        viewHolder.textView.setText(activities.get(i).getTypeName());
         viewHolder.textView.setBackgroundColor(activities.get(i).getColor());
 
 

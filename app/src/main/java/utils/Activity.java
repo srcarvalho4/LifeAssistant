@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class Activity {
 
-    Color color;
+    int color;
     String typeName;
     ArrayList<Rule> rules;
 
-    public Activity(Color color, String typeName, ArrayList<Rule> rules) {
+    public Activity(int color, String typeName, ArrayList<Rule> rules) {
         this.color = color;
         this.typeName = typeName;
         this.rules = rules;
@@ -21,5 +21,15 @@ public class Activity {
     //Add a rule to the list of rules
     public void addRule(Rule r) {
         this.rules.add(r);
+    }
+
+    //Return this activity's color
+    public int getColor() {
+        return this.color;
+    }
+
+    //Return this activity's type
+    public String getTypeName(){
+        return this.typeName;
     }
 }

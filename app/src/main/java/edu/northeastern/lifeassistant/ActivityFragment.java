@@ -15,15 +15,16 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
-import util.ActivityAdapter;
-import util.ActivityAdapterItem;
+import utils.Activity;
+import utils.ActivityAdapter;
+import utils.Rule;
 
 public class ActivityFragment extends Fragment {
 
     ListView listView;
     Button button1;
 
-    ArrayList<ActivityAdapterItem> activities = new ArrayList<>();
+    ArrayList<Activity> activities = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,8 +51,8 @@ public class ActivityFragment extends Fragment {
     }
 
     private void populateList() {
-        activities.add(new ActivityAdapterItem("Running", Color.rgb(100,240, 100)));
-        activities.add(new ActivityAdapterItem("Class", Color.rgb(240,100, 100)));
-        activities.add(new ActivityAdapterItem("Studying", Color.rgb(100,100, 240)));
+        activities.add(new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>()));
     }
 }
