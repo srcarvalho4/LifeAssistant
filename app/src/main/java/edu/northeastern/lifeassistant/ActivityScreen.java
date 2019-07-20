@@ -8,15 +8,16 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import util.ActivityAdapter;
-import util.ActivityAdapterItem;
+import utils.Activity;
+import utils.ActivityAdapter;
+import utils.Rule;
 
 public class ActivityScreen extends AppCompatActivity {
 
     ListView listView;
 
 
-    ArrayList<ActivityAdapterItem> activities = new ArrayList<>();
+    ArrayList<Activity> activities = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,8 @@ public class ActivityScreen extends AppCompatActivity {
     }
 
     private void populateList() {
-        activities.add(new ActivityAdapterItem("Running", Color.rgb(100,240, 100)));
-        activities.add(new ActivityAdapterItem("Class", Color.rgb(240,100, 100)));
-        activities.add(new ActivityAdapterItem("Studying", Color.rgb(100,100, 240)));
+        activities.add(new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>()));
     }
 }

@@ -4,20 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import util.EventAdapter;
-import util.EventAdapterItem;
+import utils.Activity;
+import utils.EventAdapter;
+import utils.Rule;
+import utils.ScheduleEvent;
 
 public class ScheduleScreen extends AppCompatActivity {
 
     ListView listView;
 
 
-    ArrayList<EventAdapterItem> events = new ArrayList<>();
+    ArrayList<ScheduleEvent> events = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,14 @@ public class ScheduleScreen extends AppCompatActivity {
     }
 
     private void populateList() {
-        events.add(new EventAdapterItem("5 Mile Jog", "8:00am", "9:00am", Color.rgb(100, 240, 100), 0b01000001));
-        events.add(new EventAdapterItem("Mobile App Development", "11:40am", "1:20pm", Color.rgb(240, 100, 100), 0b00011110));
-        events.add(new EventAdapterItem("Study Session", "6:30pm", "9:00pm", Color.rgb(100, 100, 240), 0b01111111));
-        events.add(new EventAdapterItem("Group Meeting", "3:00pm", "5:00pm", Color.rgb(100, 100, 240), 0b00001010));
+        /*
+        activities.add(new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>()));
+         */
+        //TODO
+        Activity runningActivity = new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>());
+        Activity classActivity = new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>());
+        Activity studyActivity = new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>());
     }
 }
