@@ -3,6 +3,7 @@ package edu.northeastern.lifeassistant.db.models;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -18,6 +19,10 @@ import static androidx.room.ForeignKey.CASCADE;
                 childColumns = "setting_id",
                 onUpdate = CASCADE,
                 onDelete = CASCADE)
+        },
+        indices = {
+            @Index(value="activity_id"),
+            @Index(value="setting_id")
         })
 public class Rule {
 

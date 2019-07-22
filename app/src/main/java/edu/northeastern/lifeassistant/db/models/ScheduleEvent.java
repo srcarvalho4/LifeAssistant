@@ -3,6 +3,7 @@ package edu.northeastern.lifeassistant.db.models;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import java.util.Date;
 import java.util.Set;
@@ -16,6 +17,9 @@ import static androidx.room.ForeignKey.CASCADE;
                         childColumns = "activity_id",
                         onUpdate = CASCADE,
                         onDelete = CASCADE)
+        },
+        indices = {
+                @Index(value="activity_id")
         })
 public class ScheduleEvent {
 
