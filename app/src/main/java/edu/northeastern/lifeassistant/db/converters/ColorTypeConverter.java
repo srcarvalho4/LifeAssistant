@@ -1,7 +1,6 @@
 package edu.northeastern.lifeassistant.db.converters;
 
 import androidx.room.TypeConverter;
-
 import edu.northeastern.lifeassistant.db.types.ColorType;
 
 public class ColorTypeConverter {

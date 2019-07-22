@@ -17,6 +17,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.models.Activity;
+import edu.northeastern.lifeassistant.db.models.Rule;
+import edu.northeastern.lifeassistant.db.models.Setting;
+import edu.northeastern.lifeassistant.db.types.ColorType;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -99,42 +104,40 @@ public class CreateEventActivity extends AppCompatActivity {
 //        // TESTS
         AppDatabase db = AppDatabase.getAppDatabase(this);
 
-        Toast.makeText(this, "Test", Toast.LENGTH_LONG).show();
+        db.settingDao().insert(new Setting(SettingType.AIRPLANE_MODE));
+        List<Setting> s = db.settingDao().findAllSettings();
+        for(Setting se : s) {
+            db.settingDao().delete(se);
+        }
 
-//        edu.northeastern.lifeassistant.db.settingDao().insert(new Setting(SettingType.AIRPLANE_MODE));
-//        List<Setting> s = edu.northeastern.lifeassistant.db.settingDao().findAllSettings();
-//        for(Setting se : s) {
-//            edu.northeastern.lifeassistant.db.settingDao().delete(se);
-//        }
-
-//        edu.northeastern.lifeassistant.db.activityDao().insert(new Activity("test", ColorType.RED));
-//        List<Activity> a = edu.northeastern.lifeassistant.db.activityDao().findAllActivities();
+//        db.activityDao().insert(new Activity("test", ColorType.RED));
+//        List<Activity> a = db.activityDao().findAllActivities();
 //        for(Activity ac : a) {
-//            edu.northeastern.lifeassistant.db.activityDao().delete(ac);
+//            db.activityDao().delete(ac);
 //        }
 
-//        Long aId = edu.northeastern.lifeassistant.db.activityDao().insert(new Activity("test", ColorType.RED));
-//        Long sId = edu.northeastern.lifeassistant.db.settingDao().insert(new Setting(SettingType.AIRPLANE_MODE));
-//        edu.northeastern.lifeassistant.db.ruleDao().insert(new Rule(aId, sId, false, "0"));
-//        Rule r = edu.northeastern.lifeassistant.db.ruleDao().findRuleById(new Long(1));
-//        edu.northeastern.lifeassistant.db.ruleDao().delete(r);
+//        Long aId = db.activityDao().insert(new Activity("test", ColorType.RED));
+//        Long sId = db.settingDao().insert(new Setting(SettingType.AIRPLANE_MODE));
+//        Long rId = db.ruleDao().insert(new Rule(aId, sId, false, "0"));
+//        Rule r = db.ruleDao().findRuleById(rId);
+//        db.ruleDao().delete(r);
 
 //        // Delete Activities
-//        List<Activity> a = edu.northeastern.lifeassistant.db.activityDao().findAllActivities();
+//        List<Activity> a = db.activityDao().findAllActivities();
 //        for(Activity ac : a) {
-//            edu.northeastern.lifeassistant.db.activityDao().delete(ac);
+//            db.activityDao().delete(ac);
 //        }
 
 //        // Delete Settings
-//        List<Setting> s = edu.northeastern.lifeassistant.db.settingDao().findAllSettings();
+//        List<Setting> s = db.settingDao().findAllSettings();
 //        for(Setting se : s) {
-//            edu.northeastern.lifeassistant.db.settingDao().delete(se);
+//            db.settingDao().delete(se);
 //        }
 
 //        // Delete rules
-//        List<Rule> r = edu.northeastern.lifeassistant.db.ruleDao().findAllRules();
+//        List<Rule> r = db.ruleDao().findAllRules();
 //        for(Rule ru : r) {
-//            edu.northeastern.lifeassistant.db.ruleDao().delete(ru);
+//            db.ruleDao().delete(ru);
 //        }
 
     }

@@ -1,7 +1,6 @@
 package edu.northeastern.lifeassistant.db.converters;
 
 import androidx.room.TypeConverter;
-
 import java.util.Date;
 
 public class DateConverter {

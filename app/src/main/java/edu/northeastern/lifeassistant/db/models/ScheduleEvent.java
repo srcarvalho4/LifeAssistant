@@ -4,12 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-
 import java.util.Date;
 import java.util.Set;
-
 import edu.northeastern.lifeassistant.db.types.DayOfWeek;
-
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "schedule_events",
