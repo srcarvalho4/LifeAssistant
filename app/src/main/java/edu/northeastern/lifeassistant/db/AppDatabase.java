@@ -5,18 +5,18 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import edu.northeastern.lifeassistant.converters.ColorTypeConverter;
-import edu.northeastern.lifeassistant.converters.DateConverter;
-import edu.northeastern.lifeassistant.converters.DaysOfWeekConverter;
-import edu.northeastern.lifeassistant.converters.SettingTypeConverter;
-import edu.northeastern.lifeassistant.dao.ActivityDao;
-import edu.northeastern.lifeassistant.dao.RuleDao;
-import edu.northeastern.lifeassistant.dao.ScheduleEventDao;
-import edu.northeastern.lifeassistant.dao.SettingDao;
-import edu.northeastern.lifeassistant.models.Activity;
-import edu.northeastern.lifeassistant.models.Rule;
-import edu.northeastern.lifeassistant.models.ScheduleEvent;
-import edu.northeastern.lifeassistant.models.Setting;
+import edu.northeastern.lifeassistant.db.converters.ColorTypeConverter;
+import edu.northeastern.lifeassistant.db.converters.DateConverter;
+import edu.northeastern.lifeassistant.db.converters.DaysOfWeekConverter;
+import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
+import edu.northeastern.lifeassistant.db.dao.ActivityDao;
+import edu.northeastern.lifeassistant.db.dao.RuleDao;
+import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
+import edu.northeastern.lifeassistant.db.dao.SettingDao;
+import edu.northeastern.lifeassistant.db.models.Activity;
+import edu.northeastern.lifeassistant.db.models.Rule;
+import edu.northeastern.lifeassistant.db.models.ScheduleEvent;
+import edu.northeastern.lifeassistant.db.models.Setting;
 
 @Database(entities = {
                 Activity.class,

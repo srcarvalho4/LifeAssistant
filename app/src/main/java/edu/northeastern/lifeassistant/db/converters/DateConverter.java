@@ -1,4 +1,4 @@
-package edu.northeastern.lifeassistant.converters;
+package edu.northeastern.lifeassistant.db.converters;
 
 import androidx.room.TypeConverter;
 

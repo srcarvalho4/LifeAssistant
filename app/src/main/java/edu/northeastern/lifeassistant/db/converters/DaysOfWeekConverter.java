@@ -1,10 +1,10 @@
-package edu.northeastern.lifeassistant.converters;
+package edu.northeastern.lifeassistant.db.converters;
 
 import androidx.room.TypeConverter;
 
 import java.util.HashSet;
 import java.util.Set;
-import edu.northeastern.lifeassistant.types.DayOfWeek;
+import edu.northeastern.lifeassistant.db.types.DayOfWeek;
 
 public class DaysOfWeekConverter {
 

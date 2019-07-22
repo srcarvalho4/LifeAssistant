@@ -1,4 +1,4 @@
-package edu.northeastern.lifeassistant.types;
+package edu.northeastern.lifeassistant.db.types;
 
 public enum DayOfWeek {
 

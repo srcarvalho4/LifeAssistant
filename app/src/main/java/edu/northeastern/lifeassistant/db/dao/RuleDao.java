@@ -1,4 +1,4 @@
-package edu.northeastern.lifeassistant.dao;
+package edu.northeastern.lifeassistant.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,7 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
-import edu.northeastern.lifeassistant.models.Rule;
+import edu.northeastern.lifeassistant.db.models.Rule;
 
 @Dao
 public interface RuleDao {

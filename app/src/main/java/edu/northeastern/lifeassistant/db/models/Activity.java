@@ -1,10 +1,10 @@
-package edu.northeastern.lifeassistant.models;
+package edu.northeastern.lifeassistant.db.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import edu.northeastern.lifeassistant.types.ColorType;
+import edu.northeastern.lifeassistant.db.types.ColorType;
 
 @Entity(tableName = "activities")
 public class Activity {

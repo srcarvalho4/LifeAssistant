@@ -1,7 +1,7 @@
-package edu.northeastern.lifeassistant.converters;
+package edu.northeastern.lifeassistant.db.converters;
 
 import androidx.room.TypeConverter;
-import edu.northeastern.lifeassistant.types.SettingType;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 
 public class SettingTypeConverter {
 

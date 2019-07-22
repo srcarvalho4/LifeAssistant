@@ -1,4 +1,4 @@
-package edu.northeastern.lifeassistant.models;
+package edu.northeastern.lifeassistant.db.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

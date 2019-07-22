@@ -1,9 +1,9 @@
-package edu.northeastern.lifeassistant.models;
+package edu.northeastern.lifeassistant.db.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import edu.northeastern.lifeassistant.types.SettingType;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 
 @Entity(tableName = "settings")
 public class Setting {
