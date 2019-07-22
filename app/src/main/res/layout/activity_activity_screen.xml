@@ -28,15 +28,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:id="@+id/activityListButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
+                android:textSize="32sp"
                 android:text="+"/>
         </RelativeLayout>
     </FrameLayout>
 
-
+    <fragment
+        android:id="@+id/ActivityNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:layout_weight="2"/>
 
 </LinearLayout>

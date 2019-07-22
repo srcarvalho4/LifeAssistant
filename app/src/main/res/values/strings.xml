@@ -4,6 +4,8 @@
     <string name="MainPageStartButton">Let\'s Begin</string>
     <string name="ActivityPageTitle">Activity</string>
     <string name="SchedulePageTitle">Schedule</string>
+    <string name="SpontaneousPageTitle">Spontaneous</string>
+
     <string name="NavigationBarActivity">Activity</string>
     <string name="NavigationBarSpontaneous">Spontaneous</string>
     <string name="NavigationBarSchedule">Schedule</string>
@@ -16,9 +18,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-    <!--Shaurya-->
-
-    <!--Create Event-->
     <string name="create_event_title">Create Event</string>
 
     <string name="event_name_label">Event Name</string>
@@ -44,7 +43,6 @@
         <item>Sleeping</item>
     </string-array>
 
-    <!--Create Activity-->
     <string name="create_activity_title">Create Activity</string>
 
     <string name="activity_name_label">Activity Name</string>
@@ -52,9 +50,7 @@
 
     <string name="add_rule_button_text">Add Rule</string>
 
-    <!--Shaurya-->
-
-    <string name="spontaneous_page_title">Spontaneous</string>
     <string name="start_button_text">Start</string>
     <string name="stop_button_text">Stop</string>
+
 </resources>

@@ -8,8 +8,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import util.RuleAdapterItem;
 
 public class SpontaneousActive extends AppCompatActivity {
 
@@ -18,6 +21,8 @@ public class SpontaneousActive extends AppCompatActivity {
     Boolean isRunning;
     int progress;
     ProgressIncrement task;
+
+    ArrayList<RuleAdapterItem> rules = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +72,11 @@ public class SpontaneousActive extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No Activity running to stop.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void populateList() {
+        rules.add(new RuleAdapterItem("Do Not Disturb Mode"));
+        rules.add(new RuleAdapterItem("Sound"));
+        rules.add(new RuleAdapterItem("Location"));
     }
 }

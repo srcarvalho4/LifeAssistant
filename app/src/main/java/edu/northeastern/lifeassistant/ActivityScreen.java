@@ -2,8 +2,11 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -29,6 +32,16 @@ public class ActivityScreen extends AppCompatActivity {
         ActivityAdapter adapter = new ActivityAdapter(this, activities);
 
         listView.setAdapter(adapter);
+
+        Button button = findViewById(R.id.activityListButton);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
