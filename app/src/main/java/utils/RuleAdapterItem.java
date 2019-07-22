@@ -1,11 +1,11 @@
-package util;
+package utils;
 
 public class RuleAdapterItem {
     String name;
     //more things later
 
-    public RuleAdapterItem(String name) {
-        this.name = name;
+    public RuleAdapterItem(Rule rule) {
+        this.name = rule.getName();
     }
 
     public String getName() {

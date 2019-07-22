@@ -31,7 +31,7 @@ public class ActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_activity_screen, null);
 
         listView = view.findViewById(R.id.activityListView);
-        button1 = view.findViewById(R.id.activityRuleButton);
+        button1 = view.findViewById(R.id.activityListButton);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,10 +12,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import util.RuleAdapter;
-import util.RuleAdapterItem;
+import utils.DisplayRule;
+import utils.RingerRule;
+import utils.RuleAdapter;
+import utils.RuleAdapterItem;
 
 public class CreateActivityActivity extends AppCompatActivity {
 
@@ -72,8 +73,8 @@ public class CreateActivityActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        rules.add(new RuleAdapterItem("Do Not Disturb Mode"));
-        rules.add(new RuleAdapterItem("Sound"));
-        rules.add(new RuleAdapterItem("Location"));
+        rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));
+        rules.add(new RuleAdapterItem(new DisplayRule("Sound")));
+        rules.add(new RuleAdapterItem(new DisplayRule("Location")));
     }
 }
