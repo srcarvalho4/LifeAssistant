@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import edu.northeastern.lifeassistant.db.AppDatabase;
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -92,6 +94,48 @@ public class CreateEventActivity extends AppCompatActivity {
 
             }
         });
+
+//        // TODO: REMOVE
+//        // TESTS
+        AppDatabase db = AppDatabase.getAppDatabase(this);
+
+        Toast.makeText(this, "Test", Toast.LENGTH_LONG).show();
+
+//        edu.northeastern.lifeassistant.db.settingDao().insert(new Setting(SettingType.AIRPLANE_MODE));
+//        List<Setting> s = edu.northeastern.lifeassistant.db.settingDao().findAllSettings();
+//        for(Setting se : s) {
+//            edu.northeastern.lifeassistant.db.settingDao().delete(se);
+//        }
+
+//        edu.northeastern.lifeassistant.db.activityDao().insert(new Activity("test", ColorType.RED));
+//        List<Activity> a = edu.northeastern.lifeassistant.db.activityDao().findAllActivities();
+//        for(Activity ac : a) {
+//            edu.northeastern.lifeassistant.db.activityDao().delete(ac);
+//        }
+
+//        Long aId = edu.northeastern.lifeassistant.db.activityDao().insert(new Activity("test", ColorType.RED));
+//        Long sId = edu.northeastern.lifeassistant.db.settingDao().insert(new Setting(SettingType.AIRPLANE_MODE));
+//        edu.northeastern.lifeassistant.db.ruleDao().insert(new Rule(aId, sId, false, "0"));
+//        Rule r = edu.northeastern.lifeassistant.db.ruleDao().findRuleById(new Long(1));
+//        edu.northeastern.lifeassistant.db.ruleDao().delete(r);
+
+//        // Delete Activities
+//        List<Activity> a = edu.northeastern.lifeassistant.db.activityDao().findAllActivities();
+//        for(Activity ac : a) {
+//            edu.northeastern.lifeassistant.db.activityDao().delete(ac);
+//        }
+
+//        // Delete Settings
+//        List<Setting> s = edu.northeastern.lifeassistant.db.settingDao().findAllSettings();
+//        for(Setting se : s) {
+//            edu.northeastern.lifeassistant.db.settingDao().delete(se);
+//        }
+
+//        // Delete rules
+//        List<Rule> r = edu.northeastern.lifeassistant.db.ruleDao().findAllRules();
+//        for(Rule ru : r) {
+//            edu.northeastern.lifeassistant.db.ruleDao().delete(ru);
+//        }
 
     }
 
