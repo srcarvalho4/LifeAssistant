@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
-
 import edu.northeastern.lifeassistant.db.models.ScheduleEvent;
 
 @Dao
