@@ -28,23 +28,28 @@
         <activity android:name=".MainActivity" />
 
         <activity android:name=".CreateEventActivity">
-             <intent-filter>
+             <!--<intent-filter>
              <action android:name="android.intent.action.MAIN" />
 
 
              <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+             </intent-filter>-->
         </activity>
 
         <activity android:name=".SpontaneousActive" />
 
         <activity android:name=".SplashScreen">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <service
+            android:name="utils.SchedulerService"
+            android:exported="false"/>
+        <receiver android:process=":remote" android:name="utils.Alarm"></receiver>
 
     </application>
 
