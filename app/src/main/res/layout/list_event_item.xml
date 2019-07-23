@@ -48,7 +48,6 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:layout_gravity="right"
-        android:text="11:59pm"
         android:textSize="24sp"
         />
 
@@ -61,7 +60,6 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:layout_gravity="right"
-        android:text="11:59am"
         android:textSize="24sp"
         />
 
