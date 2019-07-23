@@ -70,42 +70,42 @@ public class ScheduleScreen extends AppCompatActivity {
         startTime1.set(Calendar.HOUR, 8);
 
         Calendar endTime1 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.AM);
-        startTime1.set(Calendar.MINUTE, 0);
-        startTime1.set(Calendar.HOUR, 9);
+        endTime1.set(Calendar.AM_PM, Calendar.AM);
+        endTime1.set(Calendar.MINUTE, 0);
+        endTime1.set(Calendar.HOUR, 9);
 
 
         Calendar startTime2 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.AM);
-        startTime1.set(Calendar.MINUTE, 40);
-        startTime1.set(Calendar.HOUR, 11);
+        startTime2.set(Calendar.AM_PM, Calendar.AM);
+        startTime2.set(Calendar.MINUTE, 40);
+        startTime2.set(Calendar.HOUR, 11);
 
         Calendar endTime2 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.PM);
-        startTime1.set(Calendar.MINUTE, 20);
-        startTime1.set(Calendar.HOUR, 1);
+        endTime2.set(Calendar.AM_PM, Calendar.PM);
+        endTime2.set(Calendar.MINUTE, 20);
+        endTime2.set(Calendar.HOUR, 1);
 
 
         Calendar startTime3 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.PM);
-        startTime1.set(Calendar.MINUTE, 0);
-        startTime1.set(Calendar.HOUR, 6);
+        startTime3.set(Calendar.AM_PM, Calendar.PM);
+        startTime3.set(Calendar.MINUTE, 0);
+        startTime3.set(Calendar.HOUR, 6);
 
         Calendar endTime3 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.PM);
-        startTime1.set(Calendar.MINUTE, 0);
-        startTime1.set(Calendar.HOUR, 9);
+        endTime3.set(Calendar.AM_PM, Calendar.PM);
+        endTime3.set(Calendar.MINUTE, 0);
+        endTime3.set(Calendar.HOUR, 9);
 
 
         Calendar startTime4 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.PM);
-        startTime1.set(Calendar.MINUTE, 0);
-        startTime1.set(Calendar.HOUR, 3);
+        startTime4.set(Calendar.AM_PM, Calendar.PM);
+        startTime4.set(Calendar.MINUTE, 0);
+        startTime4.set(Calendar.HOUR, 3);
 
         Calendar endTime4 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.PM);
-        startTime1.set(Calendar.MINUTE, 0);
-        startTime1.set(Calendar.HOUR, 5);
+        endTime4.set(Calendar.AM_PM, Calendar.PM);
+        endTime4.set(Calendar.MINUTE, 0);
+        endTime4.set(Calendar.HOUR, 5);
 
         ArrayList<Integer> days1 = new ArrayList<>();
         days1.add(Calendar.SUNDAY);

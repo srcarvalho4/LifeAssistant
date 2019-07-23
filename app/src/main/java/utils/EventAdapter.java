@@ -69,7 +69,7 @@ public class EventAdapter extends BaseAdapter {
         Calendar start = events.get(i).getStartTime();
         Calendar end = events.get(i).getEndTime();
 
-        String startText = "From: " + start.get(Calendar.HOUR) + ":";
+        String startText = "" + start.get(Calendar.HOUR) + ":";
 
         if (start.get(Calendar.MINUTE) < 10) {
             startText += "0";
@@ -83,12 +83,12 @@ public class EventAdapter extends BaseAdapter {
         }
 
 
-        String endText = "To: " + end.get(Calendar.HOUR) + ":";
+        String endText = "" + end.get(Calendar.HOUR) + ":";
 
         if (end.get(Calendar.MINUTE) < 10) {
             endText += "0";
         }
-        startText += end.get(Calendar.MINUTE) + " ";
+        endText += end.get(Calendar.MINUTE) + " ";
         if (end.get(Calendar.AM_PM) == 0) {
             endText += "AM";
         }
