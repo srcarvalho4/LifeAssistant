@@ -6,13 +6,14 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
+
 import edu.northeastern.lifeassistant.db.models.Activity;
 
 @Dao
 public interface ActivityDao {
 
     @Insert
-    public Long insert(Activity activity);
+    public void insert(Activity activity);
 
     @Update
     public void update(Activity activity);
@@ -24,6 +25,6 @@ public interface ActivityDao {
     public List<Activity> findAllActivities();
 
     @Query("SELECT * FROM activities WHERE id = :id")
-    public Activity findActivityById(Long id);
+    public Activity findActivityById(String id);
 
 }

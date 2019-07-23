@@ -6,13 +6,14 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
+
 import edu.northeastern.lifeassistant.db.models.Setting;
 
 @Dao
 public interface SettingDao {
 
     @Insert
-    public Long insert(Setting setting);
+    public void insert(Setting setting);
 
     @Update
     public void update(Setting setting);
@@ -24,6 +25,6 @@ public interface SettingDao {
     public List<Setting> findAllSettings();
 
     @Query("SELECT * FROM settings WHERE id = :id")
-    public Setting findSettingById(Long id);
+    public Setting findSettingById(String id);
 
 }

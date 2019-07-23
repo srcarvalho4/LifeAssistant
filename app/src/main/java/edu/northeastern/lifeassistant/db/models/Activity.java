@@ -1,15 +1,19 @@
 package edu.northeastern.lifeassistant.db.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.util.UUID;
+
 import edu.northeastern.lifeassistant.db.types.ColorType;
 
 @Entity(tableName = "activities")
 public class Activity {
 
-    @PrimaryKey(autoGenerate = true)
-    private Long id;
+    @PrimaryKey
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -18,15 +22,16 @@ public class Activity {
     private ColorType color;
 
     public Activity(String name, ColorType color) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.color = color;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

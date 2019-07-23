@@ -6,13 +6,14 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
+
 import edu.northeastern.lifeassistant.db.models.ScheduleEvent;
 
 @Dao
 public interface ScheduleEventDao {
 
     @Insert
-    public Long insert(ScheduleEvent scheduleEvent);
+    public void insert(ScheduleEvent scheduleEvent);
 
     @Update
     public void update(ScheduleEvent scheduleEvent);
@@ -24,9 +25,9 @@ public interface ScheduleEventDao {
     public List<ScheduleEvent> findAllScheduleEvents();
 
     @Query("SELECT * FROM schedule_events WHERE id = :id")
-    public ScheduleEvent findScheduleEventById(Long id);
+    public ScheduleEvent findScheduleEventById(String id);
 
     @Query("SELECT * FROM schedule_events WHERE activity_id = :activityId")
-    public List<ScheduleEvent> findScheduleEventsForActivity(Long activityId);
+    public List<ScheduleEvent> findScheduleEventsForActivity(String activityId);
 
 }

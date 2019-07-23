@@ -1,13 +1,14 @@
 package edu.northeastern.lifeassistant.db.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import java.util.Date;
-import java.util.Set;
-import edu.northeastern.lifeassistant.db.types.DayOfWeek;
+import java.util.Calendar;
+import java.util.List;
+import java.util.UUID;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "schedule_events",
@@ -23,65 +24,67 @@ import static androidx.room.ForeignKey.CASCADE;
         })
 public class ScheduleEvent {
 
-    @PrimaryKey(autoGenerate = true)
-    private Long id;
+    @PrimaryKey
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "activity_id")
-    private Long activityId;
+    private String activityId;
 
     @ColumnInfo(name = "start_time")
-    private Date startTime;
+    private Calendar startTime;
 
     @ColumnInfo(name = "end_time")
-    private Date endTime;
+    private Calendar endTime;
 
     @ColumnInfo(name = "days_of_week")
-    private Set<DayOfWeek> daysOfWeek;
+    private List<Integer> daysOfWeek;
 
-    public ScheduleEvent(Long activityId, Date startTime, Date endTime, Set<DayOfWeek> daysOfWeek) {
+    public ScheduleEvent(String activityId, Calendar startTime, Calendar endTime, List<Integer> daysOfWeek) {
+        this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getActivityId() {
+    public String getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(Long activityId) {
+    public void setActivityId(String activityId) {
         this.activityId = activityId;
     }
 
-    public Date getStartTime() {
+    public Calendar getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Calendar startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Calendar getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Calendar endTime) {
         this.endTime = endTime;
     }
 
-    public Set<DayOfWeek> getDaysOfWeek() {
+    public List<Integer> getDaysOfWeek() {
         return daysOfWeek;
     }
 
-    public void setDaysOfWeek(Set<DayOfWeek> daysOfWeek) {
+    public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
     }
 

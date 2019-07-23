@@ -1,10 +1,12 @@
 package edu.northeastern.lifeassistant.db.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import java.util.UUID;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "rules",
@@ -14,7 +16,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 childColumns = "activity_id",
                 onUpdate = CASCADE,
                 onDelete = CASCADE),
-            @ForeignKey(entity = Activity.class,
+            @ForeignKey(entity = Setting.class,
                 parentColumns = "id",
                 childColumns = "setting_id",
                 onUpdate = CASCADE,
@@ -26,14 +28,15 @@ import static androidx.room.ForeignKey.CASCADE;
         })
 public class Rule {
 
-    @PrimaryKey(autoGenerate = true)
-    private Long id;
+    @PrimaryKey
+    @NonNull
+    private String id;
 
     @ColumnInfo(name = "activity_id")
-    private Long activityId;
+    private String activityId;
 
     @ColumnInfo(name = "setting_id")
-    private Long settingId;
+    private String settingId;
 
     @ColumnInfo(name = "setting_state")
     private Boolean settingState;
@@ -41,34 +44,35 @@ public class Rule {
     @ColumnInfo(name = "setting_value")
     private String settingValue;
 
-    public Rule(Long activityId, Long settingId, Boolean settingState, String settingValue) {
+    public Rule(String activityId, String settingId, Boolean settingState, String settingValue) {
+        this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
         this.settingId = settingId;
         this.settingState = settingState;
         this.settingValue = settingValue;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getActivityId() {
+    public String getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(Long activityId) {
+    public void setActivityId(String activityId) {
         this.activityId = activityId;
     }
 
-    public Long getSettingId() {
+    public String getSettingId() {
         return settingId;
     }
 
-    public void setSettingId(Long settingId) {
+    public void setSettingId(String settingId) {
         this.settingId = settingId;
     }
 

@@ -6,7 +6,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import edu.northeastern.lifeassistant.db.converters.ColorTypeConverter;
-import edu.northeastern.lifeassistant.db.converters.DateConverter;
+import edu.northeastern.lifeassistant.db.converters.CalendarTimeConverter;
 import edu.northeastern.lifeassistant.db.converters.DaysOfWeekConverter;
 import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
 import edu.northeastern.lifeassistant.db.dao.ActivityDao;
@@ -26,7 +26,7 @@ import edu.northeastern.lifeassistant.db.models.Setting;
             }, version = 1)
 @TypeConverters({
         ColorTypeConverter.class,
-        DateConverter.class,
+        CalendarTimeConverter.class,
         DaysOfWeekConverter.class,
         SettingTypeConverter.class
 })

@@ -6,18 +6,18 @@ import edu.northeastern.lifeassistant.db.types.ColorType;
 public class ColorTypeConverter {
 
     @TypeConverter
-    public static ColorType fromString(String value) {
-        if(value.equals(ColorType.RED.getString())) {
+    public static ColorType fromString(String colorString) {
+        if(colorString.equals(ColorType.RED.getString())) {
             return ColorType.RED;
-        } else if(value.equals(ColorType.BLUE.getString())) {
+        } else if(colorString.equals(ColorType.BLUE.getString())) {
             return ColorType.BLUE;
-        } else if(value.equals(ColorType.GREEN.getString())) {
+        } else if(colorString.equals(ColorType.GREEN.getString())) {
             return ColorType.GREEN;
-        } else if(value.equals(ColorType.YELLOW.getString())) {
+        } else if(colorString.equals(ColorType.YELLOW.getString())) {
             return ColorType.YELLOW;
-        } else if(value.equals(ColorType.ORANGE.getString())) {
+        } else if(colorString.equals(ColorType.ORANGE.getString())) {
             return ColorType.ORANGE;
-        } else if(value.equals(ColorType.PURPLE.getString())) {
+        } else if(colorString.equals(ColorType.PURPLE.getString())) {
             return ColorType.PURPLE;
         } else {
             return null;
@@ -25,8 +25,12 @@ public class ColorTypeConverter {
     }
 
     @TypeConverter
-    public static String fromColorType(ColorType value) {
-        return value == null ? null : value.getString();
+    public static String fromColorType(ColorType colorType) {
+        if(colorType == null) {
+            return null;
+        }
+
+        return colorType.getString();
     }
 
 }
