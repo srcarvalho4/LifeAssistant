@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/EventItemGridLayout"
-    android:layout_width="match_parent"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
-    android:layout_margin="10dp"
-    android:layout_height="100dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <GridLayout
+        android:id="@+id/EventItemGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
     <TextView
         android:id="@+id/eventItemName"
@@ -24,9 +31,9 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:layout_marginStart="10dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:text="From:"
-        android:textSize="16sp"
+        android:textSize="14sp"
         />
 
 
@@ -37,9 +44,9 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:layout_marginStart="10dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:text="To:"
-        android:textSize="16sp"
+        android:textSize="14sp"
         />
 
     <TextView
@@ -49,8 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:layout_gravity="right"
-        android:textSize="24sp"
+        android:layout_gravity="end"
+        android:textSize="20sp"
         />
 
 
@@ -61,8 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:layout_gravity="right"
-        android:textSize="24sp"
+        android:layout_gravity="end"
+        android:textSize="20sp"
         />
 
     <LinearLayout
@@ -131,4 +138,5 @@
 
     </LinearLayout>
 
-</GridLayout>
+    </GridLayout>
+</LinearLayout>

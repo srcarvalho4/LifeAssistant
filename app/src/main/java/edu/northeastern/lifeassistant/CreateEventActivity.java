@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-import com.dpro.widgets.WeekdaysPicker;
+//import com.dpro.widgets.WeekdaysPicker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +30,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private List<String> activities = new ArrayList<>();
     private EditText eventNameEditText;
     private Spinner activitySpinner;
-    private WeekdaysPicker weekdaysPicker;
+//    private WeekdaysPicker weekdaysPicker;
     private EditText eventStartTimeEditText;
     private EditText eventEndTimeEditText;
     private Button cancelButton;
@@ -52,7 +52,7 @@ public class CreateEventActivity extends AppCompatActivity {
         // Get widget references
         eventNameEditText = findViewById(R.id.createEventNameEditText);
         activitySpinner = findViewById(R.id.createEventActivitySpinner);
-        weekdaysPicker = findViewById(R.id.createEventDayPicker);
+//        weekdaysPicker = findViewById(R.id.createEventDayPicker);
         eventStartTimeEditText = findViewById(R.id.createEventStartTimeEditText);
         eventEndTimeEditText = findViewById(R.id.createEventEndTimeEditText);
         cancelButton = findViewById(R.id.createEventCancelButton);
@@ -63,7 +63,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 android.R.layout.simple_dropdown_item_1line, activities));
 
         // Clear DayPicker default selections
-        weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
+//        weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
 
         // Show TimePicker onClick
         eventStartTimeEditText.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +87,8 @@ public class CreateEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 eventNameEditText.getText().clear();
                 activitySpinner.setSelection(0);
-                weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
-                weekdaysPicker.setEditable(false);
+//                weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
+//                weekdaysPicker.setEditable(false);
                 eventStartTimeEditText.getText().clear();
                 eventEndTimeEditText.getText().clear();
             }
