@@ -20,20 +20,26 @@
         android:orientation="vertical"
         android:layout_weight="16">
 
-        <TextView
-            android:id="@+id/spontaneousActivityTypeTitle"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Running"
-            android:textSize="30sp"
-            android:layout_margin="20dp"/>
+        <LinearLayout
+            android:id="@+id/SpontaneousActiveColorArea"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
 
-        <GridLayout
+            <TextView
+                android:id="@+id/SpontaneousActiveName"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Running"
+                android:textSize="30sp"
+                android:layout_margin="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="1"
             android:layout_gravity="center">
 
             <Button
@@ -41,9 +47,9 @@
                 android:onClick="startButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:text="@string/start_button_text"
                 android:textSize="20sp"
-                android:layout_column="0"
                 android:layout_marginEnd="10dp"/>
 
             <Button
@@ -51,12 +57,13 @@
                 android:onClick="stopButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:text="@string/stop_button_text"
-                android:layout_column="1"
                 android:textSize="20sp"
                 android:layout_marginStart="10dp"/>
 
-        </GridLayout>
+        </LinearLayout>
+
 
         <ProgressBar
             android:id="@+id/spontaneousProgress"
@@ -80,15 +87,13 @@
 
         <ListView
             android:id="@+id/SpontaneousActiveList"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null">
 
         </ListView>
 
     </LinearLayout>
-
-
 
     <fragment
         android:id="@+id/ActivityNavigationBar"
