@@ -47,7 +47,7 @@ public class EventAdapter extends BaseAdapter {
 
             viewHolder = new EventViewHolder();
 
-            viewHolder.main = view.findViewById(R.id.eventItemGrid);
+            viewHolder.background = view.findViewById(R.id.EventItemGridLayout);
             viewHolder.name = view.findViewById(R.id.eventItemName);
             viewHolder.startTime = view.findViewById(R.id.eventItemStartTime);
             viewHolder.endTime = view.findViewById(R.id.eventItemEndTime);
@@ -100,7 +100,7 @@ public class EventAdapter extends BaseAdapter {
         viewHolder.name.setText(events.get(i).getName());
         viewHolder.startTime.setText(startText);
         viewHolder.endTime.setText(endText);
-        viewHolder.main.setBackgroundColor(events.get(i).getColor());
+        viewHolder.background.setBackgroundColor(events.get(i).getColor());
 
         //Set default view to invisible
         for (TextView dayView: viewHolder.days) {
@@ -125,7 +125,7 @@ public class EventAdapter extends BaseAdapter {
 }
 
 class EventViewHolder {
-    GridLayout main;
+    GridLayout background;
     TextView name;
     TextView startTime;
     TextView endTime;

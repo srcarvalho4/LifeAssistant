@@ -14,61 +14,14 @@
         android:text="@string/SpontaneousPageTitle"
         android:textSize="48sp"/>
 
-    <GridLayout
-        android:id="@+id/SpontaneousScreenGrid"
+    <ListView
+        android:id="@+id/SpontaneousScreenList"
+        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16"
-        android:rowCount="2"
-        android:columnCount="2">
+        android:layout_weight="16">
 
-        <Button
-            android:id="@+id/buttonRunning1"
-            android:text="Running"
-            android:layout_margin="15dp"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:textSize="20sp"
-            android:layout_row="0"
-            android:layout_gravity="left"
-            android:background="#FF0266"
-            android:layout_column="0"/>
-
-        <Button
-            android:id="@+id/buttonReading2"
-            android:text="Reading"
-            android:layout_margin="15dp"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:textSize="20sp"
-            android:layout_row="0"
-            android:layout_gravity="right"
-            android:background="#FFDE03"
-            android:layout_column="1"/>
-
-        <Button
-            android:id="@+id/buttonClass3"
-            android:text="Class"
-            android:layout_margin="15dp"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:textSize="20sp"
-            android:layout_row="1"
-            android:background="#0336FF"
-            android:layout_column="0"/>
-
-        <Button
-            android:id="@+id/buttonSleeping4"
-            android:text="Sleeping"
-            android:layout_margin="15dp"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:layout_gravity="right"
-            android:textSize="20sp"
-            android:layout_row="1"
-            android:layout_column="1"/>
-
-    </GridLayout>
+    </ListView>
 
     <fragment
         android:id="@+id/SpontaneousNavigationBar"

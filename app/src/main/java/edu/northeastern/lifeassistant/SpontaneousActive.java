@@ -2,10 +2,13 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,6 +38,15 @@ public class SpontaneousActive extends AppCompatActivity {
         task = new ProgressIncrement();
 
         progress = 0;
+
+        String name = getIntent().getStringExtra("name");
+        int color = getIntent().getIntExtra("color", Color.WHITE);
+
+        TextView textView = findViewById(R.id.SpontaneousActiveName);
+        LinearLayout linearLayout = findViewById(R.id.SpontaneousActiveColorArea);
+
+        textView.setText(name);
+        linearLayout.setBackgroundColor(color);
 
         populateList();
         listView = findViewById(R.id.SpontaneousActiveList);
