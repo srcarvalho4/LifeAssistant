@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SpontaneousScreen"></activity>
+        <activity android:name=".StepsActivity"></activity>
+        <activity android:name=".SpontaneousScreen" />
         <activity android:name=".ScheduleScreen" />
         <activity android:name=".ActivityScreen" />
         <activity android:name=".CreateActivityActivity">
@@ -27,11 +28,12 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CreateEventActivity">
 
-             <!--<intent-filter>-->
-             <!--<action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-             <!--<category android:name="android.intent.category.LAUNCHER" />-->
-             <!--</intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".SpontaneousActive" />
         <activity android:name=".SplashScreen">
