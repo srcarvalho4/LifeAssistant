@@ -2,14 +2,22 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import utils.DisplayRule;
+import utils.RuleAdapter;
+import utils.RuleAdapterItem;
 
 public class SpontaneousActive extends AppCompatActivity {
 
@@ -19,6 +27,9 @@ public class SpontaneousActive extends AppCompatActivity {
     int progress;
     ProgressIncrement task;
 
+    ListView listView;
+    ArrayList<RuleAdapterItem> rules = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +38,22 @@ public class SpontaneousActive extends AppCompatActivity {
         task = new ProgressIncrement();
 
         progress = 0;
+
+        String name = getIntent().getStringExtra("name");
+        int color = getIntent().getIntExtra("color", Color.WHITE);
+
+        TextView textView = findViewById(R.id.SpontaneousActiveName);
+        LinearLayout linearLayout = findViewById(R.id.SpontaneousActiveColorArea);
+
+        textView.setText(name);
+        linearLayout.setBackgroundColor(color);
+
+        populateList();
+        listView = findViewById(R.id.SpontaneousActiveList);
+
+        RuleAdapter adapter = new RuleAdapter(this, rules);
+
+        listView.setAdapter(adapter);
 
         progressBar = findViewById(R.id.spontaneousProgress);
         progressBar.setProgress(progress);
@@ -67,5 +94,11 @@ public class SpontaneousActive extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No Activity running to stop.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void populateList() {
+        rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));
+        rules.add(new RuleAdapterItem(new DisplayRule("Sound")));
+        rules.add(new RuleAdapterItem(new DisplayRule("Location")));
     }
 }

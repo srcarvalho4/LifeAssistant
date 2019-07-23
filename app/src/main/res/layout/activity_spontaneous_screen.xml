@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SpontaneousScreen">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="@string/SpontaneousPageTitle"
+        android:textSize="48sp"/>
+
+    <ListView
+        android:id="@+id/SpontaneousScreenList"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16">
+
+    </ListView>
+
+    <fragment
+        android:id="@+id/SpontaneousNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:layout_weight="2"/>
+
+</LinearLayout>

@@ -7,4 +7,7 @@ public interface Rule {
 
     //Returns settings to original state.
     void disable();
+
+    //Returns the name of the rule for display purposes
+    String getName();
 }

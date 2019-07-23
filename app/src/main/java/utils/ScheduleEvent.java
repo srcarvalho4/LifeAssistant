@@ -12,7 +12,7 @@ public class ScheduleEvent {
     String name;
     Calendar startTime;
     Calendar endTime;
-    //This is an arraylist of integers to correspond to days using the Calendar.MONDAY etc. mapping.
+    //This is an arrayList of integers to correspond to days using the Calendar.MONDAY etc. mapping.
     ArrayList<Integer> days;
 
     public ScheduleEvent(Activity activityType, String name, Calendar startTime, Calendar endTime, ArrayList<Integer> days) {
@@ -55,4 +55,5 @@ public class ScheduleEvent {
     public ArrayList<Integer> getDayData() {
         return days;
     }
+
 }

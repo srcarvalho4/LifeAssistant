@@ -1,18 +1,21 @@
 package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
 import java.util.ArrayList;
+
 import utils.Activity;
 import utils.ActivityAdapter;
 import utils.Rule;
 
-public class ActivityScreen extends AppCompatActivity {
+public class SpontaneousScreen extends AppCompatActivity {
 
     ListView listView;
 
@@ -21,9 +24,9 @@ public class ActivityScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_screen);
+        setContentView(R.layout.activity_spontaneous_screen);
 
-        listView = findViewById(R.id.activityListView);
+        listView = findViewById(R.id.SpontaneousScreenList);
 
         populateList();
 
@@ -31,25 +34,17 @@ public class ActivityScreen extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        Button button = findViewById(R.id.activityListButton);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive.class);
+
+                intent.putExtra("name", activities.get(i).getTypeName());
+                intent.putExtra("color", activities.get(i).getColor());
+                intent.putExtra("location", "Spontaneous");
                 startActivity(intent);
             }
         });
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(ActivityScreen.this, CharacterActivity.class);
-//
-//                intent.putExtra("character", favoriteCharacters.get(i).getCharacterName());
-//                startActivity(intent);
-//            }
-//        });
     }
 
     private void populateList() {

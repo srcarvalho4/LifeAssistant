@@ -1,46 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateActivityActivity"
-    android:orientation="vertical">
+    tools:context=".CreateActivityActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/createActivityToolbar"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#4287f5"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="@string/create_activity_title"
-        app:titleTextColor="#F2F2F2" />
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/createActivityToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4287f5"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/create_activity_title"
+            app:titleTextColor="#F2F2F2" />
 
-    <TextView
-        android:id="@+id/createActivityNameLabel"
-        android:text="@string/activity_name_label"
-        android:textSize="18sp"
-        android:labelFor="@id/createActivityNameEditText"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="4dp"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/createActivityNameLabel"
+            android:text="@string/activity_name_label"
+            android:textSize="18sp"
+            android:labelFor="@id/createActivityNameEditText"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/createActivityNameEditText"
-        android:hint="@string/activity_name_hint"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/createActivityNameEditText"
+            android:hint="@string/activity_name_hint"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/createActivityAddRuleButton"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_rule_button_text" />
+        <Button
+            android:id="@+id/createActivityAddRuleButton"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_rule_button_text" />
 
-</LinearLayout>
+        <ListView
+            android:id="@+id/CreateActivityListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null">
+
+
+        </ListView>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/createEventButtonLinearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/createEventCancelButton"
+            android:background="#F85F51"
+            android:text="@string/cancel_button_text"
+            android:textColor="#F2F2F2"
+            android:textSize="18sp"
+            android:layout_gravity="fill"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/createEventSaveButton"
+            android:background="#93D358"
+            android:text="@string/save_button_text"
+            android:textColor="#F2F2F2"
+            android:textSize="18sp"
+            android:layout_gravity="fill"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>
