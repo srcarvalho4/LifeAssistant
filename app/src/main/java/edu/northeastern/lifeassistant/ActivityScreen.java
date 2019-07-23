@@ -34,7 +34,7 @@ public class ActivityScreen extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        Button button = findViewById(R.id.activityRuleButton);
+        Button button = findViewById(R.id.activityListButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
