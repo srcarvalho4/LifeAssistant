@@ -38,7 +38,7 @@ public class CreateActivityActivity extends AppCompatActivity {
 
         populateList();
 
-        listView = findViewById(R.id.activityListView);
+        listView = findViewById(R.id.CreateActivityListView);
 
         RuleAdapter adapter = new RuleAdapter(this, rules);
 
