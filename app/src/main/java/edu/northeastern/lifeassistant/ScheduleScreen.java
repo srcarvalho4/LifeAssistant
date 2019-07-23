@@ -60,9 +60,9 @@ public class ScheduleScreen extends AppCompatActivity {
 
     private void populateList() {
         //TODO
-        Activity runningActivity = new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>());
-        Activity classActivity = new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>());
-        Activity studyActivity = new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>());
+        Activity runningActivity = new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>());
+        Activity classActivity = new Activity(Color.rgb(220,120, 120), "Class", new ArrayList<Rule>());
+        Activity studyActivity = new Activity(Color.rgb(140,140, 240), "Studying", new ArrayList<Rule>());
 
         Calendar startTime1 = Calendar.getInstance();
         startTime1.set(Calendar.AM_PM, Calendar.AM);

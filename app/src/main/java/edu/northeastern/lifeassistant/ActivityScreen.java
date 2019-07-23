@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -37,24 +38,27 @@ public class ActivityScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
+                intent.putExtra("edit", false);
                 startActivity(intent);
             }
         });
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(ActivityScreen.this, CharacterActivity.class);
-//
-//                intent.putExtra("character", favoriteCharacters.get(i).getCharacterName());
-//                startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
+
+                intent.putExtra("name", activities.get(i).getTypeName());
+                intent.putExtra("color", activities.get(i).getColor());
+                intent.putExtra("edit", true);
+                startActivity(intent);
+            }
+        });
     }
 
     private void populateList() {
-        activities.add(new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>()));
-        activities.add(new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>()));
-        activities.add(new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(220,120, 120), "Class", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(140,140, 240), "Studying", new ArrayList<Rule>()));
     }
 }

@@ -74,12 +74,12 @@ public class EventAdapter extends BaseAdapter {
         if (start.get(Calendar.MINUTE) < 10) {
             startText += "0";
         }
-        startText += start.get(Calendar.MINUTE) + " ";
+        startText += start.get(Calendar.MINUTE);
         if (start.get(Calendar.AM_PM) == 0) {
-            startText += "AM";
+            startText += "am";
         }
         else {
-            startText += "PM";
+            startText += "pm";
         }
 
 
@@ -88,12 +88,12 @@ public class EventAdapter extends BaseAdapter {
         if (end.get(Calendar.MINUTE) < 10) {
             endText += "0";
         }
-        endText += end.get(Calendar.MINUTE) + " ";
+        endText += end.get(Calendar.MINUTE);
         if (end.get(Calendar.AM_PM) == 0) {
-            endText += "AM";
+            endText += "am";
         }
         else {
-            endText += "PM";
+            endText += "pm";
         }
 
 
