@@ -29,14 +29,23 @@
             android:layout_height="match_parent">
             <Button
                 android:id="@+id/scheduleActivityButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:textSize="32sp"
                 android:text="+"/>
         </RelativeLayout>
     </FrameLayout>
+
+    <fragment
+        android:id="@+id/ScheduleNavigationBar"
+        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
 
 
 </LinearLayout>

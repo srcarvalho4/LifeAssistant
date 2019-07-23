@@ -8,29 +8,45 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import utils.DisplayRule;
+import utils.RingerRule;
+import utils.RuleAdapter;
+import utils.RuleAdapterItem;
 
 public class CreateActivityActivity extends AppCompatActivity {
 
-    List<String> rulesMenuItems = new ArrayList<>();
+    ArrayList<String> rulesMenuItems = new ArrayList<>();
+    ArrayList<RuleAdapterItem> rules = new ArrayList<>();
 
     private EditText activityNameEditText;
     private Button addRuleButton;
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_activity);
 
-        rulesMenuItems.add("Sound");
-        rulesMenuItems.add("Location");
-        rulesMenuItems.add("Something else");
+        rulesMenuItems.add("Driving Mode");
+        rulesMenuItems.add("Airplane Mode");
+
+        populateList();
+
+        listView = findViewById(R.id.CreateActivityListView);
+
+        RuleAdapter adapter = new RuleAdapter(this, rules);
+
+        listView.setAdapter(adapter);
 
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
         addRuleButton = findViewById(R.id.createActivityAddRuleButton);
+
 
         addRuleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,5 +70,11 @@ public class CreateActivityActivity extends AppCompatActivity {
                 popup.show();
             }
         });
+    }
+
+    private void populateList() {
+        rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));
+        rules.add(new RuleAdapterItem(new DisplayRule("Sound")));
+        rules.add(new RuleAdapterItem(new DisplayRule("Location")));
     }
 }

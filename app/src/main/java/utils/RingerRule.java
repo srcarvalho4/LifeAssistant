@@ -25,4 +25,9 @@ public class RingerRule implements Rule {
     public void disable() {
         audioManager.setRingerMode(previousState);
     }
+
+    @Override
+    public String getName() {
+        return "Sound";
+    }
 }
