@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StepsActivity"></activity>
+        <activity android:name=".StepsCounterActivity"></activity>
+        <activity android:name=".StepsActivity" />
         <activity android:name=".SpontaneousScreen" />
         <activity android:name=".ScheduleScreen" />
         <activity android:name=".ActivityScreen" />
