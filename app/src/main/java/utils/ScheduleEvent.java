@@ -23,6 +23,8 @@ public class ScheduleEvent {
         this.days = days;
     }
 
+
+
     //Edit all fields of schedule event
     public void edit(Activity activityType, String name, Calendar startTime, Calendar endTime, ArrayList<Integer> days) {
         this.activityType = activityType;

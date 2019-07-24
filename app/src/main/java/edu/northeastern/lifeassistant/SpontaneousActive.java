@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -24,8 +25,13 @@ public class SpontaneousActive extends AppCompatActivity {
     ProgressBar progressBar;
     Timer timer;
     Boolean isRunning;
+    String start = "Start";
+    String stop = "Stop";
     int progress;
-    ProgressIncrement task;
+    TextView activityNameDisplay;
+    String activityName;
+    Button button;
+//    ProgressIncrement task;
 
     ListView listView;
     ArrayList<RuleAdapterItem> rules = new ArrayList<>();
@@ -35,17 +41,28 @@ public class SpontaneousActive extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spontaneous_active);
 
-        task = new ProgressIncrement();
+//        task = new ProgressIncrement();
 
-        progress = 0;
+        isRunning = false;
+        button = findViewById(R.id.SpontaneousActiveButton);
 
-        String name = getIntent().getStringExtra("name");
+//        progress = 0;
+
+        activityName = getIntent().getStringExtra("name");
         int color = getIntent().getIntExtra("color", Color.WHITE);
 
-        TextView textView = findViewById(R.id.SpontaneousActiveName);
+        String nameRender = activityName;
+        if (isRunning) {
+            nameRender += ": Active";
+        }
+        else {
+            nameRender += ": Inactive";
+        }
+
+        activityNameDisplay = findViewById(R.id.SpontaneousActiveName);
         LinearLayout linearLayout = findViewById(R.id.SpontaneousActiveColorArea);
 
-        textView.setText(name);
+        activityNameDisplay.setText(nameRender);
         linearLayout.setBackgroundColor(color);
 
         populateList();
@@ -55,46 +72,62 @@ public class SpontaneousActive extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        progressBar = findViewById(R.id.spontaneousProgress);
-        progressBar.setProgress(progress);
-        progressBar.setMax(100);
-
-        isRunning = false;
-        timer = new Timer();
+//        progressBar = findViewById(R.id.spontaneousProgress);
+//        progressBar.setProgress(progress);
+//        progressBar.setMax(100);
+//        timer = new Timer();
     }
 
-    private class ProgressIncrement extends TimerTask {
+//    private class ProgressIncrement extends TimerTask {
+//
+//        @Override
+//        public void run() {
+//            progress += 1;
+//            progressBar.setProgress(progress);
+//        }
+//    }
 
-        @Override
-        public void run() {
-            progress += 1;
-            progressBar.setProgress(progress);
-        }
-    }
+    public void toggleActive(View view) {
 
-    public void startButtonClick(View view) {
-        task = new ProgressIncrement();
+        String nameRender = activityName;
+
         if (!isRunning) {
             isRunning = true;
-            timer.schedule(task, 0, 1000);
-            progressBar.setIndeterminate(true);
-        } else {
-            Toast.makeText(this, "Activity already started.", Toast.LENGTH_SHORT).show();
+            button.setText(stop);
+            nameRender += ": Active";
+            activityNameDisplay.setText(nameRender);
+        }
+        else {
+            isRunning = false;
+            button.setText(start);
+            nameRender += ": Inactive";
+            activityNameDisplay.setText(nameRender);
         }
     }
 
-    public void stopButtonClick(View view) {
-        if (isRunning) {
-            isRunning = false;
-            task.cancel();
-            timer.purge();
-            progress = 0;
-            //progressBar.setProgress(progress);
-            progressBar.setIndeterminate(false);
-        } else {
-            Toast.makeText(this, "No Activity running to stop.", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    public void startButtonClick(View view) {
+//        task = new ProgressIncrement();
+//        if (!isRunning) {
+//            isRunning = true;
+//            timer.schedule(task, 0, 1000);
+//            progressBar.setIndeterminate(true);
+//        } else {
+//            Toast.makeText(this, "Activity already started.", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    public void stopButtonClick(View view) {
+//        if (isRunning) {
+//            isRunning = false;
+//            task.cancel();
+//            timer.purge();
+//            progress = 0;
+//            //progressBar.setProgress(progress);
+//            progressBar.setIndeterminate(false);
+//        } else {
+//            Toast.makeText(this, "No Activity running to stop.", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     private void populateList() {
         rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));

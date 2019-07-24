@@ -5,6 +5,11 @@
     <string name="Activity">Activity</string>
     <string name="Schedule">Schedule</string>
     <string name="Spontaneous">Spontaneous</string>
+    <string name="ActivityDescription">Create an Activity and decide what it does</string>
+    <string name="CreateActivityDescription">Decide what this Activity will do</string>
+    <string name="ScheduleDescription">Schedule Activities To Happen Automatically</string>
+    <string name="CreateEventDescription">Decide when this Event will Happen</string>
+    <string name="SpontaneousDescription">Start an Activity Instantly</string>
 
     <string name="title_activity_main_navigation">MainNavigationActivity</string>
     <string name="title_home">Home</string>
