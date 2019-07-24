@@ -12,14 +12,13 @@ public class Alarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("setAlarm", "Received intent!");
-        boolean disable = intent.getBooleanExtra("disable", false);
         String operation = intent.getStringExtra("operation");
         String activity = intent.getStringExtra("activity");
-        Toast.makeText(context, "Received intent! " + disable, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Received intent! " + operation, Toast.LENGTH_SHORT).show();
 
         Intent passalongIntent = new Intent(context, SchedulerService.class);
         passalongIntent.putExtra("operation", operation);
-        passalongIntent.putExtra(activity, activity);
+        passalongIntent.putExtra("activity", activity);
         context.startService(passalongIntent);
 
     }
