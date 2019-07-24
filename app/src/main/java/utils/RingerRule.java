@@ -28,6 +28,6 @@ public class RingerRule implements Rule {
 
     @Override
     public String getName() {
-        return "Sound";
+        return "Ringer";
     }
 }
