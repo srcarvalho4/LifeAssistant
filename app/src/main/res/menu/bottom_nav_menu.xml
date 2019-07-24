@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_activity"
         android:icon="@drawable/icon_runningman"
-        android:title="@string/title_activity" />
+        android:title="@string/Activity" />
 
     <item
         android:id="@+id/navigation_scheduler"
         android:icon="@drawable/iconfinder_calendar"
-        android:title="@string/title_scheduler" />
+        android:title="@string/Schedule" />
 
     <item
         android:id="@+id/navigation_spontaneous"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_spontaneous" />
+        android:title="@string/Spontaneous" />
 
 </menu>
