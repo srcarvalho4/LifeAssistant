@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CreateActivityActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/createActivityTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/createActivityToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#4287f5"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title="@string/create_activity_title"
-            app:titleTextColor="#F2F2F2" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="48sp"
+        android:text="@string/create_activity_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16.5"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/createActivityNameLabel"
@@ -57,35 +61,34 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:id="@+id/createEventButtonLinearLayout"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        >
 
         <Button
             android:id="@+id/createEventCancelButton"
-            android:background="#F85F51"
+            android:background="@color/red"
             android:text="@string/cancel_button_text"
-            android:textColor="#F2F2F2"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/createEventSaveButton"
-            android:background="#93D358"
+            android:background="@color/green"
             android:text="@string/save_button_text"
-            android:textColor="#F2F2F2"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

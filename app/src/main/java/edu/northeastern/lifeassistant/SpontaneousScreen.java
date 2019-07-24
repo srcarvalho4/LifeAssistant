@@ -48,8 +48,8 @@ public class SpontaneousScreen extends AppCompatActivity {
     }
 
     private void populateList() {
-        activities.add(new Activity(Color.rgb(100,240, 100), "Running", new ArrayList<Rule>()));
-        activities.add(new Activity(Color.rgb(240,100, 100), "Class", new ArrayList<Rule>()));
-        activities.add(new Activity(Color.rgb(100,100, 240), "Studying", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(220,120, 120), "Class", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(140,140, 240), "Studying", new ArrayList<Rule>()));
     }
 }

@@ -30,10 +30,10 @@ public class SpontaneousEvent {
     @ColumnInfo(name = "activity_id")
     private String activityId;
 
-    @ColumnInfo(name = "startTime")
+    @ColumnInfo(name = "start_time")
     private Calendar startTime;
 
-    @ColumnInfo(name = "endTime")
+    @ColumnInfo(name = "end_time")
     private Calendar endTime;
 
     @ColumnInfo(name = "active")

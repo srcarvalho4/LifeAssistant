@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -38,13 +41,24 @@ public class CreateActivityActivity extends AppCompatActivity {
 
         populateList();
 
+
+        TextView textView = findViewById(R.id.createActivityTitle);
+        activityNameEditText = findViewById(R.id.createActivityNameEditText);
+
+        if (getIntent().getBooleanExtra("edit", false)) {
+            textView.setText("Edit Activity");
+            activityNameEditText.setText(getIntent().getStringExtra("name"));
+        }
+        else {
+            textView.setText("Create Activity");
+        }
+
         listView = findViewById(R.id.CreateActivityListView);
 
         RuleAdapter adapter = new RuleAdapter(this, rules);
 
         listView.setAdapter(adapter);
 
-        activityNameEditText = findViewById(R.id.createActivityNameEditText);
         addRuleButton = findViewById(R.id.createActivityAddRuleButton);
 
 
