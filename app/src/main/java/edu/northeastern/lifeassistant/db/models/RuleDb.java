@@ -7,26 +7,21 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import java.util.UUID;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "rules",
         foreignKeys = {
-            @ForeignKey(entity = Activity.class,
+            @ForeignKey(entity = ActivityDb.class,
                 parentColumns = "id",
                 childColumns = "activity_id",
-                onUpdate = CASCADE,
-                onDelete = CASCADE),
-            @ForeignKey(entity = Setting.class,
-                parentColumns = "id",
-                childColumns = "setting_id",
                 onUpdate = CASCADE,
                 onDelete = CASCADE)
         },
         indices = {
-            @Index(value="activity_id"),
-            @Index(value="setting_id")
+            @Index(value="activity_id")
         })
-public class Rule {
+public class RuleDb {
 
     @PrimaryKey
     @NonNull
@@ -35,20 +30,16 @@ public class Rule {
     @ColumnInfo(name = "activity_id")
     private String activityId;
 
-    @ColumnInfo(name = "setting_id")
-    private String settingId;
-
-    @ColumnInfo(name = "setting_state")
-    private Boolean settingState;
+    @ColumnInfo(name = "setting")
+    private SettingType setting;
 
     @ColumnInfo(name = "setting_value")
-    private String settingValue;
+    private Integer settingValue;
 
-    public Rule(String activityId, String settingId, Boolean settingState, String settingValue) {
+    public RuleDb(String activityId, SettingType setting, Integer settingValue) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
-        this.settingId = settingId;
-        this.settingState = settingState;
+        this.setting = setting;
         this.settingValue = settingValue;
     }
 
@@ -68,27 +59,19 @@ public class Rule {
         this.activityId = activityId;
     }
 
-    public String getSettingId() {
-        return settingId;
+    public SettingType getSetting() {
+        return setting;
     }
 
-    public void setSettingId(String settingId) {
-        this.settingId = settingId;
+    public void setSetting(SettingType setting) {
+        this.setting = setting;
     }
 
-    public Boolean getSettingState() {
-        return settingState;
-    }
-
-    public void setSettingState(Boolean settingState) {
-        this.settingState = settingState;
-    }
-
-    public String getSettingValue() {
+    public Integer getSettingValue() {
         return settingValue;
     }
 
-    public void setSettingValue(String settingValue) {
+    public void setSettingValue(Integer settingValue) {
         this.settingValue = settingValue;
     }
 
