@@ -27,7 +27,7 @@ public class SchedulerService extends Service {
 
         Activity activity = new Activity(Color.rgb(255,0,0), "Running", new ArrayList<Rule>());
 
-        Toast.makeText(getApplicationContext(), "Activity " + activity.typeName + " has been " + operation, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "ActivityDb " + activity.typeName + " has been " + operation, Toast.LENGTH_SHORT).show();
 
         // Put here YOUR code.
         ArrayList<Rule> rules = activity.rules;

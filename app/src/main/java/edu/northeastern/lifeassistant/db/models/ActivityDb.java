@@ -9,7 +9,7 @@ import java.util.UUID;
 import edu.northeastern.lifeassistant.db.types.ColorType;
 
 @Entity(tableName = "activities")
-public class Activity {
+public class ActivityDb {
 
     @PrimaryKey
     @NonNull
@@ -21,7 +21,7 @@ public class Activity {
     @ColumnInfo(name = "color")
     private ColorType color;
 
-    public Activity(String name, ColorType color) {
+    public ActivityDb(String name, ColorType color) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.color = color;
