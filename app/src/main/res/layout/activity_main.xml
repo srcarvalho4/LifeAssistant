@@ -29,7 +29,6 @@
             android:layout_height="80dp"
             android:layout_width="360dp"
             android:layout_gravity="center_horizontal"
-            android:onClick="changePage"
             android:text="@string/MainPageStartButton"
             android:textSize="24sp"
             />
