@@ -27,6 +27,8 @@ public class SettingTypeConverter {
             return SettingType.BLUETOOTH;
         } else if(settingString.equals(SettingType.FLASHLIGHT.getValue())) {
             return SettingType.FLASHLIGHT;
+        } else if (settingString.equals(SettingType.NIGHT_MODE.getValue())) {
+            return SettingType.NIGHT_MODE;
         } else {
             return null;
         }

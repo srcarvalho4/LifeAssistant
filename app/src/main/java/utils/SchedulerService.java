@@ -1,14 +1,16 @@
 package utils;
 
-import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 
 public class SchedulerService extends Service {
 
@@ -23,25 +25,61 @@ public class SchedulerService extends Service {
 
         Log.d("service", "service started command");
         String operation = intent.getStringExtra("operation");
-        Log.d("setAlarm", "handling intent in service");
+        String activity = intent.getStringExtra("activityID");
+        String eventName = intent.getStringExtra("eventName");
 
-        Activity activity = new Activity(Color.rgb(255,0,0), "Running", new ArrayList<Rule>());
+        Toast.makeText(getApplicationContext(), "Event " + eventName + " has been " + operation, Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getApplicationContext(), "ActivityDb " + activity.typeName + " has been " + operation, Toast.LENGTH_SHORT).show();
+        ArrayList<Rule> rules = getRules(activity);
 
-        // Put here YOUR code.
-        ArrayList<Rule> rules = activity.rules;
-        for (Rule r: rules) {
-            if (operation != null && operation.equals("enable")) {
-                r.enable();
-                Log.d("setAlarm", "enabled rule "+ r.toString());
-            } else {
-                r.disable();
-                Log.d("setAlarm", "disabled rule "+ r.toString());
-            }
+        switch (operation) {
+            case "enable": handleEnable(rules);
+            case "disable": handleDisable(rules);
         }
 
         return START_STICKY;
+    }
+
+    private ArrayList<Rule> getRules(String activityID) {
+        //1) get ActivityDB from data base
+        //2) get list of rule IDs
+        //3) for each list of rules, switch on setting type + create appropriate one with value
+        //4) add to list of rules and return
+
+        ArrayList<Rule> rules = new ArrayList<>();
+
+        AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
+
+        List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
+
+        for (RuleDb rule : dbRules) {
+            rules.add(getRuleInstance(rule));
+        }
+
+        return rules;
+    }
+
+    private Rule getRuleInstance(RuleDb rule) {
+        switch (rule.getSetting()) {
+            case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
+            case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
+            case VOLUME: return new RingerRule(rule.getSettingValue());
+            default: throw new IllegalArgumentException("need a valid state type");
+        }
+    }
+
+    private void handleEnable(ArrayList<Rule> rules) {
+        for (Rule r: rules) {
+            r.enable();
+            Log.d("setAlarm", "enabled rule "+ r.toString());
+        }
+    }
+
+    private void handleDisable(ArrayList<Rule> rules) {
+        for (Rule r: rules) {
+            r.disable();
+            Log.d("setAlarm", "disabled rule "+ r.toString());
+        }
     }
 
     @Override

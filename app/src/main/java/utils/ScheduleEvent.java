@@ -6,6 +6,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
+
 public class ScheduleEvent {
 
     Activity activityType;
@@ -21,6 +23,12 @@ public class ScheduleEvent {
         this.startTime = startTime;
         this.endTime = endTime;
         this.days = days;
+    }
+
+    //Create a schedule event from a DB instance
+    public ScheduleEvent(ScheduleEventDb event) {
+        this(new Activity(event.getActivityId()), event.getId(), event.getStartTime(),
+                event.getEndTime(), new ArrayList<>(event.getDaysOfWeek()));
     }
 
     //Edit all fields of schedule event
