@@ -40,7 +40,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
         BottomNavigationView navView = getView().findViewById(R.id.nav_view);
         String selected = getActivity().getIntent().getStringExtra("location");
         if (selected != null ) {
-            if (selected.equals("Activity")) {
+            if (selected.equals("ActivityDb")) {
                 navView.setSelectedItemId(R.id.navigation_activity);
             } else if (selected.equals("Schedule")) {
                 navView.setSelectedItemId(R.id.navigation_scheduler);
@@ -59,7 +59,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
         switch (menuItem.getItemId()) {
             case R.id.navigation_activity:
                 intent = new Intent(getContext(), ActivityScreen.class);
-                intent.putExtra("location", "Activity");
+                intent.putExtra("location", "ActivityDb");
                 break;
             case R.id.navigation_scheduler:
                 intent = new Intent(getContext(), ScheduleScreen.class);
