@@ -39,6 +39,11 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="utils.SchedulerService"
+            android:exported="false"/>
+        <receiver android:process=":remote" android:name="utils.Alarm"></receiver>
+
     </application>
 
 </manifest>
