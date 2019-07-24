@@ -46,11 +46,11 @@ public class CreateActivityActivity extends AppCompatActivity {
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
 
         if (getIntent().getBooleanExtra("edit", false)) {
-            textView.setText("Edit Activity");
+            textView.setText("Edit ActivityDb");
             activityNameEditText.setText(getIntent().getStringExtra("name"));
         }
         else {
-            textView.setText("Create Activity");
+            textView.setText("Create ActivityDb");
         }
 
         listView = findViewById(R.id.CreateActivityListView);
