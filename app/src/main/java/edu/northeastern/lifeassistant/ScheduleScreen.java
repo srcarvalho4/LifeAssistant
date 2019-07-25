@@ -51,7 +51,7 @@ public class ScheduleScreen extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ScheduleScreen.this, CreateActivityActivity.class);
+                Intent intent = new Intent(ScheduleScreen.this, CreateEventActivity.class);
 
                 intent.putExtra("name", events.get(i).getName());
                 intent.putExtra("color", events.get(i).getColor());
