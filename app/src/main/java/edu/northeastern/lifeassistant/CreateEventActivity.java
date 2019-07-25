@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.SimpleDateFormat;
@@ -104,6 +105,17 @@ public class CreateEventActivity extends AppCompatActivity {
                 // Insert ActivityDb
                 ActivityDb activity = new ActivityDb("test-activity", ColorType.BLUE);
                 db.activityDao().insert(activity);
+
+                TextView textView = findViewById(R.id.editActivityTitle);
+                TextView activityNameEditText = findViewById(R.id.createActivityNameEditText);
+
+                if (getIntent().getBooleanExtra("edit", false)) {
+                    textView.setText("Edit Activity");
+                    activityNameEditText.setText(getIntent().getStringExtra("name"));
+                }
+                else {
+                    textView.setText("Create Activity");
+                }
 
                 // Retrieve ActivityDb
                 ActivityDb savedActivity = db.activityDao().findActivityById(activity.getId());
