@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -57,6 +59,7 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
 
     Button buttonStart;
     Button buttonStop;
+    //Button viewHistoryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
 
         buttonStart = findViewById(R.id.startButtonRunning1);
         buttonStop = findViewById(R.id.stopButtonRunning1);
+        //viewHistoryButton = findViewById(R.id.viewHistoryButton);
 
         new ViewTodaysStepCountTask().execute();
 
@@ -98,6 +102,9 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for (int i=0; i<10; i ++) {
+                    new ViewTodaysStepCountTask().execute();
+                }
                 new ViewTodaysStepCountTask().execute();
                 SpontaneousEvent sEvent = new SpontaneousEvent(activity.getId(), null, myTotalSteps, null, null);
                 db.spontaneousEventDao().insert(sEvent);
@@ -114,6 +121,13 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 new ViewTodaysStepCountTask().execute();
+                try {
+                    Thread.sleep(2000);
+                }
+                catch (Exception e) {
+
+                }
+
                 SpontaneousEvent mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
                 myStartStepsString = mostRecentEvent.getStartValue();
                 //Log.d("MYTAG", myStartStepsString);
@@ -136,6 +150,17 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
             }
         });
 
+        /*
+
+        viewHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SpontaneousStepCounterActivity.this, ViewStepsHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        */
+
     }
 
     public void printData() {
@@ -146,6 +171,11 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
         String startValue = check.getStartValue();
         Calendar startTime = check.getStartTime();
         String finalValue = check.getFinalValue();
+
+        String printString = "Start Time: " + startTime.getTime().toString() + "\nEnd Time: " + endtime.getTime().toString() +
+                "\nStep Count" + finalValue;
+
+        Toast.makeText(getApplicationContext(), printString, Toast.LENGTH_LONG).show();
 
 
 
