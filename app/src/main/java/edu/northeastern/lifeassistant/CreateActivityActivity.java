@@ -3,16 +3,22 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+import utils.Activity;
 import utils.DisplayRule;
 import utils.RingerRule;
 import utils.RuleAdapter;
@@ -33,10 +39,26 @@ public class CreateActivityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_activity);
 
-        rulesMenuItems.add("Driving Mode");
-        rulesMenuItems.add("Airplane Mode");
+        TextView textView = findViewById(R.id.createActivityTitle);
+        activityNameEditText = findViewById(R.id.createActivityNameEditText);
 
-        populateList();
+        String activityName = getIntent().getStringExtra("name");
+        Activity myActivity;
+
+
+        if (getIntent().getBooleanExtra("edit", false)) {
+            myActivity = new Activity(getApplicationContext(), activityName);
+            textView.setText("Edit Activity");
+            activityNameEditText.setText(myActivity.getName());
+            for (int i = 0; i < myActivity.getRules().size(); i++) {
+                rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
+                rulesMenuItems.add(rules.get(i).getName());
+            }
+        } else {
+            textView.setText("Create Activity");
+        }
+
+
 
         listView = findViewById(R.id.CreateActivityListView);
 
@@ -44,7 +66,6 @@ public class CreateActivityActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        activityNameEditText = findViewById(R.id.createActivityNameEditText);
         addRuleButton = findViewById(R.id.createActivityAddRuleButton);
 
 
@@ -53,7 +74,7 @@ public class CreateActivityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(CreateActivityActivity.this, addRuleButton);
 
-                for(String rule : rulesMenuItems) {
+                for (String rule : rulesMenuItems) {
                     popup.getMenu().add(rule);
                 }
 
@@ -70,11 +91,5 @@ public class CreateActivityActivity extends AppCompatActivity {
                 popup.show();
             }
         });
-    }
-
-    private void populateList() {
-        rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));
-        rules.add(new RuleAdapterItem(new DisplayRule("Sound")));
-        rules.add(new RuleAdapterItem(new DisplayRule("Location")));
     }
 }

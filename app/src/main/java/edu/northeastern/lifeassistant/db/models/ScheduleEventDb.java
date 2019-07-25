@@ -7,21 +7,22 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "spontaneous_event",
+@Entity(tableName = "schedule_events",
         foreignKeys = {
-            @ForeignKey(entity = Activity.class,
+            @ForeignKey(entity = ActivityDb.class,
                     parentColumns = "id",
                     childColumns = "activity_id",
                     onUpdate = CASCADE,
                     onDelete = CASCADE)
-            },
+        },
         indices = {
             @Index(value="activity_id")
         })
-public class SpontaneousEvent {
+public class ScheduleEventDb {
 
     @PrimaryKey
     @NonNull
@@ -30,42 +31,28 @@ public class SpontaneousEvent {
     @ColumnInfo(name = "activity_id")
     private String activityId;
 
-    @ColumnInfo(name = "startTime")
+    @ColumnInfo(name = "start_time")
     private Calendar startTime;
 
-    @ColumnInfo(name = "endTime")
+    @ColumnInfo(name = "end_time")
     private Calendar endTime;
 
-    @ColumnInfo(name = "active")
-    private Boolean isActive;
+    @ColumnInfo(name = "days_of_week")
+    private List<Integer> daysOfWeek;
 
-    @ColumnInfo(name = "start_value")
-    private String startValue;
-
-    @ColumnInfo(name = "end_value")
-    private String endValue;
-
-    @ColumnInfo(name = "final_value")
-    private String finalValue;
-
-    public SpontaneousEvent(String activityId, Calendar endTime, String startValue, String endValue,
-                            String finalValue) {
+    public ScheduleEventDb(String activityId, Calendar startTime, Calendar endTime, List<Integer> daysOfWeek) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
-        this.startTime = Calendar.getInstance();
+        this.startTime = startTime;
         this.endTime = endTime;
-        this.isActive = true;
-        this.startValue = startValue;
-        this.endValue = endValue;
-        this.finalValue = finalValue;
+        this.daysOfWeek = daysOfWeek;
     }
 
-    @NonNull
     public String getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -93,36 +80,12 @@ public class SpontaneousEvent {
         this.endTime = endTime;
     }
 
-    public Boolean getActive() {
-        return isActive;
+    public List<Integer> getDaysOfWeek() {
+        return daysOfWeek;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public String getStartValue() {
-        return startValue;
-    }
-
-    public void setStartValue(String startValue) {
-        this.startValue = startValue;
-    }
-
-    public String getEndValue() {
-        return endValue;
-    }
-
-    public void setEndValue(String endValue) {
-        this.endValue = endValue;
-    }
-
-    public String getFinalValue() {
-        return finalValue;
-    }
-
-    public void setFinalValue(String finalValue) {
-        this.finalValue = finalValue;
+    public void setDaysOfWeek(List<Integer> daysOfWeek) {
+        this.daysOfWeek = daysOfWeek;
     }
 
 }

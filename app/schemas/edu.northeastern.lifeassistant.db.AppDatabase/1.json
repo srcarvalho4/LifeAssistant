@@ -2,7 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
+<<<<<<< HEAD
     "identityHash": "82ca2c43ec2302d548a6d0dab1e8d321",
+=======
+    "identityHash": "26971a791c8bd0a91a399c35ee73f1c3",
+>>>>>>> 2a7e6061f695492e0e64b4e0c45c79d5fb0ae8e6
     "entities": [
       {
         "tableName": "activities",
@@ -103,7 +107,7 @@
       },
       {
         "tableName": "rules",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `activity_id` TEXT, `setting_id` TEXT, `setting_state` INTEGER, `setting_value` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`activity_id`) REFERENCES `activities`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`setting_id`) REFERENCES `settings`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `activity_id` TEXT, `setting` TEXT, `setting_value` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`activity_id`) REFERENCES `activities`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -118,21 +122,15 @@
             "notNull": false
           },
           {
-            "fieldPath": "settingId",
-            "columnName": "setting_id",
+            "fieldPath": "setting",
+            "columnName": "setting",
             "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "settingState",
-            "columnName": "setting_state",
-            "affinity": "INTEGER",
             "notNull": false
           },
           {
             "fieldPath": "settingValue",
             "columnName": "setting_value",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": false
           }
         ],
@@ -150,14 +148,6 @@
               "activity_id"
             ],
             "createSql": "CREATE  INDEX `index_rules_activity_id` ON `${TABLE_NAME}` (`activity_id`)"
-          },
-          {
-            "name": "index_rules_setting_id",
-            "unique": false,
-            "columnNames": [
-              "setting_id"
-            ],
-            "createSql": "CREATE  INDEX `index_rules_setting_id` ON `${TABLE_NAME}` (`setting_id`)"
           }
         ],
         "foreignKeys": [
@@ -171,23 +161,12 @@
             "referencedColumns": [
               "id"
             ]
-          },
-          {
-            "table": "settings",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "setting_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
           }
         ]
       },
       {
-        "tableName": "settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT, PRIMARY KEY(`id`))",
+        "tableName": "spontaneous_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `activity_id` TEXT, `start_time` INTEGER, `end_time` INTEGER, `active` INTEGER, `start_value` TEXT, `end_value` TEXT, `final_value` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`activity_id`) REFERENCES `activities`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -196,8 +175,44 @@
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "activityId",
+            "columnName": "activity_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "end_time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startValue",
+            "columnName": "start_value",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "endValue",
+            "columnName": "end_value",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "finalValue",
+            "columnName": "final_value",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -208,6 +223,7 @@
           ],
           "autoGenerate": false
         },
+<<<<<<< HEAD
         "indices": [],
         "foreignKeys": []
       },
@@ -273,11 +289,20 @@
         "indices": [
           {
             "name": "index_spontaneous_event_activity_id",
+=======
+        "indices": [
+          {
+            "name": "index_spontaneous_events_activity_id",
+>>>>>>> 2a7e6061f695492e0e64b4e0c45c79d5fb0ae8e6
             "unique": false,
             "columnNames": [
               "activity_id"
             ],
+<<<<<<< HEAD
             "createSql": "CREATE  INDEX `index_spontaneous_event_activity_id` ON `${TABLE_NAME}` (`activity_id`)"
+=======
+            "createSql": "CREATE  INDEX `index_spontaneous_events_activity_id` ON `${TABLE_NAME}` (`activity_id`)"
+>>>>>>> 2a7e6061f695492e0e64b4e0c45c79d5fb0ae8e6
           }
         ],
         "foreignKeys": [
@@ -297,7 +322,11 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+<<<<<<< HEAD
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"82ca2c43ec2302d548a6d0dab1e8d321\")"
+=======
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"26971a791c8bd0a91a399c35ee73f1c3\")"
+>>>>>>> 2a7e6061f695492e0e64b4e0c45c79d5fb0ae8e6
     ]
   }
 }

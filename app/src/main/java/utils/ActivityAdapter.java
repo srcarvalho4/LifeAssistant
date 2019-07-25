@@ -54,7 +54,7 @@ public class ActivityAdapter extends BaseAdapter {
         }
 
 
-        viewHolder.textView.setText(activities.get(i).getTypeName());
+        viewHolder.textView.setText(activities.get(i).getName());
         viewHolder.textView.setBackgroundColor(activities.get(i).getColor());
 
 

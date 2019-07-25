@@ -10,6 +10,7 @@ public enum SettingType {
     DO_NOT_DISTURB("do_not_disturb"),
     POWER_SAVER("power_saver"),
     DRIVING_MODE("driving_mode"),
+    NIGHT_MODE("night_mode"),
     BLUETOOTH("bluetooth"),
     FLASHLIGHT("flashlight");
 

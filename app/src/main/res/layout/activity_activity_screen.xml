@@ -9,14 +9,25 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:text="@string/ActivityPageTitle"
-        android:textSize="48sp"/>
+        android:layout_height="wrap_content"
+        android:text="@string/Activity"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="40sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/ActivityDescription"
+        android:textSize="16sp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_weight="16"
+        android:layout_weight="15"
         android:layout_height="0dp">
 
         <ListView
