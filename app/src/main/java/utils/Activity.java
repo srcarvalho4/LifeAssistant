@@ -44,7 +44,8 @@ public class Activity {
             rules.add(newRule);
         }
 
-        this.color = Integer.parseInt(activityDb.getColor().getValue());
+//        this.color = Integer.parseInt(activityDb.getColor().getValue());
+        this.color = Color.parseColor(activityDb.getColor().getValue());
         this.name = activityDb.getName();
         this.rules = rules;
     }

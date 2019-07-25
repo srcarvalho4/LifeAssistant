@@ -7,6 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import java.util.Calendar;
+
 import edu.northeastern.lifeassistant.db.converters.ColorTypeConverter;
 import edu.northeastern.lifeassistant.db.converters.CalendarTimeConverter;
 import edu.northeastern.lifeassistant.db.converters.DaysOfWeekConverter;
@@ -62,7 +65,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         new Thread() {
                             @Override
                             public void run() {
-//                                prepopulateDb(getAppDatabase(context));
+                                prepopulateDb(getAppDatabase(context));
                             }
                         }.start();
                     }
@@ -76,7 +79,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static void prepopulateDb(AppDatabase db) {
-        db.activityDao().insert(new ActivityDb("Running", ColorType.BLUE));
+//        db.activityDao().insert(new ActivityDb("Running", ColorType.BLUE));
     }
 
 }

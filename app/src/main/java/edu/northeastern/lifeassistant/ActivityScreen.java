@@ -15,6 +15,7 @@ import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.dao.ActivityDao;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
+import edu.northeastern.lifeassistant.db.types.ColorType;
 import utils.Activity;
 import utils.ActivityAdapter;
 import utils.DrivingModeRule;
@@ -38,6 +39,14 @@ public class ActivityScreen extends AppCompatActivity {
         listView = findViewById(R.id.activityListView);
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
+
+        ActivityDb runningActivity = new ActivityDb("Running", ColorType.RED);
+        ActivityDb classActivity = new ActivityDb("Class", ColorType.GREEN);
+        ActivityDb studyActivity = new ActivityDb("Study", ColorType.BLUE);
+
+        db.activityDao().insert(runningActivity);
+        db.activityDao().insert(classActivity);
+        db.activityDao().insert(studyActivity);
 
         final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
