@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import utils.Activity;
 import utils.DisplayRule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
@@ -48,8 +49,14 @@ public class SpontaneousActive extends AppCompatActivity {
 
 //        progress = 0;
 
-        activityName = getIntent().getStringExtra("name");
-        int color = getIntent().getIntExtra("color", Color.WHITE);
+        Activity myActivity = new Activity(getApplicationContext(), getIntent().getStringExtra("name"));
+
+        for (int i = 0; i < myActivity.getRules().size(); i++) {
+            rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
+        }
+
+        activityName = myActivity.getName();
+        int color = myActivity.getColor();
 
         String nameRender = activityName;
         if (isRunning) {
@@ -65,7 +72,6 @@ public class SpontaneousActive extends AppCompatActivity {
         activityNameDisplay.setText(nameRender);
         linearLayout.setBackgroundColor(color);
 
-        populateList();
         listView = findViewById(R.id.SpontaneousActiveList);
 
         RuleAdapter adapter = new RuleAdapter(this, rules);
@@ -129,9 +135,4 @@ public class SpontaneousActive extends AppCompatActivity {
 //        }
 //    }
 
-    private void populateList() {
-        rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));
-        rules.add(new RuleAdapterItem(new DisplayRule("Sound")));
-        rules.add(new RuleAdapterItem(new DisplayRule("Location")));
-    }
 }

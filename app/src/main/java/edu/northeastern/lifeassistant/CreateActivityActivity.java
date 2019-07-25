@@ -39,9 +39,6 @@ public class CreateActivityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_activity);
 
-        rulesMenuItems.add("Driving Mode");
-        rulesMenuItems.add("Airplane Mode");
-
         TextView textView = findViewById(R.id.createActivityTitle);
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
 
@@ -59,6 +56,7 @@ public class CreateActivityActivity extends AppCompatActivity {
 
         for (int i = 0; i < myActivity.getRules().size(); i++) {
             rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
+            rulesMenuItems.add(rules.get(i).getName());
         }
 
         listView = findViewById(R.id.CreateActivityListView);

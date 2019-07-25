@@ -40,14 +40,13 @@ public class SpontaneousScreen extends AppCompatActivity {
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
 
-        List<ActivityDb> activityDb = new ArrayList<>();
-
-        activityDb = db.activityDao().findAllActivities();
+        final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
             activities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
         ActivityAdapter adapter = new ActivityAdapter(this, activities);
+
 
         listView.setAdapter(adapter);
 
@@ -56,7 +55,7 @@ public class SpontaneousScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive.class);
 
-                intent.putExtra("name", activities.get(i).getName());
+                intent.putExtra("name", activityDb.get(i).getName());
                 intent.putExtra("color", activities.get(i).getColor());
                 intent.putExtra("location", "Spontaneous");
                 startActivity(intent);
