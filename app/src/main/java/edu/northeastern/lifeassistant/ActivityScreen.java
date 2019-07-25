@@ -9,24 +9,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
-import java.util.List;
-
-import edu.northeastern.lifeassistant.db.AppDatabase;
-import edu.northeastern.lifeassistant.db.dao.ActivityDao;
-import edu.northeastern.lifeassistant.db.models.ActivityDb;
-import edu.northeastern.lifeassistant.db.models.RuleDb;
 import utils.Activity;
 import utils.ActivityAdapter;
-import utils.DrivingModeRule;
-import utils.NightModeRule;
-import utils.RingerRule;
 import utils.Rule;
 
 public class ActivityScreen extends AppCompatActivity {
 
     ListView listView;
-
-    AppDatabase db;
 
     ArrayList<Activity> activities = new ArrayList<>();
 
@@ -37,15 +26,7 @@ public class ActivityScreen extends AppCompatActivity {
 
         listView = findViewById(R.id.activityListView);
 
-        db = AppDatabase.getAppDatabase(getApplicationContext());
-
-        List<ActivityDb> activityDb = new ArrayList<>();
-
-        activityDb = db.activityDao().findAllActivities();
-
-        for (int i = 0; i < activityDb.size(); i++) {
-            activities.add(new Activity(activityDb.get(i), getRules(activityDb.get(i).getId())));
-        }
+        populateList();
 
         ActivityAdapter adapter = new ActivityAdapter(this, activities);
 
@@ -75,29 +56,9 @@ public class ActivityScreen extends AppCompatActivity {
         });
     }
 
-    private ArrayList<Rule> getRules(String activityID) {
-        //1) get ActivityDB from data base
-        //2) get list of rule IDs
-        //3) for each list of rules, switch on setting type + create appropriate one with value
-        //4) add to list of rules and return
-
-        ArrayList<Rule> rules = new ArrayList<>();
-
-        List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
-
-        for (RuleDb rule : dbRules) {
-            rules.add(getRuleInstance(rule));
-        }
-
-        return rules;
-    }
-
-    private Rule getRuleInstance(RuleDb rule) {
-        switch (rule.getSetting()) {
-            case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
-            case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
-            case VOLUME: return new RingerRule(rule.getSettingValue());
-            default: throw new IllegalArgumentException("need a valid state type");
-        }
+    private void populateList() {
+        activities.add(new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(220,120, 120), "Class", new ArrayList<Rule>()));
+        activities.add(new Activity(Color.rgb(140,140, 240), "Studying", new ArrayList<Rule>()));
     }
 }
