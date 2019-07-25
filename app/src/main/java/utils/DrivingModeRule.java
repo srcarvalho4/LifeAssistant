@@ -6,16 +6,17 @@ import android.content.Context;
 public class DrivingModeRule implements Rule {
 
     UiModeManager uiModeManager;
-    boolean desiredValue;
+    //0 off, 1 on
+    int desiredValue;
 
-    public DrivingModeRule(Context context, boolean desiredValue) {
+    public DrivingModeRule(Context context, int desiredValue) {
         uiModeManager =(UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
         this.desiredValue = desiredValue;
     }
 
     @Override
     public void enable() {
-        if (desiredValue) {
+        if (desiredValue == 1) {
             uiModeManager.enableCarMode(0);
         } else {
             uiModeManager.disableCarMode(0);
@@ -24,7 +25,7 @@ public class DrivingModeRule implements Rule {
 
     @Override
     public void disable() {
-        if (desiredValue) {
+        if (desiredValue == 1) {
             uiModeManager.disableCarMode(0);
         } else {
             uiModeManager.enableCarMode(0);
