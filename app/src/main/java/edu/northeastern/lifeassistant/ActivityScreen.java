@@ -44,7 +44,7 @@ public class ActivityScreen extends AppCompatActivity {
         activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
-            activities.add(new Activity(activityDb.get(i), getRules(activityDb.get(i).getId())));
+            activities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
 
         ActivityAdapter adapter = new ActivityAdapter(this, activities);
@@ -73,31 +73,5 @@ public class ActivityScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private ArrayList<Rule> getRules(String activityID) {
-        //1) get ActivityDB from data base
-        //2) get list of rule IDs
-        //3) for each list of rules, switch on setting type + create appropriate one with value
-        //4) add to list of rules and return
-
-        ArrayList<Rule> rules = new ArrayList<>();
-
-        List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
-
-        for (RuleDb rule : dbRules) {
-            rules.add(getRuleInstance(rule));
-        }
-
-        return rules;
-    }
-
-    private Rule getRuleInstance(RuleDb rule) {
-        switch (rule.getSetting()) {
-            case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
-            case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
-            case VOLUME: return new RingerRule(rule.getSettingValue());
-            default: throw new IllegalArgumentException("need a valid state type");
-        }
     }
 }

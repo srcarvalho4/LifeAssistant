@@ -3,6 +3,8 @@ package utils;
 import android.app.UiModeManager;
 import android.content.Context;
 
+import edu.northeastern.lifeassistant.db.models.RuleDb;
+
 public class NightModeRule implements Rule {
 
     UiModeManager uiModeManager;
@@ -14,6 +16,10 @@ public class NightModeRule implements Rule {
         uiModeManager =(UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
         this.desiredValue = desiredValue;
         this.previousValue = UiModeManager.MODE_NIGHT_NO;
+    }
+
+    public NightModeRule(Context context, RuleDb db) {
+        this(context, db.getSettingValue());
     }
 
     @Override

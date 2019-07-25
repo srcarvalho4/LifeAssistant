@@ -1,11 +1,14 @@
 package utils;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
 public class ScheduleEvent {
@@ -26,9 +29,14 @@ public class ScheduleEvent {
     }
 
     //Create a schedule event from a DB instance
-    public ScheduleEvent(ScheduleEventDb event) {
-        this(new Activity(event.getActivityId()), event.getId(), event.getStartTime(),
-                event.getEndTime(), new ArrayList<>(event.getDaysOfWeek()));
+    public ScheduleEvent(Context applicationContext, String eventId) {
+        ScheduleEventDb event = AppDatabase.getAppDatabase(applicationContext).scheduleEventDao().findScheduleEventById(eventId);
+        ActivityDb activityDb = AppDatabase.getAppDatabase(applicationContext).activityDao().findActivityById(event.getActivityId());
+        this.activityType = new Activity(applicationContext, event.getActivityId());
+        this.name = "Name is Missing (Bug)";
+        this.startTime = event.getStartTime();
+        this.endTime = event.getEndTime();
+        this.days = new ArrayList<>(event.getDaysOfWeek());
     }
 
     //Edit all fields of schedule event
