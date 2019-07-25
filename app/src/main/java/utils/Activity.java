@@ -6,6 +6,8 @@ import java.lang.reflect.Array;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
+
 public class Activity {
 
     int color;
@@ -15,6 +17,12 @@ public class Activity {
     public Activity(int color, String typeName, ArrayList<Rule> rules) {
         this.color = color;
         this.typeName = typeName;
+        this.rules = rules;
+    }
+
+    public Activity(ActivityDb db, ArrayList<Rule> rules) {
+        this.color = Integer.parseInt(db.getColor().getValue());
+        this.typeName = db.getName();
         this.rules = rules;
     }
 
