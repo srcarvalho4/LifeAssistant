@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 import edu.northeastern.lifeassistant.db.types.ColorType;
 import edu.northeastern.lifeassistant.db.types.SettingType;
+import utils.ScheduleEvent;
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -40,12 +42,13 @@ public class CreateEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_event);
 
         // Temporary spinner list
-        activities.add("");
-        activities.add("Class");
-        activities.add("Running");
-        activities.add("Reading");
-        activities.add("Driving");
-        activities.add("Sleeping");
+        List<ActivityDb> activityDb = AppDatabase.getAppDatabase(getApplicationContext()).activityDao().findAllActivities();
+        for (int i = 0; i < activityDb.size(); i++) {
+            activities.add(activityDb.get(i).getName());
+        }
+
+        String eventName = getIntent().getStringExtra("name");
+        ScheduleEvent myEvent = new ScheduleEvent(getApplicationContext(), eventName);
 
         // Get widget references
         eventNameEditText = findViewById(R.id.createEventNameEditText);
@@ -56,9 +59,16 @@ public class CreateEventActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.createEventCancelButton);
         saveButton = findViewById(R.id.createEventSaveButton);
 
+        eventNameEditText.setText(myEvent.getName());
+        eventStartTimeEditText.setText(myEvent.getStartTimeText());
+        eventEndTimeEditText.setText(myEvent.getEndTimeText());
+        weekdaysPicker.setSelectedDays(myEvent.getDayData());
+
+
         // Add activity list to spinner
         activitySpinner.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, activities));
+
 
         // Clear DayPicker default selections
         weekdaysPicker.setSelectedDays(new ArrayList<Integer>());

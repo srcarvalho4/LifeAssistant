@@ -65,41 +65,9 @@ public class EventAdapter extends BaseAdapter {
             viewHolder = (EventViewHolder) view.getTag();
         }
 
-
-        Calendar start = events.get(i).getStartTime();
-        Calendar end = events.get(i).getEndTime();
-
-        String startText = "" + start.get(Calendar.HOUR) + ":";
-
-        if (start.get(Calendar.MINUTE) < 10) {
-            startText += "0";
-        }
-        startText += start.get(Calendar.MINUTE);
-        if (start.get(Calendar.AM_PM) == 0) {
-            startText += "am";
-        }
-        else {
-            startText += "pm";
-        }
-
-
-        String endText = "" + end.get(Calendar.HOUR) + ":";
-
-        if (end.get(Calendar.MINUTE) < 10) {
-            endText += "0";
-        }
-        endText += end.get(Calendar.MINUTE);
-        if (end.get(Calendar.AM_PM) == 0) {
-            endText += "am";
-        }
-        else {
-            endText += "pm";
-        }
-
-
         viewHolder.name.setText(events.get(i).getName());
-        viewHolder.startTime.setText(startText);
-        viewHolder.endTime.setText(endText);
+        viewHolder.startTime.setText(events.get(i).getStartTimeText());
+        viewHolder.endTime.setText(events.get(i).getEndTimeText());
         viewHolder.background.setBackgroundColor(events.get(i).getColor());
 
         //Set default view to invisible
