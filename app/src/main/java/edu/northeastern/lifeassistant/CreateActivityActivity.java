@@ -3,6 +3,7 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+import utils.Activity;
 import utils.DisplayRule;
 import utils.RingerRule;
 import utils.RuleAdapter;
@@ -39,18 +42,23 @@ public class CreateActivityActivity extends AppCompatActivity {
         rulesMenuItems.add("Driving Mode");
         rulesMenuItems.add("Airplane Mode");
 
-        populateList();
-
-
         TextView textView = findViewById(R.id.createActivityTitle);
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
 
+        String activityName = getIntent().getStringExtra("name");
+        Activity myActivity = new Activity(getApplicationContext(), activityName);
+
+
         if (getIntent().getBooleanExtra("edit", false)) {
             textView.setText("Edit ActivityDb");
-            activityNameEditText.setText(getIntent().getStringExtra("name"));
-        }
-        else {
+            activityNameEditText.setText(myActivity.getName());
+        } else {
             textView.setText("Create ActivityDb");
+        }
+
+
+        for (int i = 0; i < myActivity.getRules().size(); i++) {
+            rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
         }
 
         listView = findViewById(R.id.CreateActivityListView);
@@ -67,7 +75,7 @@ public class CreateActivityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(CreateActivityActivity.this, addRuleButton);
 
-                for(String rule : rulesMenuItems) {
+                for (String rule : rulesMenuItems) {
                     popup.getMenu().add(rule);
                 }
 
@@ -84,11 +92,5 @@ public class CreateActivityActivity extends AppCompatActivity {
                 popup.show();
             }
         });
-    }
-
-    private void populateList() {
-        rules.add(new RuleAdapterItem(new DisplayRule("Do Not Disturb Mode")));
-        rules.add(new RuleAdapterItem(new DisplayRule("Sound")));
-        rules.add(new RuleAdapterItem(new DisplayRule("Location")));
     }
 }

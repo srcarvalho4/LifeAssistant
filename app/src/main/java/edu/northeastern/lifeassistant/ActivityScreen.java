@@ -39,9 +39,7 @@ public class ActivityScreen extends AppCompatActivity {
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-        List<ActivityDb> activityDb = new ArrayList<>();
-
-        activityDb = db.activityDao().findAllActivities();
+        final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
             activities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
@@ -67,8 +65,7 @@ public class ActivityScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
 
-                intent.putExtra("name", activities.get(i).getTypeName());
-                intent.putExtra("color", activities.get(i).getColor());
+                intent.putExtra("name", activityDb.get(i).getId());
                 intent.putExtra("edit", true);
                 startActivity(intent);
             }

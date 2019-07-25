@@ -15,12 +15,12 @@ import edu.northeastern.lifeassistant.db.models.RuleDb;
 public class Activity {
 
     int color;
-    String typeName;
+    String name;
     ArrayList<Rule> rules;
 
-    public Activity(int color, String typeName, ArrayList<Rule> rules) {
+    public Activity(int color, String name, ArrayList<Rule> rules) {
         this.color = color;
-        this.typeName = typeName;
+        this.name = name;
         this.rules = rules;
     }
 
@@ -45,7 +45,7 @@ public class Activity {
         }
 
         this.color = Integer.parseInt(activityDb.getColor().getValue());
-        this.typeName = activityDb.getName();
+        this.name = activityDb.getName();
         this.rules = rules;
     }
 
@@ -60,7 +60,12 @@ public class Activity {
     }
 
     //Return this activity's type
-    public String getTypeName(){
-        return this.typeName;
+    public String getName(){
+        return this.name;
+    }
+
+    //Return this activity's rules
+    public ArrayList<Rule> getRules() {
+        return this.rules;
     }
 }
