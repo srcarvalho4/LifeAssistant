@@ -15,17 +15,20 @@ import edu.northeastern.lifeassistant.db.dao.ActivityDao;
 import edu.northeastern.lifeassistant.db.dao.RuleDao;
 import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
 import edu.northeastern.lifeassistant.db.dao.SettingDao;
+import edu.northeastern.lifeassistant.db.dao.SpontaneousEventDao;
 import edu.northeastern.lifeassistant.db.models.Activity;
 import edu.northeastern.lifeassistant.db.models.Rule;
 import edu.northeastern.lifeassistant.db.models.ScheduleEvent;
 import edu.northeastern.lifeassistant.db.models.Setting;
+import edu.northeastern.lifeassistant.db.models.SpontaneousEvent;
 import edu.northeastern.lifeassistant.db.types.ColorType;
 
 @Database(entities = {
                 Activity.class,
                 ScheduleEvent.class,
                 Rule.class,
-                Setting.class
+                Setting.class,
+        SpontaneousEvent.class
             }, version = 1)
 @TypeConverters({
         ColorTypeConverter.class,
@@ -44,6 +47,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract RuleDao ruleDao();
 
     public abstract SettingDao settingDao();
+
+    public abstract SpontaneousEventDao spontaneousEventDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if(INSTANCE == null) {
