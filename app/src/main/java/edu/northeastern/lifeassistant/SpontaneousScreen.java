@@ -39,14 +39,14 @@ public class SpontaneousScreen extends AppCompatActivity {
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
+
         List<ActivityDb> activityDb = new ArrayList<>();
 
         activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
-            activities.add(new Activity(activityDb.get(i), getRules(activityDb.get(i).getId())));
+            activities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
-
         ActivityAdapter adapter = new ActivityAdapter(this, activities);
 
         listView.setAdapter(adapter);

@@ -3,6 +3,8 @@ package utils;
 import android.app.UiModeManager;
 import android.content.Context;
 
+import edu.northeastern.lifeassistant.db.models.RuleDb;
+
 public class DrivingModeRule implements Rule {
 
     UiModeManager uiModeManager;
@@ -12,6 +14,10 @@ public class DrivingModeRule implements Rule {
     public DrivingModeRule(Context context, int desiredValue) {
         uiModeManager =(UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
         this.desiredValue = desiredValue;
+    }
+
+    public DrivingModeRule(Context context, RuleDb db) {
+        this(context, db.getSettingValue());
     }
 
     @Override

@@ -1,12 +1,16 @@
 package utils;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import java.lang.reflect.Array;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 
 public class Activity {
 
@@ -20,9 +24,28 @@ public class Activity {
         this.rules = rules;
     }
 
-    public Activity(ActivityDb db, ArrayList<Rule> rules) {
-        this.color = Integer.parseInt(db.getColor().getValue());
-        this.typeName = db.getName();
+    public Activity(Context applicationContext, String activityID) {
+        ArrayList<Rule> rules = new ArrayList<>();
+
+        AppDatabase db = AppDatabase.getAppDatabase(applicationContext);
+        ActivityDb activityDb = db.activityDao().findActivityById(activityID);
+
+        List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
+
+        for (RuleDb rule : dbRules) {
+            Rule newRule;
+
+            switch (rule.getSetting()) {
+                case DRIVING_MODE: newRule = new DrivingModeRule(applicationContext, rule.getSettingValue()); break;
+                case NIGHT_MODE: newRule = new NightModeRule(applicationContext, rule.getSettingValue()); break;
+                case VOLUME: newRule = new RingerRule(rule.getSettingValue()); break;
+                default: throw new IllegalArgumentException("need a valid state type");
+            }
+            rules.add(newRule);
+        }
+
+        this.color = Integer.parseInt(activityDb.getColor().getValue());
+        this.typeName = activityDb.getName();
         this.rules = rules;
     }
 
