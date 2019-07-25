@@ -47,10 +47,8 @@ public class CreateEventActivity extends AppCompatActivity {
             activities.add(activityDb.get(i).getName());
         }
 
-        String eventName = getIntent().getStringExtra("name");
-        ScheduleEvent myEvent = new ScheduleEvent(getApplicationContext(), eventName);
-
         // Get widget references
+        TextView title = findViewById(R.id.editActivityTitle);
         eventNameEditText = findViewById(R.id.createEventNameEditText);
         activitySpinner = findViewById(R.id.createEventActivitySpinner);
         weekdaysPicker = findViewById(R.id.createEventDayPicker);
@@ -59,10 +57,19 @@ public class CreateEventActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.createEventCancelButton);
         saveButton = findViewById(R.id.createEventSaveButton);
 
-        eventNameEditText.setText(myEvent.getName());
-        eventStartTimeEditText.setText(myEvent.getStartTimeText());
-        eventEndTimeEditText.setText(myEvent.getEndTimeText());
-        weekdaysPicker.setSelectedDays(myEvent.getDayData());
+        if (getIntent().getBooleanExtra("edit", false)) {
+            String eventName = getIntent().getStringExtra("name");
+            ScheduleEvent myEvent = new ScheduleEvent(getApplicationContext(), eventName);
+            title.setText("Edit Activity");
+            eventNameEditText.setText(myEvent.getName());
+            eventStartTimeEditText.setText(myEvent.getStartTimeText());
+            eventEndTimeEditText.setText(myEvent.getEndTimeText());
+            weekdaysPicker.setSelectedDays(myEvent.getDayData());
+        }
+        else {
+            title.setText("Create Activity");
+        }
+
 
 
         // Add activity list to spinner

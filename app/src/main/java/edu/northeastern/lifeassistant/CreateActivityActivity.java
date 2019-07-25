@@ -43,21 +43,22 @@ public class CreateActivityActivity extends AppCompatActivity {
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
 
         String activityName = getIntent().getStringExtra("name");
-        Activity myActivity = new Activity(getApplicationContext(), activityName);
+        Activity myActivity;
 
 
         if (getIntent().getBooleanExtra("edit", false)) {
-            textView.setText("Edit ActivityDb");
+            myActivity = new Activity(getApplicationContext(), activityName);
+            textView.setText("Edit Activity");
             activityNameEditText.setText(myActivity.getName());
+            for (int i = 0; i < myActivity.getRules().size(); i++) {
+                rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
+                rulesMenuItems.add(rules.get(i).getName());
+            }
         } else {
-            textView.setText("Create ActivityDb");
+            textView.setText("Create Activity");
         }
 
 
-        for (int i = 0; i < myActivity.getRules().size(); i++) {
-            rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
-            rulesMenuItems.add(rules.get(i).getName());
-        }
 
         listView = findViewById(R.id.CreateActivityListView);
 
