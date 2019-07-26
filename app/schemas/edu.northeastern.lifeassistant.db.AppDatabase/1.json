@@ -3,10 +3,14 @@
   "database": {
     "version": 1,
 <<<<<<< HEAD
+<<<<<<< HEAD
     "identityHash": "82ca2c43ec2302d548a6d0dab1e8d321",
 =======
     "identityHash": "26971a791c8bd0a91a399c35ee73f1c3",
 >>>>>>> 2a7e6061f695492e0e64b4e0c45c79d5fb0ae8e6
+=======
+    "identityHash": "54747a917fa73212693d6d366d159494",
+>>>>>>> parent of 577ccce... Added SpontaneouStepCounterActivity
     "entities": [
       {
         "tableName": "activities",
@@ -226,6 +230,7 @@
 <<<<<<< HEAD
         "indices": [],
         "foreignKeys": []
+<<<<<<< HEAD
       },
       {
         "tableName": "spontaneous_event",
@@ -318,15 +323,21 @@
             ]
           }
         ]
+=======
+>>>>>>> parent of 577ccce... Added SpontaneouStepCounterActivity
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"82ca2c43ec2302d548a6d0dab1e8d321\")"
 =======
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"26971a791c8bd0a91a399c35ee73f1c3\")"
 >>>>>>> 2a7e6061f695492e0e64b4e0c45c79d5fb0ae8e6
+=======
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"54747a917fa73212693d6d366d159494\")"
+>>>>>>> parent of 577ccce... Added SpontaneouStepCounterActivity
     ]
   }
 }

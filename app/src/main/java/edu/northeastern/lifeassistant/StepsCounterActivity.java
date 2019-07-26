@@ -38,7 +38,6 @@ public class StepsCounterActivity extends AppCompatActivity implements GoogleApi
     private Button mButtonViewToday;
 
     private GoogleApiClient mGoogleApiClient;
-    String myTotalSteps = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +77,9 @@ public class StepsCounterActivity extends AppCompatActivity implements GoogleApi
             for(Field field : dp.getDataType().getFields()) {
                 Log.e("History", "\tField: " + field.getName() +
                         " Value: " + dp.getValue(field));
-                myTotalSteps = dp.getValue(field).toString();
             }
         }
-        Log.d("Steps", myTotalSteps);
     }
-
-
 
     @Override
     public void onClick(View view) {

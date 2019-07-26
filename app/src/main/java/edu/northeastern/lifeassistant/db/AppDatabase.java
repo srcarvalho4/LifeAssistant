@@ -14,6 +14,7 @@ import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
 import edu.northeastern.lifeassistant.db.dao.ActivityDao;
 import edu.northeastern.lifeassistant.db.dao.RuleDao;
 import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
+
 import edu.northeastern.lifeassistant.db.dao.SpontaneousEventDao;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
@@ -44,6 +45,9 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract RuleDao ruleDao();
 
     public abstract SpontaneousEventDao spontaneousEventDao();
+
+
+
 
     public static AppDatabase getAppDatabase(Context context) {
         if(INSTANCE == null) {
