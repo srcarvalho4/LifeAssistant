@@ -40,13 +40,13 @@ public class ActivityScreen extends AppCompatActivity {
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-        ActivityDb runningActivity = new ActivityDb("Running", ColorType.RED);
-        ActivityDb classActivity = new ActivityDb("Class", ColorType.GREEN);
-        ActivityDb studyActivity = new ActivityDb("Study", ColorType.BLUE);
-
-        db.activityDao().insert(runningActivity);
-        db.activityDao().insert(classActivity);
-        db.activityDao().insert(studyActivity);
+//        ActivityDb runningActivity = new ActivityDb("Running", ColorType.RED);
+//        ActivityDb classActivity = new ActivityDb("Class", ColorType.GREEN);
+//        ActivityDb studyActivity = new ActivityDb("Study", ColorType.BLUE);
+//
+//        db.activityDao().insert(runningActivity);
+//        db.activityDao().insert(classActivity);
+//        db.activityDao().insert(studyActivity);
 
         final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 

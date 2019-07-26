@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import utils.Rule;
 
 public class SpontaneousScreen extends AppCompatActivity {
 
-    ListView listView;
+    GridView gridView;
 
     AppDatabase db;
 
@@ -35,7 +37,7 @@ public class SpontaneousScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spontaneous_screen);
 
-        listView = findViewById(R.id.SpontaneousScreenList);
+        gridView = findViewById(R.id.SpontaneousScreenGrid);
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
@@ -48,9 +50,9 @@ public class SpontaneousScreen extends AppCompatActivity {
         ActivityAdapter adapter = new ActivityAdapter(this, activities);
 
 
-        listView.setAdapter(adapter);
+        gridView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive.class);
