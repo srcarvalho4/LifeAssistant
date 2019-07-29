@@ -28,6 +28,9 @@ public class ScheduleEventDb {
     @NonNull
     private String id;
 
+    @ColumnInfo(name = "name")
+    private String name;
+
     @ColumnInfo(name = "activity_id")
     private String activityId;
 
@@ -40,9 +43,10 @@ public class ScheduleEventDb {
     @ColumnInfo(name = "days_of_week")
     private List<Integer> daysOfWeek;
 
-    public ScheduleEventDb(String activityId, Calendar startTime, Calendar endTime, List<Integer> daysOfWeek) {
+    public ScheduleEventDb(String activityId, String name, Calendar startTime, Calendar endTime, List<Integer> daysOfWeek) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
+        this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
@@ -62,6 +66,14 @@ public class ScheduleEventDb {
 
     public void setActivityId(String activityId) {
         this.activityId = activityId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Calendar getStartTime() {
