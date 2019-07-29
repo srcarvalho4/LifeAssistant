@@ -23,6 +23,8 @@ import utils.ScheduleEvent;
 
 public class CreateEventScreen extends AppCompatActivity {
 
+    private AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
+
     private List<String> activities = new ArrayList<>();
     private EditText eventNameEditText;
     private Spinner activitySpinner;
@@ -53,6 +55,8 @@ public class CreateEventScreen extends AppCompatActivity {
         cancelButton = findViewById(R.id.createEventCancelButton);
         saveButton = findViewById(R.id.createEventSaveButton);
 
+
+
         if (getIntent().getBooleanExtra("edit", false)) {
             String eventName = getIntent().getStringExtra("name");
             ScheduleEvent myEvent = new ScheduleEvent(getApplicationContext(), eventName);
@@ -72,60 +76,40 @@ public class CreateEventScreen extends AppCompatActivity {
         activitySpinner.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, activities));
 
-
         // Clear DayPicker default selections
-        weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
+        weekdaysPicker.setSelectedDays(new ArrayList<>());
 
         // Show TimePicker onClick
-        eventStartTimeEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePicker(eventStartTimeEditText);
-            }
-        });
+        eventStartTimeEditText.setOnClickListener(view -> showTimePicker(eventStartTimeEditText));
 
         // Show TimePicker onClick
-        eventEndTimeEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePicker(eventEndTimeEditText);
-            }
-        });
+        eventEndTimeEditText.setOnClickListener(view -> showTimePicker(eventEndTimeEditText));
 
         // Clear all selections onClick
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                eventNameEditText.getText().clear();
-                activitySpinner.setSelection(0);
-                weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
-                weekdaysPicker.setEditable(false);
-                eventStartTimeEditText.getText().clear();
-                eventEndTimeEditText.getText().clear();
-            }
+        cancelButton.setOnClickListener(view -> {
+            eventNameEditText.getText().clear();
+            activitySpinner.setSelection(0);
+            weekdaysPicker.setSelectedDays(new ArrayList<Integer>());
+            weekdaysPicker.setEditable(false);
+            eventStartTimeEditText.getText().clear();
+            eventEndTimeEditText.getText().clear();
         });
 
         // Save event onClick
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
+        saveButton.setOnClickListener(view -> {
         });
 
     }
 
     private void showTimePicker(final EditText editText) {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
-                CreateEventScreen.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                Calendar newTime = Calendar.getInstance();
-                newTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                newTime.set(Calendar.MINUTE, minutes);
-                SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.US);
-                editText.setText(timeFormatter.format(newTime.getTime()));
-            }
-        }, 0, 0, false);
+                CreateEventScreen.this, (timePicker, hourOfDay, minutes) -> {
+                    Calendar newTime = Calendar.getInstance();
+                    newTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    newTime.set(Calendar.MINUTE, minutes);
+                    SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.US);
+                    editText.setText(timeFormatter.format(newTime.getTime()));
+                }, 0, 0, false);
         timePickerDialog.show();
     }
 
