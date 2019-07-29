@@ -1,12 +1,17 @@
 package edu.northeastern.lifeassistant.db;
 
 import android.content.Context;
+import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import java.util.concurrent.Executors;
+
 import edu.northeastern.lifeassistant.db.converters.CalendarTimeConverter;
 import edu.northeastern.lifeassistant.db.converters.DaysOfWeekConverter;
 import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
@@ -50,20 +55,21 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static AppDatabase createAppDatabase(Context context) {
-        return Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class,
-                "life-assistant")
-                .addCallback(new Callback() {
+        RoomDatabase.Callback cb = new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                     @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                        super.onCreate(db);
-                        new Thread() {
-                            @Override
-                            public void run() {
-                                prepopulateDb(getAppDatabase(context));
-                            }
-                        }.start();
+                    public void run() {
+                        prepopulateDb(getAppDatabase(context));
                     }
-                })
+                });
+            }
+        };
+
+        return  Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class,
+                "life-assistant")
+                .addCallback(cb)
                 .allowMainThreadQueries()
                 .build();
     }
@@ -73,6 +79,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static void prepopulateDb(AppDatabase db) {
+        db.activityDao().insert(new ActivityDb("test", Color.BLUE));
     }
 
 }
