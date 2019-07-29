@@ -16,5 +16,4 @@ public enum SettingType {
     public String getValue() {
         return this.value;
     }
-
 }
