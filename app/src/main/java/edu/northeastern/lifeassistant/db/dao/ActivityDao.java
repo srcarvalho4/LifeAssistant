@@ -26,4 +26,7 @@ public interface ActivityDao {
     @Query("SELECT * FROM activities WHERE id = :id")
     public ActivityDb findActivityById(String id);
 
+    @Query("SELECT * FROM activities WHERE name = :name")
+    public ActivityDb findActivityByName(String name);
+
 }

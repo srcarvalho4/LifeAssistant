@@ -2,7 +2,6 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,16 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
-import edu.northeastern.lifeassistant.db.dao.ActivityDao;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
-import edu.northeastern.lifeassistant.db.models.RuleDb;
-import edu.northeastern.lifeassistant.db.types.ColorType;
 import utils.Activity;
 import utils.ActivityAdapter;
-import utils.DrivingModeRule;
-import utils.NightModeRule;
-import utils.RingerRule;
-import utils.Rule;
 
 public class ActivityScreen extends AppCompatActivity {
 
@@ -40,14 +32,6 @@ public class ActivityScreen extends AppCompatActivity {
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-//        ActivityDb runningActivity = new ActivityDb("Running", ColorType.RED);
-//        ActivityDb classActivity = new ActivityDb("Class", ColorType.GREEN);
-//        ActivityDb studyActivity = new ActivityDb("Study", ColorType.BLUE);
-//
-//        db.activityDao().insert(runningActivity);
-//        db.activityDao().insert(classActivity);
-//        db.activityDao().insert(studyActivity);
-
         final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
@@ -63,7 +47,7 @@ public class ActivityScreen extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
+                Intent intent = new Intent(ActivityScreen.this, CreateActivityScreen.class);
                 intent.putExtra("edit", false);
                 startActivity(intent);
             }
@@ -72,7 +56,7 @@ public class ActivityScreen extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ActivityScreen.this, CreateActivityActivity.class);
+                Intent intent = new Intent(ActivityScreen.this, CreateActivityScreen.class);
 
                 intent.putExtra("name", activityDb.get(i).getId());
                 intent.putExtra("edit", true);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CreateActivityActivity">
+    tools:context=".CreateActivityScreen">
 
     <TextView
         android:id="@+id/createActivityTitle"
@@ -70,14 +70,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/createEventButtonLinearLayout"
+        android:id="@+id/createActivityButtonLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
         >
 
         <Button
-            android:id="@+id/createEventCancelButton"
+            android:id="@+id/createActivityCancelButton"
             android:background="@color/red"
             android:text="@string/cancel_button_text"
             android:textColor="@color/white"
@@ -88,7 +88,7 @@
             android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/createEventSaveButton"
+            android:id="@+id/createActivitySaveButton"
             android:background="@color/green"
             android:text="@string/save_button_text"
             android:textColor="@color/white"

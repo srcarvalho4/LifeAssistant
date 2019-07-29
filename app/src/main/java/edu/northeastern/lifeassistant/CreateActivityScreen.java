@@ -3,7 +3,7 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,24 +13,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 import utils.Activity;
-import utils.DisplayRule;
-import utils.RingerRule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
 
-public class CreateActivityActivity extends AppCompatActivity {
+// TODO: ADD ACTIVITY COLOR PICKER
+public class CreateActivityScreen extends AppCompatActivity {
+
+    private AppDatabase db;
 
     ArrayList<String> rulesMenuItems = new ArrayList<>();
     ArrayList<RuleAdapterItem> rules = new ArrayList<>();
 
     private EditText activityNameEditText;
     private Button addRuleButton;
+    private Button saveButton;
+    private Button cancelButton;
 
     ListView listView;
 
@@ -38,6 +41,8 @@ public class CreateActivityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_activity);
+
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         TextView textView = findViewById(R.id.createActivityTitle);
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
@@ -72,7 +77,7 @@ public class CreateActivityActivity extends AppCompatActivity {
         addRuleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(CreateActivityActivity.this, addRuleButton);
+                PopupMenu popup = new PopupMenu(CreateActivityScreen.this, addRuleButton);
 
                 for (String rule : rulesMenuItems) {
                     popup.getMenu().add(rule);
@@ -82,13 +87,29 @@ public class CreateActivityActivity extends AppCompatActivity {
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(CreateActivityActivity.this,
+                        Toast.makeText(CreateActivityScreen.this,
                                 item.getTitle(), Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 });
 
                 popup.show();
+            }
+        });
+
+        saveButton = findViewById(R.id.createActivitySaveButton);
+        cancelButton = findViewById(R.id.createActivityCancelButton);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String activityName = activityNameEditText.getText().toString();
+                ActivityDb activityDb = new ActivityDb(activityName, Color.BLUE);
+                db.activityDao().insert(activityDb);
+
+                for (RuleAdapterItem rule: rules) {
+//                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.get));
+                }
             }
         });
     }
