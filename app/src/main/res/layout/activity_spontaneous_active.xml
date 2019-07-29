@@ -58,16 +58,13 @@
             android:textSize="20sp"/>
 
 
-        <!--<ProgressBar-->
-            <!--android:id="@+id/spontaneousProgress"-->
-            <!--android:layout_width="80dp"-->
-            <!--android:layout_height="80dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--style="@android:style/Widget.ProgressBar.Large"-->
-            <!--android:indeterminateOnly="false"-->
-            <!--android:progress="0"-->
-            <!--android:max="100"/>-->
+        <TextView
+            android:id="@+id/SpontaneousActiveStepCounter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="0sp"/>
 
         <TextView
             android:id="@+id/spontaneousRulesHeading"
