@@ -32,6 +32,9 @@ public interface SpontaneousEventDao {
     @Query("SELECT * FROM spontaneous_event WHERE startTime = (SELECT MAX(startTime) FROM spontaneous_event)")
     public SpontaneousEvent findMostRecentEvent();
 
+    @Query("SELECT * FROM spontaneous_event WHERE active = 0")
+    public List<SpontaneousEvent> findListOfCompletedSpontaneousActivities();
+
 
 
 }
