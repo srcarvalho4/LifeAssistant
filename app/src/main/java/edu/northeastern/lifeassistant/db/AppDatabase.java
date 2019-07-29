@@ -7,10 +7,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import java.util.Calendar;
-
-import edu.northeastern.lifeassistant.db.converters.ColorTypeConverter;
 import edu.northeastern.lifeassistant.db.converters.CalendarTimeConverter;
 import edu.northeastern.lifeassistant.db.converters.DaysOfWeekConverter;
 import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
@@ -22,7 +18,6 @@ import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
-import edu.northeastern.lifeassistant.db.types.ColorType;
 
 @Database(entities = {
                 ActivityDb.class,
@@ -31,7 +26,6 @@ import edu.northeastern.lifeassistant.db.types.ColorType;
                 SpontaneousEventDb.class
             }, version = 1)
 @TypeConverters({
-        ColorTypeConverter.class,
         CalendarTimeConverter.class,
         DaysOfWeekConverter.class,
         SettingTypeConverter.class
@@ -79,7 +73,6 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static void prepopulateDb(AppDatabase db) {
-//        db.activityDao().insert(new ActivityDb("Running", ColorType.BLUE));
     }
 
 }

@@ -6,8 +6,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.util.UUID;
 
-import edu.northeastern.lifeassistant.db.types.ColorType;
-
 @Entity(tableName = "activities")
 public class ActivityDb {
 
@@ -19,9 +17,9 @@ public class ActivityDb {
     private String name;
 
     @ColumnInfo(name = "color")
-    private ColorType color;
+    private Integer color;
 
-    public ActivityDb(String name, ColorType color) {
+    public ActivityDb(String name, Integer color) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.color = color;
@@ -43,11 +41,11 @@ public class ActivityDb {
         this.name = name;
     }
 
-    public ColorType getColor() {
+    public Integer getColor() {
         return color;
     }
 
-    public void setColor(ColorType color) {
+    public void setColor(Integer color) {
         this.color = color;
     }
 
