@@ -43,13 +43,18 @@ public class ScheduleEventDb {
     @ColumnInfo(name = "days_of_week")
     private List<Integer> daysOfWeek;
 
-    public ScheduleEventDb(String activityId, String name, Calendar startTime, Calendar endTime, List<Integer> daysOfWeek) {
+    @ColumnInfo(name = "active")
+    private Boolean isActive;
+
+    public ScheduleEventDb(String activityId, String name, Calendar startTime, Calendar endTime,
+                           List<Integer> daysOfWeek, Boolean isActive) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
+        this.isActive = isActive;
     }
 
     public String getId() {
@@ -98,6 +103,14 @@ public class ScheduleEventDb {
 
     public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
 }
