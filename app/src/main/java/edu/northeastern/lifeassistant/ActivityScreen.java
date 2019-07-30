@@ -32,7 +32,7 @@ public class ActivityScreen extends AppCompatActivity {
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-        final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
+        List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
             activities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));

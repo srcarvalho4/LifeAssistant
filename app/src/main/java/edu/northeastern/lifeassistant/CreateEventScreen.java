@@ -23,8 +23,6 @@ import utils.ScheduleEvent;
 
 public class CreateEventScreen extends AppCompatActivity {
 
-    private AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-
     private List<String> activities = new ArrayList<>();
     private EditText eventNameEditText;
     private Spinner activitySpinner;

@@ -2,7 +2,6 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,77 +11,73 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
-import edu.northeastern.lifeassistant.db.models.RuleDb;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 import utils.Activity;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
 
-// TODO: ADD ACTIVITY COLOR PICKER
 public class CreateActivityScreen extends AppCompatActivity {
 
     private AppDatabase db;
 
-    ArrayList<String> rulesMenuItems = new ArrayList<>();
-    ArrayList<RuleAdapterItem> rules = new ArrayList<>();
+    private ArrayList<String> rulesMenuItems = new ArrayList<>();
+    private ArrayList<RuleAdapterItem> rules = new ArrayList<>();
 
+    private TextView titleTextView;
     private EditText activityNameEditText;
     private Button addRuleButton;
     private Button saveButton;
     private Button cancelButton;
 
-    ListView listView;
+    private ListView ruleListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_activity);
 
+        // Get db connection
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-        TextView textView = findViewById(R.id.createActivityTitle);
+        // Get widget references
+        titleTextView = findViewById(R.id.createActivityTitle);
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
+        addRuleButton = findViewById(R.id.createActivityAddRuleButton);
+        saveButton = findViewById(R.id.createActivitySaveButton);
+        cancelButton = findViewById(R.id.createActivityCancelButton);
+        ruleListView = findViewById(R.id.CreateActivityListView);
 
+        // Get values from previous screen
+        boolean isEdit = getIntent().getBooleanExtra("edit", false);
         String activityName = getIntent().getStringExtra("name");
-        Activity myActivity;
 
-
-        if (getIntent().getBooleanExtra("edit", false)) {
-            myActivity = new Activity(getApplicationContext(), activityName);
-            textView.setText("Edit Activity");
-            activityNameEditText.setText(myActivity.getName());
-            for (int i = 0; i < myActivity.getRules().size(); i++) {
-                rules.add(new RuleAdapterItem(myActivity.getRules().get(i)));
-                rulesMenuItems.add(rules.get(i).getName());
-            }
-        } else {
-            textView.setText("Create Activity");
+        // Populate Rule menu items
+        for(SettingType settingType: SettingType.values()) {
+            rulesMenuItems.add(settingType.getValue());
         }
 
+        // Populate widgets if isEdit
+        if (isEdit) {
+            Activity currentActivity = new Activity(getApplicationContext(), activityName);
+            titleTextView.setText(R.string.edit_activity_title);
+            activityNameEditText.setText(activityName);
+            currentActivity.getRules().forEach(rule -> rules.add(new RuleAdapterItem(rule)));
+        } else {
+            titleTextView.setText(R.string.create_activity_title);
+        }
 
+        // Set Rule ListView Adapter
+        ruleListView.setAdapter(new RuleAdapter(this, rules));
 
-        listView = findViewById(R.id.CreateActivityListView);
-
-        RuleAdapter adapter = new RuleAdapter(this, rules);
-
-        listView.setAdapter(adapter);
-
-        addRuleButton = findViewById(R.id.createActivityAddRuleButton);
-
-
+        // Show menu onClick
         addRuleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(CreateActivityScreen.this, addRuleButton);
-
-                for (String rule : rulesMenuItems) {
-                    popup.getMenu().add(rule);
-                }
-
+                rulesMenuItems.forEach(rule -> popup.getMenu().add(rule));
                 popup.getMenuInflater().inflate(R.menu.add_rule_menu, popup.getMenu());
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -97,19 +92,25 @@ public class CreateActivityScreen extends AppCompatActivity {
             }
         });
 
-        saveButton = findViewById(R.id.createActivitySaveButton);
-        cancelButton = findViewById(R.id.createActivityCancelButton);
-
+        // Save Activity onClick
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String activityName = activityNameEditText.getText().toString();
-                ActivityDb activityDb = new ActivityDb(activityName, Color.BLUE);
-                db.activityDao().insert(activityDb);
-
-                for (RuleAdapterItem rule: rules) {
+//                String activityName = activityNameEditText.getText().toString();
+//                ActivityDb activityDb = new ActivityDb(activityName, Color.BLUE);
+//                db.activityDao().insert(activityDb);
+//
+//                for (RuleAdapterItem rule: rules) {
 //                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.get));
-                }
+//                }
+            }
+        });
+
+        // Abort and redirect onClick
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

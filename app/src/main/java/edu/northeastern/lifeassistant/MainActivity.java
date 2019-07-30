@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
