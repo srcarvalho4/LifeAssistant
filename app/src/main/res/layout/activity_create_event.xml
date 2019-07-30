@@ -86,10 +86,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:full_size="false"
-            app:highlight_color="#2196F3"
+            app:highlight_color="@color/colorPrimary"
             app:sunday_first_day="true"
-            app:text_color="#F2F2F2"
+            app:text_color="@color/white"
             app:weekenddarker="false" />
+
+        <Switch
+            android:id="@+id/createEventReminderSwitch"
+            android:layout_width="300dp"
+            android:layout_marginStart="4dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/textDefault"
+            android:layout_gravity="center"
+            android:text="@string/event_reminder_label" />
+
 
         <LinearLayout
             android:id="@+id/createEventParentTimeLinearLayout"
@@ -165,6 +176,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
     </LinearLayout>
 
