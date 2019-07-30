@@ -11,4 +11,6 @@
     <color name="textDefault">#808080</color>
     <color name="green">#73B342</color>
     <color name="red">#F85F51</color>
+    <color name="yellow">#EDEC39</color>
+    <color name="blue">#4866E1</color>
 </resources>

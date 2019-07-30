@@ -3,6 +3,7 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,11 +11,15 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
+import utils.Activity;
 import utils.EventAdapter;
+import utils.Rule;
 import utils.ScheduleEvent;
 
 public class ScheduleScreen extends AppCompatActivity {
@@ -23,7 +28,10 @@ public class ScheduleScreen extends AppCompatActivity {
 
     AppDatabase db;
 
+    int current = -1;
+
     ArrayList<ScheduleEvent> events = new ArrayList<>();
+    ArrayList<Activity> allActivities = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +43,53 @@ public class ScheduleScreen extends AppCompatActivity {
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
         final List<ScheduleEventDb> scheduleEventDb = db.scheduleEventDao().findAllScheduleEvents();
+        final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < scheduleEventDb.size(); i++) {
             events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
         }
 
+        for (int i = 0; i < activityDb.size(); i++) {
+            allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
+        }
+
+//        populateList();
+
         EventAdapter adapter = new EventAdapter(this, events);
 
         listView.setAdapter(adapter);
 
-        Button button = findViewById(R.id.scheduleActivityButton);
+        Button addButton = findViewById(R.id.scheduleActivityButtonAdd);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ScheduleScreen.this, CreateEventScreen.class);
                 intent.putExtra("edit", false);
                 startActivity(intent);
+            }
+        });
+
+        Button filterButton = findViewById(R.id.scheduleActivityButtonFilter);
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                current++;
+                ArrayList<ScheduleEvent> newEvents = new ArrayList<>();
+                if (current >= allActivities.size()) {
+                    current = -1;
+                    newEvents = events;
+                }
+                else {
+                    Activity filterActivity = allActivities.get(current);
+                    for (int i = 0; i < events.size(); i++) {
+                        if (events.get(i).getActivityType().getName().equals(filterActivity.getName())) {
+                            newEvents.add(events.get(i));
+                        }
+                    }
+                }
+                adapter.updateData(newEvents);
             }
         });
 
@@ -72,6 +110,10 @@ public class ScheduleScreen extends AppCompatActivity {
 //        Activity runningActivity = new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>());
 //        Activity classActivity = new Activity(Color.rgb(220,120, 120), "Class", new ArrayList<Rule>());
 //        Activity studyActivity = new Activity(Color.rgb(140,140, 240), "Studying", new ArrayList<Rule>());
+//
+//        allActivities.add(runningActivity);
+//        allActivities.add(classActivity);
+//        allActivities.add(studyActivity);
 //
 //        Calendar startTime1 = Calendar.getInstance();
 //        startTime1.set(Calendar.AM_PM, Calendar.AM);

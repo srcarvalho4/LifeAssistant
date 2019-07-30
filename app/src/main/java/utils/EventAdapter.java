@@ -37,6 +37,11 @@ public class EventAdapter extends BaseAdapter {
         return 0;
     }
 
+    public void updateData(ArrayList<ScheduleEvent> events) {
+        this.events = events;
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
