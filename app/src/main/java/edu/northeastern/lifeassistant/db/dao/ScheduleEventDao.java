@@ -26,6 +26,9 @@ public interface ScheduleEventDao {
     @Query("SELECT * FROM schedule_events WHERE id = :id")
     public ScheduleEventDb findScheduleEventById(String id);
 
+    @Query("SELECT * FROM schedule_events WHERE name = :name")
+    public ScheduleEventDb findScheduleEventByName(String name);
+
     @Query("SELECT * FROM schedule_events WHERE activity_id = :activityId")
     public List<ScheduleEventDb> findScheduleEventsForActivity(String activityId);
 
