@@ -47,14 +47,14 @@ public class ScheduleEventDb {
     private Boolean isActive;
 
     public ScheduleEventDb(String activityId, String name, Calendar startTime, Calendar endTime,
-                           List<Integer> daysOfWeek, Boolean isActive) {
+                           List<Integer> daysOfWeek) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
-        this.isActive = isActive;
+        this.isActive = false;
     }
 
     public String getId() {

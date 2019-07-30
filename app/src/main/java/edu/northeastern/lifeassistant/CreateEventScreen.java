@@ -2,6 +2,7 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.dpro.widgets.WeekdaysPicker;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +21,8 @@ import java.util.Locale;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
+import utils.Activity;
 import utils.ScheduleEvent;
 
 public class CreateEventScreen extends AppCompatActivity {
@@ -95,6 +100,30 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Save event onClick
         saveButton.setOnClickListener(view -> {
+            String selectedActivityName = activitySpinner.getSelectedItem().toString();
+            String selectedActivityId = db.activityDao().findActivityByName(selectedActivityName).getId();
+            String newEventName = eventNameEditText.getText().toString();
+            String newEventStartTimeString = eventStartTimeEditText.getText().toString();
+            String newEventEndTimeString = eventEndTimeEditText.getText().toString();
+            Calendar newEventStartTime = Calendar.getInstance();
+            Calendar newEventEndTime = Calendar.getInstance();
+            List<Integer> newEventDays = weekdaysPicker.getSelectedDays();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.US);
+            try {
+                newEventStartTime.setTime(sdf.parse(newEventStartTimeString));
+                newEventEndTime.setTime(sdf.parse(newEventEndTimeString));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, newEventName,
+                    newEventStartTime, newEventEndTime, newEventDays);
+
+            db.scheduleEventDao().insert(scheduleEventDb);
+
+            Intent intent = new Intent(this, ScheduleScreen.class);
+            startActivity(intent);
         });
 
     }
