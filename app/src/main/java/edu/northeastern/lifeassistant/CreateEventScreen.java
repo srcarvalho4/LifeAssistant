@@ -3,13 +3,12 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +22,9 @@ import utils.ScheduleEvent;
 
 public class CreateEventScreen extends AppCompatActivity {
 
-    private List<String> activities = new ArrayList<>();
+    private AppDatabase db;
+
+    private TextView titleTextView;
     private EditText eventNameEditText;
     private Spinner activitySpinner;
     private WeekdaysPicker weekdaysPicker;
@@ -37,14 +38,10 @@ public class CreateEventScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
-        // Temporary spinner list
-        List<ActivityDb> activityDb = AppDatabase.getAppDatabase(getApplicationContext()).activityDao().findAllActivities();
-        for (int i = 0; i < activityDb.size(); i++) {
-            activities.add(activityDb.get(i).getName());
-        }
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         // Get widget references
-        TextView title = findViewById(R.id.editActivityTitle);
+        titleTextView = findViewById(R.id.editActivityTitle);
         eventNameEditText = findViewById(R.id.createEventNameEditText);
         activitySpinner = findViewById(R.id.createEventActivitySpinner);
         weekdaysPicker = findViewById(R.id.createEventDayPicker);
@@ -53,26 +50,29 @@ public class CreateEventScreen extends AppCompatActivity {
         cancelButton = findViewById(R.id.createEventCancelButton);
         saveButton = findViewById(R.id.createEventSaveButton);
 
+        // Local variables
+        List<String> activityNames = new ArrayList<>();
 
 
         if (getIntent().getBooleanExtra("edit", false)) {
             String eventName = getIntent().getStringExtra("name");
-            ScheduleEvent myEvent = new ScheduleEvent(getApplicationContext(), eventName);
-            title.setText("Edit Activity");
-            eventNameEditText.setText(myEvent.getName());
-            eventStartTimeEditText.setText(myEvent.getStartTimeText());
-            eventEndTimeEditText.setText(myEvent.getEndTimeText());
-            weekdaysPicker.setSelectedDays(myEvent.getDayData());
+            ScheduleEvent currentEvent = new ScheduleEvent(getApplicationContext(), eventName);
+            titleTextView.setText("Edit Schedule Event");
+            eventNameEditText.setText(currentEvent.getName());
+            eventStartTimeEditText.setText(currentEvent.getStartTimeText());
+            eventEndTimeEditText.setText(currentEvent.getEndTimeText());
+            weekdaysPicker.setSelectedDays(currentEvent.getDayData());
         }
         else {
-            title.setText("Create Activity");
+            titleTextView.setText("Create Schedule Event");
         }
 
 
 
         // Add activity list to spinner
+        db.activityDao().findAllActivities().forEach(a -> activityNames.add(a.getName()));
         activitySpinner.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, activities));
+                android.R.layout.simple_dropdown_item_1line, activityNames));
 
         // Clear DayPicker default selections
         weekdaysPicker.setSelectedDays(new ArrayList<>());
