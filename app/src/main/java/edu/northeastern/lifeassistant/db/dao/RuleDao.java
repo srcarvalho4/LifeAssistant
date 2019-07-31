@@ -6,27 +6,27 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
-import edu.northeastern.lifeassistant.db.models.Rule;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 
 @Dao
 public interface RuleDao {
 
     @Insert
-    public void insert(Rule rules);
+    public void insert(RuleDb rules);
 
     @Update
-    public void update(Rule rule);
+    public void update(RuleDb ruleDb);
 
     @Delete
-    public void delete(Rule rule);
+    public void delete(RuleDb ruleDb);
 
     @Query("SELECT * FROM rules")
-    public List<Rule> findAllRules();
+    public List<RuleDb> findAllRules();
 
     @Query("SELECT * FROM rules WHERE id = :id")
-    public Rule findRuleById(String id);
+    public RuleDb findRuleById(String id);
 
     @Query("SELECT * FROM rules WHERE activity_id = :activityId")
-    public List<Rule> findRulesForActivity(String activityId);
+    public List<RuleDb> findRulesForActivity(String activityId);
 
 }

@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CreateEventScreen"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/createEventMainLinearLayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".CreateEventActivity"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/createEventToolbar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#4287f5"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title="@string/create_event_title"
-            app:titleTextColor="#F2F2F2" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/editActivityTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:text="@string/create_event_title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/CreateEventDescription"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/back_arrow"/>
+    </FrameLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="15.5">
 
         <TextView
             android:id="@+id/createEventNameLabel"
@@ -59,14 +88,6 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
 
-        <!--<ca.antonious.materialdaypicker.MaterialDayPicker-->
-            <!--android:id="@+id/createEventDayPicker"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginEnd="15dp"-->
-            <!--android:layout_marginTop="50dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
         <com.dpro.widgets.WeekdaysPicker
             android:id="@+id/createEventDayPicker"
             android:layout_width="match_parent"
@@ -76,10 +97,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:full_size="false"
-            app:highlight_color="#2196F3"
+            app:highlight_color="@color/colorPrimary"
             app:sunday_first_day="true"
-            app:text_color="#F2F2F2"
+            app:text_color="@color/white"
             app:weekenddarker="false" />
+
+        <Switch
+            android:id="@+id/createEventReminderSwitch"
+            android:layout_width="300dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/textDefault"
+            android:layout_gravity="center"
+            android:text="@string/event_reminder_label" />
 
         <LinearLayout
             android:id="@+id/createEventParentTimeLinearLayout"
@@ -156,36 +188,38 @@
 
         </LinearLayout>
 
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/createEventButtonLinearLayout"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
 
         <Button
             android:id="@+id/createEventCancelButton"
-            android:background="#F85F51"
+            android:background="@color/red"
             android:text="@string/cancel_button_text"
-            android:textColor="#F2F2F2"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/createEventSaveButton"
-            android:background="#93D358"
+            android:background="@color/green"
             android:text="@string/save_button_text"
-            android:textColor="#F2F2F2"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
+

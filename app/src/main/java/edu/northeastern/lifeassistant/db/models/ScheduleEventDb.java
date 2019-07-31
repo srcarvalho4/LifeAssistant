@@ -13,7 +13,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "schedule_events",
         foreignKeys = {
-            @ForeignKey(entity = Activity.class,
+            @ForeignKey(entity = ActivityDb.class,
                     parentColumns = "id",
                     childColumns = "activity_id",
                     onUpdate = CASCADE,
@@ -22,11 +22,14 @@ import static androidx.room.ForeignKey.CASCADE;
         indices = {
             @Index(value="activity_id")
         })
-public class ScheduleEvent {
+public class ScheduleEventDb {
 
     @PrimaryKey
     @NonNull
     private String id;
+
+    @ColumnInfo(name = "name")
+    private String name;
 
     @ColumnInfo(name = "activity_id")
     private String activityId;
@@ -40,12 +43,22 @@ public class ScheduleEvent {
     @ColumnInfo(name = "days_of_week")
     private List<Integer> daysOfWeek;
 
-    public ScheduleEvent(String activityId, Calendar startTime, Calendar endTime, List<Integer> daysOfWeek) {
+    @ColumnInfo(name = "reminder_switch_state")
+    private Boolean reminderSwitchState;
+
+    @ColumnInfo(name = "active")
+    private Boolean isActive;
+
+    public ScheduleEventDb(String activityId, String name, Calendar startTime, Calendar endTime,
+                           List<Integer> daysOfWeek, Boolean reminderSwitchState) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
+        this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
+        this.reminderSwitchState = reminderSwitchState;
+        this.isActive = false;
     }
 
     public String getId() {
@@ -62,6 +75,14 @@ public class ScheduleEvent {
 
     public void setActivityId(String activityId) {
         this.activityId = activityId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Calendar getStartTime() {
@@ -86,6 +107,22 @@ public class ScheduleEvent {
 
     public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
+    }
+
+    public Boolean getReminderSwitchState() {
+        return reminderSwitchState;
+    }
+
+    public void setReminderSwitchState(Boolean reminderSwitchState) {
+        this.reminderSwitchState = reminderSwitchState;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
 }

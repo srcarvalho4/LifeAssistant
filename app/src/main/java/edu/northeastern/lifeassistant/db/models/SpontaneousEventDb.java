@@ -10,9 +10,9 @@ import java.util.Calendar;
 import java.util.UUID;
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "spontaneous_event",
+@Entity(tableName = "spontaneous_events",
         foreignKeys = {
-            @ForeignKey(entity = Activity.class,
+            @ForeignKey(entity = ActivityDb.class,
                     parentColumns = "id",
                     childColumns = "activity_id",
                     onUpdate = CASCADE,
@@ -21,7 +21,7 @@ import static androidx.room.ForeignKey.CASCADE;
         indices = {
             @Index(value="activity_id")
         })
-public class SpontaneousEvent {
+public class SpontaneousEventDb {
 
     @PrimaryKey
     @NonNull
@@ -30,10 +30,10 @@ public class SpontaneousEvent {
     @ColumnInfo(name = "activity_id")
     private String activityId;
 
-    @ColumnInfo(name = "startTime")
+    @ColumnInfo(name = "start_time")
     private Calendar startTime;
 
-    @ColumnInfo(name = "endTime")
+    @ColumnInfo(name = "end_time")
     private Calendar endTime;
 
     @ColumnInfo(name = "active")
@@ -48,8 +48,8 @@ public class SpontaneousEvent {
     @ColumnInfo(name = "final_value")
     private String finalValue;
 
-    public SpontaneousEvent(String activityId, Calendar endTime, String startValue, String endValue,
-                            String finalValue) {
+    public SpontaneousEventDb(String activityId, Calendar endTime, String startValue, String endValue,
+                              String finalValue) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
         this.startTime = Calendar.getInstance();

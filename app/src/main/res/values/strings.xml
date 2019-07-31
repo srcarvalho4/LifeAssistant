@@ -2,17 +2,17 @@
     <string name="app_name">LifeAssistant</string>
     <string name="MainPageTitle">Life Assistant</string>
     <string name="MainPageStartButton">Let\'s Begin</string>
-    <string name="ActivityPageTitle">Activity</string>
-    <string name="SchedulePageTitle">Schedule</string>
-    <string name="SpontaneousPageTitle">Spontaneous</string>
+    <string name="Activity">Activity</string>
+    <string name="Schedule">Schedule</string>
+    <string name="Spontaneous">Spontaneous</string>
+    <string name="Active">Currently Active</string>
+    <string name="ActivityDescription">Create an Activity and decide what it does</string>
+    <string name="CreateActivityDescription">Decide what this Activity will do</string>
+    <string name="ScheduleDescription">Schedule Activities To Happen Automatically</string>
+    <string name="CreateEventDescription">Decide when this Event will Happen</string>
+    <string name="SpontaneousDescription">Start an Activity Instantly</string>
+    <string name="ActiveDescription">Start or stop an existing activity</string>
 
-    <string name="NavigationBarActivity">Activity</string>
-    <string name="NavigationBarSpontaneous">Spontaneous</string>
-    <string name="NavigationBarSchedule">Schedule</string>
-
-    <string name="title_activity">Activity</string>
-    <string name="title_scheduler">Scheduler</string>
-    <string name="title_spontaneous">Spontaneous</string>
     <string name="title_activity_main_navigation">MainNavigationActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -22,6 +22,9 @@
 
     <string name="event_name_label">Event Name</string>
     <string name="event_name_hint">Enter Event Name</string>
+
+    <string name="event_reminder_label">10 Minute Reminder</string>
+    <string name="activity_color_label">Chose a Color</string>
 
     <string name="activity_label">Activity</string>
     <string name="activity_spinner_hint">Select Activity</string>
@@ -44,6 +47,7 @@
     </string-array>
 
     <string name="create_activity_title">Create Activity</string>
+    <string name="edit_activity_title">Edit Activity</string>
 
     <string name="activity_name_label">Activity Name</string>
     <string name="activity_name_hint">Enter Activity Name</string>

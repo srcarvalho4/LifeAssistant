@@ -9,16 +9,27 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:text="@string/SpontaneousPageTitle"
-        android:textSize="48sp"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/Active"
+        android:textSize="40sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/ActiveDescription"
+        android:textSize="16sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="16">
+        android:layout_weight="15">
 
         <LinearLayout
             android:id="@+id/SpontaneousActiveColorArea"
@@ -37,49 +48,28 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/SpontaneousActiveButton"
+            android:onClick="toggleActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/spontaneousStartButton"
-                android:onClick="startButtonClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="@string/start_button_text"
-                android:textSize="20sp"
-                android:layout_marginEnd="10dp"/>
-
-            <Button
-                android:id="@+id/spontaneousEndButton"
-                android:onClick="stopButtonClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/stop_button_text"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp"/>
-
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:text="@string/start_button_text"
+            android:textSize="20sp"/>
 
 
-        <ProgressBar
-            android:id="@+id/spontaneousProgress"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            style="@android:style/Widget.ProgressBar.Large"
-            android:indeterminateOnly="false"
-            android:progress="0"
-            android:max="100"/>
+        <TextView
+            android:id="@+id/SpontaneousActiveStepCounter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="0sp"/>
 
         <TextView
             android:id="@+id/spontaneousRulesHeading"
             android:text="Rules:"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:textSize="30sp"
             android:layout_width="wrap_content"

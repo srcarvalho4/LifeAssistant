@@ -1,24 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateActivityActivity">
+    android:orientation="vertical"
+    tools:context=".CreateActivityScreen">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/createActivityToolbar"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#4287f5"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title="@string/create_activity_title"
-            app:titleTextColor="#F2F2F2" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/createActivityTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:text="@string/create_activity_title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/CreateActivityDescription"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/back_arrow"/>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15.5"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/createActivityNameLabel"
@@ -37,6 +67,43 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/createActivityColorLabel"
+            android:text="@string/activity_color_label"
+            android:textSize="18sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="4dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/red"/>
+            <Button
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:background="@color/yellow"/>
+            <Button
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:background="@color/green"/>
+            <Button
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:background="@color/blue"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/createActivityAddRuleButton"
@@ -57,35 +124,33 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
-        android:id="@+id/createEventButtonLinearLayout"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/createActivityButtonLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        >
 
         <Button
-            android:id="@+id/createEventCancelButton"
-            android:background="#F85F51"
+            android:id="@+id/createActivityCancelButton"
+            android:background="@color/red"
             android:text="@string/cancel_button_text"
-            android:textColor="#F2F2F2"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/createEventSaveButton"
-            android:background="#93D358"
+            android:id="@+id/createActivitySaveButton"
+            android:background="@color/green"
             android:text="@string/save_button_text"
-            android:textColor="#F2F2F2"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

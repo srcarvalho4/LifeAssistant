@@ -1,6 +1,8 @@
 package utils;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,10 +11,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import edu.northeastern.lifeassistant.R;
+import edu.northeastern.lifeassistant.db.AppDatabase;
 
 public class ActivityAdapter extends BaseAdapter {
 
-    Context context;
+    final Context context;
     ArrayList<Activity> activities;
 
     public ActivityAdapter(Context context, ArrayList<Activity> activities) {
@@ -47,6 +50,15 @@ public class ActivityAdapter extends BaseAdapter {
 
             viewHolder.textView = view.findViewById(R.id.activityItemText);
 
+//            viewHolder.textView.setOnTouchListener(new View.OnTouchListener() {
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    if (MotionEvent.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+//                        AppDatabase.getAppDatabase(context);
+//                    }
+//                    return false;
+//                }
+//            });
+
             view.setTag(viewHolder);
         }
         else {
@@ -54,7 +66,7 @@ public class ActivityAdapter extends BaseAdapter {
         }
 
 
-        viewHolder.textView.setText(activities.get(i).getTypeName());
+        viewHolder.textView.setText(activities.get(i).getName());
         viewHolder.textView.setBackgroundColor(activities.get(i).getColor());
 
 
@@ -64,4 +76,5 @@ public class ActivityAdapter extends BaseAdapter {
 
 class ActivityViewHolder {
     TextView textView;
+
 }

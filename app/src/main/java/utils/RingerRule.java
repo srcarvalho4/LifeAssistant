@@ -2,6 +2,8 @@ package utils;
 
 import android.media.AudioManager;
 
+import edu.northeastern.lifeassistant.db.models.RuleDb;
+
 public class RingerRule implements Rule {
 
     int previousState;
@@ -13,6 +15,10 @@ public class RingerRule implements Rule {
         this.previousState = AudioManager.ADJUST_MUTE;
         //audioManager = new AudioManager(); -> says constructor can't be used???
         this.ruleState = desiredRingerMode;
+    }
+
+    public RingerRule(RuleDb db) {
+        this(db.getSettingValue());
     }
 
     @Override
@@ -28,6 +34,6 @@ public class RingerRule implements Rule {
 
     @Override
     public String getName() {
-        return "Sound";
+        return "Ringer";
     }
 }

@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+
 public class SplashScreen extends AppCompatActivity {
 
     Button getStarted;

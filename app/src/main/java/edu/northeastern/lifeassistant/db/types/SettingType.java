@@ -2,16 +2,10 @@ package edu.northeastern.lifeassistant.db.types;
 
 public enum SettingType {
 
-    VOLUME("volume"),
-    LOCATION("location"),
-    STEP_COUNT("step_count"),
-    BRIGHTNESS("brightness"),
-    AIRPLANE_MODE("airplane_mode"),
-    DO_NOT_DISTURB("do_not_disturb"),
-    POWER_SAVER("power_saver"),
-    DRIVING_MODE("driving_mode"),
-    BLUETOOTH("bluetooth"),
-    FLASHLIGHT("flashlight");
+    VOLUME("Volume"),
+    STEP_COUNT("Step Count"),
+    DRIVING_MODE("Driving Mode"),
+    NIGHT_MODE("Night Mode");
 
     private String value;
 
@@ -22,5 +16,4 @@ public enum SettingType {
     public String getValue() {
         return this.value;
     }
-
 }
