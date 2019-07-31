@@ -19,10 +19,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
-import utils.ScheduleEvent;
+import utils.SetAlarmManager;
 
 public class CreateEventScreen extends AppCompatActivity {
 
@@ -157,10 +159,18 @@ public class CreateEventScreen extends AppCompatActivity {
             scheduleEventDb.setReminderSwitchState(reminderSwitchState);
             scheduleEventDb.setDaysOfWeek(eventDays);
             db.scheduleEventDao().update(scheduleEventDb);
+            SetAlarmManager.setAlarm(this, scheduleEventDb);
+            if (reminderSwitchState) {
+                SetAlarmManager.setReminder(this, scheduleEventDb, 10);
+            }
         } else {
             ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, eventName,
                     eventStartTime, eventEndTime, eventDays, reminderSwitchState);
             db.scheduleEventDao().insert(scheduleEventDb);
+            SetAlarmManager.setAlarm(this, scheduleEventDb);
+            if (reminderSwitchState) {
+                SetAlarmManager.setReminder(this, scheduleEventDb, 10);
+            }
         }
     }
 
