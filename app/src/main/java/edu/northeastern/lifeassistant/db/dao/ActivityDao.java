@@ -29,4 +29,8 @@ public interface ActivityDao {
     @Query("SELECT * FROM activities WHERE name = :name")
     public ActivityDb findActivityByName(String name);
 
+    @Query("SELECT a.* FROM activities a JOIN schedule_events s " +
+            "ON a.id = s.activity_id WHERE s.id = :scheduleEventId")
+    public ActivityDb findActivityByEventId(String scheduleEventId);
+
 }
