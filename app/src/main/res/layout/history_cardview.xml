@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewHistoryIcon1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_runningman" />
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewActivityName1"
+                android:layout_width="match_parent"
+                android:textSize="30sp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="Activity Name" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewStartTime1"
+                    android:text="Start Time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/textViewEndTime1"
+                    android:text="End Time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewEntryId1"
+                android:text="Entry ID"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/textViewStepCount1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
