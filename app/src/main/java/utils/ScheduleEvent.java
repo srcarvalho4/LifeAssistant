@@ -35,7 +35,7 @@ public class ScheduleEvent {
         ScheduleEventDb event = AppDatabase.getAppDatabase(applicationContext).scheduleEventDao().findScheduleEventById(eventId);
         ActivityDb activityDb = AppDatabase.getAppDatabase(applicationContext).activityDao().findActivityById(event.getActivityId());
         this.activityType = new Activity(applicationContext, event.getActivityId());
-        this.name = "Name is Missing (Bug)";
+        this.name = event.getName();
         this.startTime = event.getStartTime();
         this.endTime = event.getEndTime();
         this.days = new ArrayList<>(event.getDaysOfWeek());
