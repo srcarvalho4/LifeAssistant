@@ -46,13 +46,13 @@ public class ScheduleScreen extends AppCompatActivity {
         final List<ScheduleEventDb> scheduleEventDb = db.scheduleEventDao().findAllScheduleEvents();
         final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
-//        for (int i = 0; i < scheduleEventDb.size(); i++) {
-//            events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
-//        }
-//
-//        for (int i = 0; i < activityDb.size(); i++) {
-//            allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
-//        }
+        for (int i = 0; i < scheduleEventDb.size(); i++) {
+            events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
+        }
+
+        for (int i = 0; i < activityDb.size(); i++) {
+            allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
+        }
 
 //        populateList();
 
