@@ -13,5 +13,9 @@ public interface Rule {
     //Returns the name of the rule for display purposes
     String getName();
 
-//    Map<Integer, String> getSettingValue();
+    //Returns a map of display values to functional values
+    Map<Integer, String> getSettingValues();
+
+    //Returns the current setting
+    int getSetting();
 }

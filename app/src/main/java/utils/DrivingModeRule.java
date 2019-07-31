@@ -3,6 +3,9 @@ package utils;
 import android.app.UiModeManager;
 import android.content.Context;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 
 public class DrivingModeRule implements Rule {
@@ -41,5 +44,18 @@ public class DrivingModeRule implements Rule {
     @Override
     public String getName() {
         return "DrivingMode";
+    }
+
+    @Override
+    public int getSetting() {
+        return desiredValue;
+    }
+
+    @Override
+    public Map<Integer, String> getSettingValues() {
+        Map<Integer, String> values = new HashMap<>();
+        values.put(1, "On");
+        values.put(0, "Off");
+        return values;
     }
 }

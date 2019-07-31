@@ -2,12 +2,17 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +21,8 @@ import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.types.SettingType;
 import utils.Activity;
+import utils.ColorAdapter;
+import utils.ColorPicker;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
 
@@ -25,6 +32,7 @@ public class CreateActivityScreen extends AppCompatActivity {
 
     private ArrayList<String> rulesMenuItems = new ArrayList<>();
     private ArrayList<RuleAdapterItem> rules = new ArrayList<>();
+    private ArrayList<ColorPicker> colorOptions = new ArrayList<>();
 
     private TextView titleTextView;
     private EditText activityNameEditText;
@@ -33,6 +41,11 @@ public class CreateActivityScreen extends AppCompatActivity {
     private Button cancelButton;
 
     private ListView ruleListView;
+
+    private Button redColor;
+    private Button yellowColor;
+    private Button greenColor;
+    private Button blueColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,22 +65,45 @@ public class CreateActivityScreen extends AppCompatActivity {
 
         // Get values from previous screen
         boolean isEdit = getIntent().getBooleanExtra("edit", false);
-        String activityName = getIntent().getStringExtra("name");
+        String activityId = getIntent().getStringExtra("activityId");
 
         // Populate Rule menu items
         for(SettingType settingType: SettingType.values()) {
             rulesMenuItems.add(settingType.getValue());
         }
 
+        //put colors into the color picker
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.red), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.yellow), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.green), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.blue), false));
+
+        ColorAdapter adapter = new ColorAdapter(getApplicationContext(), colorOptions);
+
+        GridView colorGrid = findViewById(R.id.createActivityColorGrid);
+
+
         // Populate widgets if isEdit
         if (isEdit) {
-            Activity currentActivity = new Activity(getApplicationContext(), activityName);
+            Activity currentActivity = new Activity(getApplicationContext(), activityId);
             titleTextView.setText(R.string.edit_activity_title);
-            activityNameEditText.setText(activityName);
+            activityNameEditText.setText(currentActivity.getName());
             currentActivity.getRules().forEach(rule -> rules.add(new RuleAdapterItem(rule)));
-        } else {
+            for (int i = 0; i < colorOptions.size(); i++) {
+                if (currentActivity.getColor() == colorOptions.get(i).getColor()) {
+                    colorOptions.get(i).setSelected(true);
+                }
+            }
+        }
+        else {
             titleTextView.setText(R.string.create_activity_title);
         }
+
+
+
+        colorGrid.setAdapter(adapter);
+
+
 
         // Set Rule ListView Adapter
         ruleListView.setAdapter(new RuleAdapter(this, rules));
@@ -110,8 +146,12 @@ public class CreateActivityScreen extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                startActivity(intent);
             }
         });
+
+
+
     }
 }
