@@ -86,7 +86,7 @@ public class SpontaneousScreen extends AppCompatActivity {
         switch (rule.getSetting()) {
             case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
             case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
-            case VOLUME: return new RingerRule(rule.getSettingValue());
+            case VOLUME: return new RingerRule(getApplicationContext(), rule.getSettingValue());
             default: throw new IllegalArgumentException("need a valid state type");
         }
     }

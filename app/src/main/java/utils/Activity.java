@@ -38,7 +38,7 @@ public class Activity {
             switch (rule.getSetting()) {
                 case DRIVING_MODE: newRule = new DrivingModeRule(applicationContext, rule.getSettingValue()); break;
                 case NIGHT_MODE: newRule = new NightModeRule(applicationContext, rule.getSettingValue()); break;
-                case VOLUME: newRule = new RingerRule(rule.getSettingValue()); break;
+                case VOLUME: newRule = new RingerRule(applicationContext, rule.getSettingValue()); break;
                 default: throw new IllegalArgumentException("need a valid state type");
             }
             rules.add(newRule);
