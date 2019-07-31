@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +21,6 @@ import java.util.Locale;
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
-import utils.ScheduleEvent;
 
 public class CreateEventScreen extends AppCompatActivity {
 
@@ -82,7 +80,7 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Redirect to ScheduleScreen onClick
         cancelButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ScheduleScreen.class);
+            Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
             startActivity(intent);
         });
 
