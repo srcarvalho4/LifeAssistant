@@ -43,7 +43,12 @@ public class DisplayRule implements Rule {
     }
 
     @Override
-    public Map<Integer, String> getSettingValue() {
+    public Map<Integer, String> getSettingValues() {
         return new HashMap<>();
+    }
+
+    @Override
+    public int getSetting() {
+        return -1;
     }
 }
