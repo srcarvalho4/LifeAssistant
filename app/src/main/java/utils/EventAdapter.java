@@ -1,6 +1,7 @@
 package utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.dpro.widgets.WeekdaysPicker;
 import edu.northeastern.lifeassistant.R;
 
 public class EventAdapter extends BaseAdapter {
@@ -56,13 +58,7 @@ public class EventAdapter extends BaseAdapter {
             viewHolder.name = view.findViewById(R.id.eventItemName);
             viewHolder.startTime = view.findViewById(R.id.eventItemStartTime);
             viewHolder.endTime = view.findViewById(R.id.eventItemEndTime);
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemSunday));
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemMonday));
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemTuesday));
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemWednesday));
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemThursday));
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemFriday));
-            viewHolder.days.add((TextView) view.findViewById(R.id.eventItemSaturday));
+            viewHolder.dayPicker = view.findViewById(R.id.eventItemDayPicker);
 
             view.setTag(viewHolder);
         }
@@ -74,25 +70,38 @@ public class EventAdapter extends BaseAdapter {
         viewHolder.startTime.setText(events.get(i).getStartTimeText());
         viewHolder.endTime.setText(events.get(i).getEndTimeText());
         viewHolder.background.setBackgroundColor(events.get(i).getColor());
+        viewHolder.dayPicker.setSelectedDays(events.get(i).getDayData());
+        int color = events.get(i).getColor();
+        int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
+        int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
+        int darkColorB = (int) (((color) & 0xff) * 3 / 4);
+        int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
+        int lightColorR = (int) (((((color >> 16) & 0xff) - 255) / 2) + 255);
+        int lightColorG = (int) (((((color >>  8) & 0xff) - 255) / 2) + 255);
+        int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
+        int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
 
-        //Set default view to invisible
-        for (TextView dayView: viewHolder.days) {
-            dayView.setVisibility(View.INVISIBLE);
-        }
+//        viewHolder.startTime.setTextColor(darkColor);
+//        viewHolder.endTime.setTextColor(lightColor);
 
-        //Sets days to visible if included in the activity's days.
-        ArrayList<Integer> dayData = events.get(i).getDayData();
-        for (Integer day: dayData) {
-            switch (day) {
-                case Calendar.SUNDAY: viewHolder.days.get(0).setVisibility((View.VISIBLE)); break;
-                case Calendar.MONDAY: viewHolder.days.get(1).setVisibility((View.VISIBLE)); break;
-                case Calendar.TUESDAY: viewHolder.days.get(2).setVisibility((View.VISIBLE)); break;
-                case Calendar.WEDNESDAY: viewHolder.days.get(3).setVisibility((View.VISIBLE)); break;
-                case Calendar.THURSDAY: viewHolder.days.get(4).setVisibility((View.VISIBLE)); break;
-                case Calendar.FRIDAY: viewHolder.days.get(5).setVisibility((View.VISIBLE)); break;
-                case Calendar.SATURDAY: viewHolder.days.get(6).setVisibility((View.VISIBLE)); break;
-            }
-        }
+//        //Set default view to invisible
+//        for (TextView dayView: viewHolder.days) {
+//            dayView.setVisibility(View.INVISIBLE);
+//        }
+//
+//        //Sets days to visible if included in the activity's days.
+//        ArrayList<Integer> dayData = events.get(i).getDayData();
+//        for (Integer day: dayData) {
+//            switch (day) {
+//                case Calendar.SUNDAY: viewHolder.days.get(0).setVisibility((View.VISIBLE)); break;
+//                case Calendar.MONDAY: viewHolder.days.get(1).setVisibility((View.VISIBLE)); break;
+//                case Calendar.TUESDAY: viewHolder.days.get(2).setVisibility((View.VISIBLE)); break;
+//                case Calendar.WEDNESDAY: viewHolder.days.get(3).setVisibility((View.VISIBLE)); break;
+//                case Calendar.THURSDAY: viewHolder.days.get(4).setVisibility((View.VISIBLE)); break;
+//                case Calendar.FRIDAY: viewHolder.days.get(5).setVisibility((View.VISIBLE)); break;
+//                case Calendar.SATURDAY: viewHolder.days.get(6).setVisibility((View.VISIBLE)); break;
+//            }
+//        }
         return view;
     }
 }
@@ -102,5 +111,5 @@ class EventViewHolder {
     TextView name;
     TextView startTime;
     TextView endTime;
-    ArrayList<TextView> days = new ArrayList<>();
+    WeekdaysPicker dayPicker;
 }

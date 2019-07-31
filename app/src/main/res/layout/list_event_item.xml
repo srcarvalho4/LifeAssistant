@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <GridLayout
         android:id="@+id/EventItemGridLayout"
@@ -72,71 +72,19 @@
         android:textSize="20sp"
         />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_row="1"
+    <com.dpro.widgets.WeekdaysPicker
         android:layout_column="0"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/eventItemSunday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="Su"/>
-
-        <TextView
-            android:id="@+id/eventItemMonday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="M"/>
-
-        <TextView
-            android:id="@+id/eventItemTuesday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="Tu"/>
-
-        <TextView
-            android:id="@+id/eventItemWednesday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="W"/>
-
-        <TextView
-            android:id="@+id/eventItemThursday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="Th"/>
-
-        <TextView
-            android:id="@+id/eventItemFriday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="F"/>
-
-        <TextView
-            android:id="@+id/eventItemSaturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_margin="8dp"
-            android:text="Sa"/>
-
-
-    </LinearLayout>
+        android:layout_row="1"
+        android:id="@+id/eventItemDayPicker"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:full_size="false"
+        app:enabled="false"
+        app:highlight_color="@color/colorPrimary"
+        app:sunday_first_day="true"
+        app:text_color="@color/white"
+        app:weekenddarker="false" />
 
     </GridLayout>
 </LinearLayout>
