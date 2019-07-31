@@ -2,6 +2,10 @@ package utils;
 
 import android.app.UiModeManager;
 import android.content.Context;
+import android.media.AudioManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 
@@ -36,5 +40,18 @@ public class NightModeRule implements Rule {
     @Override
     public String getName() {
         return "NightMode";
+    }
+
+    @Override
+    public Map<Integer, String> getSettingValues() {
+        Map<Integer, String> values = new HashMap<>();
+        values.put(UiModeManager.MODE_NIGHT_YES, "On");
+        values.put(UiModeManager.MODE_NIGHT_NO, "Off");
+        return values;
+    }
+
+    @Override
+    public int getSetting() {
+        return desiredValue;
     }
 }
