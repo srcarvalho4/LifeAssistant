@@ -43,17 +43,21 @@ public class ScheduleEventDb {
     @ColumnInfo(name = "days_of_week")
     private List<Integer> daysOfWeek;
 
+    @ColumnInfo(name = "reminder_switch_state")
+    private Boolean reminderSwitchState;
+
     @ColumnInfo(name = "active")
     private Boolean isActive;
 
     public ScheduleEventDb(String activityId, String name, Calendar startTime, Calendar endTime,
-                           List<Integer> daysOfWeek) {
+                           List<Integer> daysOfWeek, Boolean reminderSwitchState) {
         this.id = UUID.randomUUID().toString();
         this.activityId = activityId;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
+        this.reminderSwitchState = reminderSwitchState;
         this.isActive = false;
     }
 
@@ -103,6 +107,14 @@ public class ScheduleEventDb {
 
     public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
+    }
+
+    public Boolean getReminderSwitchState() {
+        return reminderSwitchState;
+    }
+
+    public void setReminderSwitchState(Boolean reminderSwitchState) {
+        this.reminderSwitchState = reminderSwitchState;
     }
 
     public Boolean getActive() {

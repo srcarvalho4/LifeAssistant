@@ -88,14 +88,6 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
 
-        <!--<ca.antonious.materialdaypicker.MaterialDayPicker-->
-        <!--android:id="@+id/createEventDayPicker"-->
-        <!--android:layout_marginStart="15dp"-->
-        <!--android:layout_marginEnd="15dp"-->
-        <!--android:layout_marginTop="50dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
-
         <com.dpro.widgets.WeekdaysPicker
             android:id="@+id/createEventDayPicker"
             android:layout_width="match_parent"
@@ -114,12 +106,12 @@
             android:id="@+id/createEventReminderSwitch"
             android:layout_width="300dp"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textColor="@color/textDefault"
             android:layout_gravity="center"
             android:text="@string/event_reminder_label" />
-
 
         <LinearLayout
             android:id="@+id/createEventParentTimeLinearLayout"

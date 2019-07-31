@@ -97,8 +97,7 @@ public class ScheduleScreen extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ScheduleScreen.this, CreateEventScreen.class);
-
-                intent.putExtra("name", scheduleEventDb.get(i).getId());
+                intent.putExtra("eventId", scheduleEventDb.get(i).getId());
                 intent.putExtra("edit", true);
                 startActivity(intent);
             }
