@@ -81,8 +81,8 @@ public class EventAdapter extends BaseAdapter {
         int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
         int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
 
-        viewHolder.startTime.setTextColor(darkColor);
-        viewHolder.endTime.setTextColor(lightColor);
+//        viewHolder.startTime.setTextColor(darkColor);
+//        viewHolder.endTime.setTextColor(lightColor);
         viewHolder.dayPicker.setHighlightColor(darkColor);
         viewHolder.dayPicker.setTextColor(lightColor);
 
