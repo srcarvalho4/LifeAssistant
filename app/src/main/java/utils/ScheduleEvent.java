@@ -89,8 +89,15 @@ public class ScheduleEvent {
     }
 
     private void parseTimes() {
-        startText = "" + this.startTime.get(Calendar.HOUR) + ":";
+        startText = "";
 
+        if(this.startTime.get(Calendar.HOUR) == 0) {
+            startText += "12";
+        }
+        else {
+            startText += this.startTime.get(Calendar.HOUR);
+        }
+        startText += ":";
         if (this.startTime.get(Calendar.MINUTE) < 10) {
             startText += "0";
         }
@@ -103,8 +110,15 @@ public class ScheduleEvent {
         }
 
 
-        endText = "" + this.endTime.get(Calendar.HOUR) + ":";
+        endText = "";
 
+        if(this.endTime.get(Calendar.HOUR) == 0) {
+            endText += "12";
+        }
+        else {
+            endText += this.endTime.get(Calendar.HOUR);
+        }
+        endText += ":";
         if (this.endTime.get(Calendar.MINUTE) < 10) {
             endText += "0";
         }
