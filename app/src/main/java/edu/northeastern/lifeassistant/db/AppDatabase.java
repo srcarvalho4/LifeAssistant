@@ -18,23 +18,6 @@ import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
 import edu.northeastern.lifeassistant.db.dao.ActivityDao;
 import edu.northeastern.lifeassistant.db.dao.RuleDao;
 import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
-<<<<<<< HEAD
-import edu.northeastern.lifeassistant.db.dao.SettingDao;
-import edu.northeastern.lifeassistant.db.dao.SpontaneousEventDao;
-import edu.northeastern.lifeassistant.db.models.Activity;
-import edu.northeastern.lifeassistant.db.models.Rule;
-import edu.northeastern.lifeassistant.db.models.ScheduleEvent;
-import edu.northeastern.lifeassistant.db.models.Setting;
-import edu.northeastern.lifeassistant.db.models.SpontaneousEvent;
-import edu.northeastern.lifeassistant.db.types.ColorType;
-
-@Database(entities = {
-                Activity.class,
-                ScheduleEvent.class,
-                Rule.class,
-                Setting.class,
-        SpontaneousEvent.class
-=======
 import edu.northeastern.lifeassistant.db.dao.SpontaneousEventDao;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
@@ -46,7 +29,6 @@ import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
                 ScheduleEventDb.class,
                 RuleDb.class,
                 SpontaneousEventDb.class
->>>>>>> 68cff8cc67a9decbf9955bcf5221dcba73fb6981
             }, version = 1)
 @TypeConverters({
         CalendarTimeConverter.class,
@@ -62,8 +44,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ScheduleEventDao scheduleEventDao();
 
     public abstract RuleDao ruleDao();
-
-    public abstract SpontaneousEventDao spontaneousEventDao();
 
     public abstract SpontaneousEventDao spontaneousEventDao();
 

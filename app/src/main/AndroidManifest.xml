@@ -19,48 +19,20 @@
         <activity android:name=".SpontaneousScreen" />
         <activity android:name=".ScheduleScreen" />
         <activity android:name=".ActivityScreen" />
-<<<<<<< HEAD
-        <activity android:name=".CreateActivityActivity">
-
-=======
-
-        <activity android:name=".CreateActivityScreen">
->>>>>>> 68cff8cc67a9decbf9955bcf5221dcba73fb6981
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <activity android:name=".CreateActivityScreen" />
         <activity android:name=".MainActivity" />
-<<<<<<< HEAD
-        <activity android:name=".CreateEventActivity" />
-=======
-
-        <activity android:name=".CreateEventScreen">
-             <!--<intent-filter>-->
-             <!--<action android:name="android.intent.action.MAIN" />-->
-             <!--<category android:name="android.intent.category.LAUNCHER" />-->
-             <!--</intent-filter>-->
-        </activity>
-
->>>>>>> 68cff8cc67a9decbf9955bcf5221dcba73fb6981
+        <activity android:name=".CreateEventScreen" />
         <activity android:name=".SpontaneousActive" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-=======
-
         <service
             android:name="utils.SchedulerService"
             android:exported="false"/>
         <receiver android:process=":remote" android:name="utils.Alarm"></receiver>
-
->>>>>>> 68cff8cc67a9decbf9955bcf5221dcba73fb6981
     </application>
 
 </manifest>
