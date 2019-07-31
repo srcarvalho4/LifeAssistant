@@ -164,7 +164,7 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
         viewHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SpontaneousStepCounterActivity.this, StepsHistory.class);
+                Intent intent = new Intent(SpontaneousStepCounterActivity.this, HistoryActivity.class);
                 startActivity(intent);
             }
         });

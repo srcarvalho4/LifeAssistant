@@ -35,6 +35,9 @@ public interface SpontaneousEventDao {
     @Query("SELECT * FROM spontaneous_event WHERE active = 0")
     public List<SpontaneousEvent> findListOfCompletedSpontaneousActivities();
 
+    @Query("SELECT * FROM spontaneous_event WHERE endTime = null AND final_value= null")
+    public List<SpontaneousEvent> findNullEntries();
+
 
 
 }
