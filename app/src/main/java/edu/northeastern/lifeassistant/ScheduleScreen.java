@@ -53,7 +53,7 @@ public class ScheduleScreen extends AppCompatActivity {
             allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
 
-        populateList();
+//        populateList();
 
         EventAdapter adapter = new EventAdapter(this, events);
 
