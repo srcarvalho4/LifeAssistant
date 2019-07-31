@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.List;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
 public class SetAlarmManager {
@@ -45,6 +48,21 @@ public class SetAlarmManager {
         }
     }
 
+    //Returns the currently active event, else returns null
+    public static ScheduleEventDb getActiveScheduleEvent(Context context) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+
+        List<ScheduleEventDb> scheduleEvents = scheduleEventDao.findAllScheduleEvents();
+
+        for (ScheduleEventDb s : scheduleEvents) {
+            if (s.getActive()) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
     private static void setReminder(Context context, ScheduleEventDb event, Calendar time) {
         long weekInterval = 1000 * 60 * 60 * 24 * 7;
 
@@ -53,7 +71,7 @@ public class SetAlarmManager {
         //Start alarm
         Intent i1 = new Intent(context, Alarm.class);
         i1.putExtra("operation", "reminder");
-        i1.putExtra("eventName", event.getId());
+        i1.putExtra("eventID", event.getId());
 
         PendingIntent pi1 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, time), i1, 0);
         am.setRepeating(AlarmManager.RTC, time.getTimeInMillis(), weekInterval, pi1);
@@ -72,7 +90,7 @@ public class SetAlarmManager {
         Intent i1 = new Intent(context, Alarm.class);
         i1.putExtra("operation", "enable");
         i1.putExtra("activity", activityID);
-        i1.putExtra("eventName", event.getId());
+        i1.putExtra("eventID", event.getId());
 
         PendingIntent pi1 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, startTime), i1, 0);
         //am.setExact(AlarmManager.RTC, startTime.getTimeInMillis(), pi1);
@@ -83,7 +101,7 @@ public class SetAlarmManager {
         Intent i2 = new Intent(context, Alarm.class);
         i2.putExtra("operation", "disable");
         i2.putExtra("activity", activityID);
-        i2.putExtra("eventName", event.getId());
+        i2.putExtra("eventID", event.getId());
 
         PendingIntent pi2 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, endTime), i1, 0);
         am.setRepeating(AlarmManager.RTC, endTime.getTimeInMillis(), weekInterval, pi2);
