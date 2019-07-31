@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,13 +46,13 @@ public class ScheduleScreen extends AppCompatActivity {
         final List<ScheduleEventDb> scheduleEventDb = db.scheduleEventDao().findAllScheduleEvents();
         final List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
-        for (int i = 0; i < scheduleEventDb.size(); i++) {
-            events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
-        }
-
-        for (int i = 0; i < activityDb.size(); i++) {
-            allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
-        }
+//        for (int i = 0; i < scheduleEventDb.size(); i++) {
+//            events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
+//        }
+//
+//        for (int i = 0; i < activityDb.size(); i++) {
+//            allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
+//        }
 
 //        populateList();
 
@@ -71,6 +72,10 @@ public class ScheduleScreen extends AppCompatActivity {
         });
 
         Button filterButton = findViewById(R.id.scheduleActivityButtonFilter);
+        TextView filterName = findViewById(R.id.scheduleActivityFilterIndicator);
+
+        filterName.setText("All");
+        filterName.setTextColor(Color.BLACK);
 
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +85,8 @@ public class ScheduleScreen extends AppCompatActivity {
                 if (current >= allActivities.size()) {
                     current = -1;
                     newEvents = events;
+                    filterName.setText("All");
+                    filterName.setTextColor(Color.BLACK);
                 }
                 else {
                     Activity filterActivity = allActivities.get(current);
@@ -88,6 +95,8 @@ public class ScheduleScreen extends AppCompatActivity {
                             newEvents.add(events.get(i));
                         }
                     }
+                    filterName.setText(filterActivity.getName());
+                    filterName.setTextColor(filterActivity.getColor());
                 }
                 adapter.updateData(newEvents);
             }
