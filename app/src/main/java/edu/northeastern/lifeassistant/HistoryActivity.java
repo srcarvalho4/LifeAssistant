@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
-import edu.northeastern.lifeassistant.db.models.Activity;
-import edu.northeastern.lifeassistant.db.models.SpontaneousEvent;
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
 import utils.HistoryAdapter;
 import utils.HistoryAdapterInfoItem;
 
@@ -56,7 +56,7 @@ public class HistoryActivity extends AppCompatActivity {
     private void populateList() {
 
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        List<SpontaneousEvent> check = db.spontaneousEventDao().findAllSpontaneousEvents();
+        List<SpontaneousEventDb> check = db.spontaneousEventDao().findAllSpontaneousEvents();
 
 
         if (check == null)
@@ -69,7 +69,7 @@ public class HistoryActivity extends AppCompatActivity {
 
 
                     AppDatabase db1 = AppDatabase.getAppDatabase(getApplicationContext());
-                    Activity check2 = db1.activityDao().findActivityById(check.get(i).getActivityId());
+                    ActivityDb check2 = db1.activityDao().findActivityById(check.get(i).getActivityId());
 
                     Log.d("Details", "Activity Name: " + check2.getName());
                     Log.d("Details", "StepCount: " + check.get(i).getFinalValue());

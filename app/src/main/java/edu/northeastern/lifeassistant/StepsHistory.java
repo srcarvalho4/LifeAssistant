@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
-import edu.northeastern.lifeassistant.db.models.SpontaneousEvent;
+import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
 
 public class StepsHistory extends AppCompatActivity {
     String myString = "";
@@ -23,7 +23,7 @@ public class StepsHistory extends AppCompatActivity {
         setContentView(R.layout.activity_steps_history);
 
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        List<SpontaneousEvent> check = db.spontaneousEventDao().findAllSpontaneousEvents();
+        List<SpontaneousEventDb> check = db.spontaneousEventDao().findAllSpontaneousEvents();
 
         View linearLayout =  findViewById(R.id.viewHistory1);
         //LinearLayout layout = (LinearLayout) findViewById(R.id.info);

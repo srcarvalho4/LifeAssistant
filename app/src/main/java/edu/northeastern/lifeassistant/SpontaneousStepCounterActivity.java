@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,9 +35,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
-import edu.northeastern.lifeassistant.db.models.Activity;
-import edu.northeastern.lifeassistant.db.models.SpontaneousEvent;
-import edu.northeastern.lifeassistant.db.types.ColorType;
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
 
 public class SpontaneousStepCounterActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -86,13 +86,14 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
 
         //1. connect to the DB
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        Activity activity = new Activity("Running", ColorType.BLUE);
-        db.activityDao().insert(activity);
+        ActivityDb activity = db.activityDao().findActivityByName("Running");
+        //ActivityDb activity = new ActivityDb("Running", Color.BLUE);
+        //db.activityDao().insert(activity);
         //SpontaneousEvent sEvent = new SpontaneousEvent(activity.getId(), null, "200", null, "200");
         //db.spontaneousEventDao().insert(sEvent);
 
         //2. Check if most recent activity has a end time
-        SpontaneousEvent mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
+        SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
         if (mostRecentEvent != null)
         {
             if (mostRecentEvent.getEndTime() != null) {
@@ -116,11 +117,11 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
 
                 }
                 progressBar.setVisibility(View.INVISIBLE);
-                SpontaneousEvent sEvent = new SpontaneousEvent(activity.getId(), null, myTotalSteps, null, null);
+                SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
                 db.spontaneousEventDao().insert(sEvent);
                 buttonStop.setEnabled(true);
                 buttonStart.setEnabled(false);
-                SpontaneousEvent mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
+                SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
                 mostRecentEvent.setEndTime(Calendar.getInstance());
                 mostRecentEvent.setEndValue(null);
             }
@@ -139,7 +140,7 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
 
                 }
                 progressBar.setVisibility(View.INVISIBLE);
-                SpontaneousEvent mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
+                SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
                 myStartStepsString = mostRecentEvent.getStartValue();
                 //Log.d("MYTAG", myStartStepsString);
                 myStartSteps = Integer.parseInt(myStartStepsString);
@@ -173,7 +174,7 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
 
     public void printData() {
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        SpontaneousEvent check = db.spontaneousEventDao().findMostRecentEvent();
+        SpontaneousEventDb check = db.spontaneousEventDao().findMostRecentEvent();
         Calendar endtime = check.getEndTime();
         String endValue = check.getEndValue();
         String startValue = check.getStartValue();

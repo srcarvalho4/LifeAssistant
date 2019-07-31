@@ -13,7 +13,6 @@
         <activity android:name=".HistoryActivity" />
         <activity android:name=".StepsHistory" />
         <activity android:name=".SpontaneousStepCounterActivity" />
-        <activity android:name=".StepTrial" />
         <activity android:name=".StepsCounterActivity" />
         <activity android:name=".StepsActivity" />
         <activity android:name=".SpontaneousScreen" />

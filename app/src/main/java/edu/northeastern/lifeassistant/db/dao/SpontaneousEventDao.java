@@ -29,14 +29,16 @@ public interface SpontaneousEventDao {
     @Query("SELECT * FROM spontaneous_events WHERE activity_id = :activityId")
     public List<SpontaneousEventDb> findSpontaneousEventsForActivity(String activityId);
 
-    @Query("SELECT * FROM spontaneous_event WHERE startTime = (SELECT MAX(startTime) FROM spontaneous_event)")
-    public SpontaneousEvent findMostRecentEvent();
+    @Query("SELECT * FROM spontaneous_events WHERE start_time = (SELECT MAX(start_time) FROM spontaneous_events)")
+    public SpontaneousEventDb findMostRecentEvent();
 
-    @Query("SELECT * FROM spontaneous_event WHERE active = 0")
-    public List<SpontaneousEvent> findListOfCompletedSpontaneousActivities();
+    @Query("SELECT * FROM spontaneous_events WHERE active = 0")
+    public List<SpontaneousEventDb> findListOfCompletedSpontaneousActivities();
 
-    @Query("SELECT * FROM spontaneous_event WHERE endTime = null AND final_value= null")
-    public List<SpontaneousEvent> findNullEntries();
+    @Query("SELECT * FROM spontaneous_events WHERE end_time = null AND final_value= null")
+    public List<SpontaneousEventDb> findNullEntries();
+
+
 
 
 
