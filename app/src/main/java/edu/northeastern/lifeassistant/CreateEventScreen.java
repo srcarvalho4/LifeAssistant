@@ -90,14 +90,14 @@ public class CreateEventScreen extends AppCompatActivity {
         if (isEdit) {
             String eventName = getIntent().getStringExtra("name");
             ScheduleEventDb currentEvent = db.scheduleEventDao().findScheduleEventByName(eventName);
-            titleTextView.setText("Edit Schedule Event");
+            titleTextView.setText("Edit Event");
             eventNameEditText.setText(currentEvent.getName());
             eventStartTimeEditText.setText(timeFormatter.format(currentEvent.getStartTime().getTime()));
             eventEndTimeEditText.setText(timeFormatter.format(currentEvent.getEndTime().getTime()));
             weekdaysPicker.setSelectedDays(currentEvent.getDaysOfWeek());
         }
         else {
-            titleTextView.setText("Create Schedule Event");
+            titleTextView.setText("Create Event");
         }
     }
 
