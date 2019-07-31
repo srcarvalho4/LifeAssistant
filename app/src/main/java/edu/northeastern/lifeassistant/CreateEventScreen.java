@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -84,7 +83,7 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Redirect to ScheduleScreen onClick
         cancelButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ScheduleScreen.class);
+            Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
             startActivity(intent);
         });
 

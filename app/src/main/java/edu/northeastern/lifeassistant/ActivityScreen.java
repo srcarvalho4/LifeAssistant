@@ -58,7 +58,7 @@ public class ActivityScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ActivityScreen.this, CreateActivityScreen.class);
 
-                intent.putExtra("name", activityDb.get(i).getId());
+                intent.putExtra("activityId", activityDb.get(i).getId());
                 intent.putExtra("edit", true);
                 startActivity(intent);
             }
