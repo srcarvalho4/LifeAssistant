@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ import java.util.Locale;
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
+import utils.ScheduleEvent;
 
 public class CreateEventScreen extends AppCompatActivity {
 
@@ -85,9 +88,25 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Save event onClick
         saveButton.setOnClickListener(view -> {
-            saveOrUpdateScheduleEvent(isEdit);
-            Intent intent = new Intent(this, ScheduleScreen.class);
-            startActivity(intent);
+            String errorMsg = null;
+
+            if(eventNameIsValid()) {
+                if(daysIsValid()) {
+                    if(timePeriodIsValid()) {
+                        saveOrUpdateScheduleEvent(isEdit);
+                        Intent intent = new Intent(this, ScheduleScreen.class);
+                        startActivity(intent);
+                    } else {
+                        errorMsg = "Invalid Time Period";
+                    }
+                } else {
+                    errorMsg = "Select Days";
+                }
+            } else {
+                errorMsg = "Invalid Event Name";
+            }
+
+            Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
         });
 
         // Set widgets to selected event values if isEdit
@@ -154,6 +173,46 @@ public class CreateEventScreen extends AppCompatActivity {
             editText.setText(timeFormatter.format(newTime.getTime()));
         }, 0, 0, false);
         timePickerDialog.show();
+    }
+
+    private boolean eventNameIsValid() {
+        String eventName = eventNameEditText.getText().toString();
+        if(!eventName.isEmpty()) {
+            List<ScheduleEventDb> existingEvents = db.scheduleEventDao().findAllScheduleEvents();
+            List<String> existingEventNames = new ArrayList<>();
+            existingEvents.forEach(e -> existingEventNames.add(e.getName()));
+            if(!existingEventNames.contains(eventName) || isEdit) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean daysIsValid() {
+        return !weekdaysPicker.getSelectedDays().isEmpty();
+    }
+
+    private boolean timePeriodIsValid() {
+        String startTimeText = eventStartTimeEditText.getText().toString();
+        String endTimeText = eventEndTimeEditText.getText().toString();
+
+        if(!startTimeText.isEmpty() && !endTimeText.isEmpty()) {
+            Calendar startTime = Calendar.getInstance();
+            Calendar endTime = Calendar.getInstance();
+
+            try {
+                startTime.setTime(timeFormatter.parse(eventStartTimeEditText.getText().toString()));
+                endTime.setTime(timeFormatter.parse(eventEndTimeEditText.getText().toString()));
+            } catch (ParseException e) {
+                return false;
+            }
+
+            if(startTime.getTimeInMillis() < endTime.getTimeInMillis()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
