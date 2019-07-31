@@ -44,11 +44,22 @@ public class SchedulerService extends Service {
                 handleDisable(rules);
                 setIsActive(eventID, false);
             }
+            case "setAlarm": {
+                callScheduleAlarm(eventID);
+            }
         }
 
         stopSelf();
 
         return START_NOT_STICKY;
+    }
+
+    private void callScheduleAlarm(String eventId) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
+
+        ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventId);
+
+        SetAlarmManager.setSchedulingAlarm(getApplicationContext(), event);
     }
 
     private void setIsActive(String eventID, boolean enabled) {
@@ -84,7 +95,7 @@ public class SchedulerService extends Service {
         switch (rule.getSetting()) {
             case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
             case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
-            case VOLUME: return new RingerRule(rule.getSettingValue());
+            case VOLUME: return new RingerRule(getApplicationContext(), rule.getSettingValue());
             default: throw new IllegalArgumentException("need a valid state type");
         }
     }
