@@ -1,5 +1,6 @@
 package utils;
 
+import android.content.Context;
 import android.media.AudioManager;
 
 import java.util.HashMap;
@@ -12,16 +13,18 @@ public class RingerRule implements Rule {
     int previousState;
     int ruleState;
     AudioManager audioManager;
+    Context context;
 
-    public RingerRule(int desiredRingerMode) {
+    public RingerRule(Context context, int desiredRingerMode) {
         //default
+        audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         this.previousState = AudioManager.RINGER_MODE_SILENT;
-        //audioManager = new AudioManager(); -> says constructor can't be used???
         this.ruleState = desiredRingerMode;
+        this.context = context;
     }
 
-    public RingerRule(RuleDb db) {
-        this(db.getSettingValue());
+    public RingerRule(Context context, RuleDb db) {
+        this(context, db.getSettingValue());
     }
 
     @Override

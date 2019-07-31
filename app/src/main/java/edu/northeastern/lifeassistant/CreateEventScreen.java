@@ -158,18 +158,12 @@ public class CreateEventScreen extends AppCompatActivity {
             scheduleEventDb.setReminderSwitchState(reminderSwitchState);
             scheduleEventDb.setDaysOfWeek(eventDays);
             db.scheduleEventDao().update(scheduleEventDb);
-            SetAlarmManager.setAlarm(this, scheduleEventDb);
-            if (reminderSwitchState) {
-                SetAlarmManager.setReminder(this, scheduleEventDb, 10);
-            }
+            SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb);
         } else {
             ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, eventName,
                     eventStartTime, eventEndTime, eventDays, reminderSwitchState);
             db.scheduleEventDao().insert(scheduleEventDb);
-            SetAlarmManager.setAlarm(this, scheduleEventDb);
-            if (reminderSwitchState) {
-                SetAlarmManager.setReminder(this, scheduleEventDb, 10);
-            }
+            SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb);
         }
     }
 
