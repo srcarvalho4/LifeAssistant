@@ -41,6 +41,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'ca.antonious:materialdaypicker:0.4.0'
     implementation 'com.github.DavidProdinger:weekdays-selector:1.1.0'
-    implementation  "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor  "android.arch.persistence.room:compiler:1.1.1"
+    implementation 'com.google.android.gms:play-services-fitness:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 }

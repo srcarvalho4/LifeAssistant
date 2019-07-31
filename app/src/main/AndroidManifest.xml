@@ -9,41 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SpontaneousScreen"></activity>
+        <activity android:name=".HistoryInfoActivity"></activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".StepsHistory" />
+        <activity android:name=".SpontaneousStepCounterActivity" />
+        <activity android:name=".StepsCounterActivity" />
+        <activity android:name=".StepsActivity" />
+        <activity android:name=".SpontaneousScreen" />
         <activity android:name=".ScheduleScreen" />
         <activity android:name=".ActivityScreen" />
-
-        <activity android:name=".CreateActivityScreen">
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-
-        <activity android:name=".MainNavigationActivity" android:label="@string/title_activity_main_navigation" />
+        <activity android:name=".CreateActivityScreen" />
         <activity android:name=".MainActivity" />
-
-        <activity android:name=".CreateEventScreen">
-             <!--<intent-filter>-->
-             <!--<action android:name="android.intent.action.MAIN" />-->
-             <!--<category android:name="android.intent.category.LAUNCHER" />-->
-             <!--</intent-filter>-->
-        </activity>
-
+        <activity android:name=".CreateEventScreen" />
         <activity android:name=".SpontaneousActive" />
-
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <service
             android:name="utils.SchedulerService"
             android:exported="false"/>
         <receiver android:process=":remote" android:name="utils.Alarm"></receiver>
-
     </application>
 
 </manifest>

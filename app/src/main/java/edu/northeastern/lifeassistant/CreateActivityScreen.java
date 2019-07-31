@@ -42,6 +42,11 @@ public class CreateActivityScreen extends AppCompatActivity {
 
     private ListView ruleListView;
 
+    private Button redColor;
+    private Button yellowColor;
+    private Button greenColor;
+    private Button blueColor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,5 +150,8 @@ public class CreateActivityScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 }
