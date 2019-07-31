@@ -46,21 +46,9 @@ public class SchedulerService extends Service {
             }
         }
 
-        return START_STICKY;
-    }
+        stopSelf();
 
-    public ScheduleEventDb getActiveScheduleEvent() {
-        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
-
-        List<ScheduleEventDb> scheduleEvents = scheduleEventDao.findAllScheduleEvents();
-
-        for (ScheduleEventDb s : scheduleEvents) {
-            if (s.getActive()) {
-                return s;
-            }
-        }
-
-        return null;
+        return START_NOT_STICKY;
     }
 
     private void setIsActive(String eventID, boolean enabled) {

@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.List;
 
+import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
 public class SetAlarmManager {
@@ -43,6 +46,21 @@ public class SetAlarmManager {
 
             setReminder(context, event, start);
         }
+    }
+
+    //Returns the currently active event, else returns null
+    public static ScheduleEventDb getActiveScheduleEvent(Context context) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+
+        List<ScheduleEventDb> scheduleEvents = scheduleEventDao.findAllScheduleEvents();
+
+        for (ScheduleEventDb s : scheduleEvents) {
+            if (s.getActive()) {
+                return s;
+            }
+        }
+
+        return null;
     }
 
     private static void setReminder(Context context, ScheduleEventDb event, Calendar time) {
