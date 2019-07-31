@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.dpro.widgets.WeekdaysPicker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,8 +18,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
+import utils.SetAlarmManager;
 
 public class CreateEventScreen extends AppCompatActivity {
 
@@ -27,12 +33,15 @@ public class CreateEventScreen extends AppCompatActivity {
     private EditText eventNameEditText;
     private Spinner activitySpinner;
     private WeekdaysPicker weekdaysPicker;
+    private Switch eventReminderSwitch;
     private EditText eventStartTimeEditText;
     private EditText eventEndTimeEditText;
     private Button cancelButton;
     private Button saveButton;
 
     private boolean isEdit;
+    private String selectedEventId;
+    private List<String> spinnerItems = new ArrayList<>();
 
     private static SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.US);
 
@@ -48,17 +57,17 @@ public class CreateEventScreen extends AppCompatActivity {
         eventNameEditText = findViewById(R.id.createEventNameEditText);
         activitySpinner = findViewById(R.id.createEventActivitySpinner);
         weekdaysPicker = findViewById(R.id.createEventDayPicker);
+        eventReminderSwitch = findViewById(R.id.createEventReminderSwitch);
         eventStartTimeEditText = findViewById(R.id.createEventStartTimeEditText);
         eventEndTimeEditText = findViewById(R.id.createEventEndTimeEditText);
         cancelButton = findViewById(R.id.createEventCancelButton);
         saveButton = findViewById(R.id.createEventSaveButton);
 
-        // Set widgets to selected event values if isEdit
+        // Get extras
+        selectedEventId = getIntent().getStringExtra("eventId");
         isEdit = getIntent().getBooleanExtra("edit", false);
-        setWidgets(isEdit);
 
         // Add activity list to spinner
-        List<String> spinnerItems = new ArrayList<>();
         db.activityDao().findAllActivities().forEach(a -> spinnerItems.add(a.getName()));
         activitySpinner.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, spinnerItems));
@@ -74,26 +83,47 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Redirect to ScheduleScreen onClick
         cancelButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ScheduleScreen.class);
+            Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
             startActivity(intent);
         });
 
         // Save event onClick
         saveButton.setOnClickListener(view -> {
-            saveOrUpdateScheduleEvent(isEdit);
-            Intent intent = new Intent(this, ScheduleScreen.class);
-            startActivity(intent);
+            String errorMsg = null;
+
+            if(eventNameIsValid()) {
+                if(daysIsValid()) {
+                    if(timePeriodIsValid()) {
+                        saveOrUpdateScheduleEvent(isEdit);
+                        Intent intent = new Intent(this, ScheduleScreen.class);
+                        startActivity(intent);
+                    } else {
+                        errorMsg = "Invalid Time Period";
+                    }
+                } else {
+                    errorMsg = "Select Days";
+                }
+            } else {
+                errorMsg = "Invalid Event Name";
+            }
+
+            Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
         });
+
+        // Set widgets to selected event values if isEdit
+        setWidgets(isEdit);
     }
 
     private void setWidgets(boolean isEdit) {
         if (isEdit) {
-            String eventName = getIntent().getStringExtra("name");
-            ScheduleEventDb currentEvent = db.scheduleEventDao().findScheduleEventByName(eventName);
+            ScheduleEventDb currentEvent = db.scheduleEventDao().findScheduleEventById(selectedEventId);
+            ActivityDb currentActivity = db.activityDao().findActivityByEventId(selectedEventId);
             titleTextView.setText("Edit Event");
             eventNameEditText.setText(currentEvent.getName());
+            activitySpinner.setSelection(spinnerItems.indexOf(currentActivity.getName()));
             eventStartTimeEditText.setText(timeFormatter.format(currentEvent.getStartTime().getTime()));
             eventEndTimeEditText.setText(timeFormatter.format(currentEvent.getEndTime().getTime()));
+            eventReminderSwitch.setChecked(currentEvent.getReminderSwitchState());
             weekdaysPicker.setSelectedDays(currentEvent.getDaysOfWeek());
         }
         else {
@@ -105,11 +135,12 @@ public class CreateEventScreen extends AppCompatActivity {
         String selectedActivityName = activitySpinner.getSelectedItem().toString();
         String selectedActivityId = db.activityDao().findActivityByName(selectedActivityName).getId();
         String eventName = eventNameEditText.getText().toString();
+        Boolean reminderSwitchState = eventReminderSwitch.isChecked();
+        List<Integer> eventDays = weekdaysPicker.getSelectedDays();
         String eventStartTimeString = eventStartTimeEditText.getText().toString();
         String eventEndTimeString = eventEndTimeEditText.getText().toString();
         Calendar eventStartTime = Calendar.getInstance();
         Calendar eventEndTime = Calendar.getInstance();
-        List<Integer> eventDays = weekdaysPicker.getSelectedDays();
 
         try {
             eventStartTime.setTime(timeFormatter.parse(eventStartTimeString));
@@ -119,18 +150,26 @@ public class CreateEventScreen extends AppCompatActivity {
         }
 
         if(isEdit) {
-            ScheduleEventDb scheduleEventDb = db.scheduleEventDao()
-                    .findScheduleEventByName(getIntent().getStringExtra("name"));
+            ScheduleEventDb scheduleEventDb = db.scheduleEventDao().findScheduleEventById(selectedEventId);
             scheduleEventDb.setActivityId(selectedActivityId);
             scheduleEventDb.setName(eventName);
             scheduleEventDb.setStartTime(eventStartTime);
             scheduleEventDb.setEndTime(eventEndTime);
+            scheduleEventDb.setReminderSwitchState(reminderSwitchState);
             scheduleEventDb.setDaysOfWeek(eventDays);
             db.scheduleEventDao().update(scheduleEventDb);
+            SetAlarmManager.setAlarm(this, scheduleEventDb);
+            if (reminderSwitchState) {
+                SetAlarmManager.setReminder(this, scheduleEventDb, 10);
+            }
         } else {
             ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, eventName,
-                    eventStartTime, eventEndTime, eventDays);
+                    eventStartTime, eventEndTime, eventDays, reminderSwitchState);
             db.scheduleEventDao().insert(scheduleEventDb);
+            SetAlarmManager.setAlarm(this, scheduleEventDb);
+            if (reminderSwitchState) {
+                SetAlarmManager.setReminder(this, scheduleEventDb, 10);
+            }
         }
     }
 
@@ -143,6 +182,46 @@ public class CreateEventScreen extends AppCompatActivity {
             editText.setText(timeFormatter.format(newTime.getTime()));
         }, 0, 0, false);
         timePickerDialog.show();
+    }
+
+    private boolean eventNameIsValid() {
+        String eventName = eventNameEditText.getText().toString();
+        if(!eventName.isEmpty()) {
+            List<ScheduleEventDb> existingEvents = db.scheduleEventDao().findAllScheduleEvents();
+            List<String> existingEventNames = new ArrayList<>();
+            existingEvents.forEach(e -> existingEventNames.add(e.getName()));
+            if(!existingEventNames.contains(eventName) || isEdit) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean daysIsValid() {
+        return !weekdaysPicker.getSelectedDays().isEmpty();
+    }
+
+    private boolean timePeriodIsValid() {
+        String startTimeText = eventStartTimeEditText.getText().toString();
+        String endTimeText = eventEndTimeEditText.getText().toString();
+
+        if(!startTimeText.isEmpty() && !endTimeText.isEmpty()) {
+            Calendar startTime = Calendar.getInstance();
+            Calendar endTime = Calendar.getInstance();
+
+            try {
+                startTime.setTime(timeFormatter.parse(eventStartTimeEditText.getText().toString()));
+                endTime.setTime(timeFormatter.parse(eventEndTimeEditText.getText().toString()));
+            } catch (ParseException e) {
+                return false;
+            }
+
+            if(startTime.getTimeInMillis() < endTime.getTimeInMillis()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

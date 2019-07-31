@@ -60,7 +60,7 @@ public class CreateActivityScreen extends AppCompatActivity {
 
         // Get values from previous screen
         boolean isEdit = getIntent().getBooleanExtra("edit", false);
-        String activityName = getIntent().getStringExtra("name");
+        String activityId = getIntent().getStringExtra("activityId");
 
         // Populate Rule menu items
         for(SettingType settingType: SettingType.values()) {
@@ -80,7 +80,7 @@ public class CreateActivityScreen extends AppCompatActivity {
 
         // Populate widgets if isEdit
         if (isEdit) {
-            Activity currentActivity = new Activity(getApplicationContext(), activityName);
+            Activity currentActivity = new Activity(getApplicationContext(), activityId);
             titleTextView.setText(R.string.edit_activity_title);
             activityNameEditText.setText(currentActivity.getName());
             currentActivity.getRules().forEach(rule -> rules.add(new RuleAdapterItem(rule)));
@@ -141,7 +141,8 @@ public class CreateActivityScreen extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                startActivity(intent);
             }
         });
     }
