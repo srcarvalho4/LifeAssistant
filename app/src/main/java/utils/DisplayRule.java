@@ -1,6 +1,11 @@
 package utils;
 
 
+import android.app.UiModeManager;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 
 //This class is only for UI work. Not to be kept.
@@ -35,5 +40,10 @@ public class DisplayRule implements Rule {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Map<Integer, String> getSettingValue() {
+        return new HashMap<>();
     }
 }

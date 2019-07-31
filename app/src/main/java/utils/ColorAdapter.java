@@ -89,6 +89,15 @@ public class ColorAdapter extends BaseAdapter {
 
         return view;
     }
+
+    public int getCurrentColor() {
+        for (int i = 0; i < colorPickers.size(); i++) {
+            if (colorPickers.get(i).isSelected()) {
+                return colorPickers.get(i).getColor();
+            }
+        }
+        return Color.GRAY;
+    }
 }
 
 class ColorAdapterHolder {
