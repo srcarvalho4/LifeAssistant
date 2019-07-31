@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
+import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao_Impl;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
+import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
 public class SchedulerService extends Service {
 
@@ -26,18 +29,48 @@ public class SchedulerService extends Service {
         Log.d("service", "service started command");
         String operation = intent.getStringExtra("operation");
         String activity = intent.getStringExtra("activityID");
-        String eventName = intent.getStringExtra("eventName");
+        String eventID = intent.getStringExtra("eventID");
 
-        Toast.makeText(getApplicationContext(), "Event " + eventName + " has been " + operation, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Event " + eventID + " has been " + operation, Toast.LENGTH_SHORT).show();
 
         ArrayList<Rule> rules = getRules(activity);
 
         switch (operation) {
-            case "enable": handleEnable(rules);
-            case "disable": handleDisable(rules);
+            case "enable": {
+                handleEnable(rules);
+                setIsActive(eventID, true);
+            }
+            case "disable": {
+                handleDisable(rules);
+                setIsActive(eventID, false);
+            }
         }
 
         return START_STICKY;
+    }
+
+    public ScheduleEventDb getActiveScheduleEvent() {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
+
+        List<ScheduleEventDb> scheduleEvents = scheduleEventDao.findAllScheduleEvents();
+
+        for (ScheduleEventDb s : scheduleEvents) {
+            if (s.getActive()) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    private void setIsActive(String eventID, boolean enabled) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
+
+        ScheduleEventDb scheduleEventDb = scheduleEventDao.findScheduleEventById(eventID);
+
+        //set is active
+        scheduleEventDb.setActive(enabled);
+        scheduleEventDao.update(scheduleEventDb);
     }
 
     private ArrayList<Rule> getRules(String activityID) {

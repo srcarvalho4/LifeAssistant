@@ -14,11 +14,13 @@ public class Alarm extends BroadcastReceiver {
         Log.d("setAlarm", "Received intent!");
         String operation = intent.getStringExtra("operation");
         String activity = intent.getStringExtra("activity");
+        String eventID = intent.getStringExtra("eventID");
         Toast.makeText(context, "Received intent! " + operation, Toast.LENGTH_SHORT).show();
 
         Intent passalongIntent = new Intent(context, SchedulerService.class);
         passalongIntent.putExtra("operation", operation);
         passalongIntent.putExtra("activity", activity);
+        passalongIntent.putExtra("eventID", eventID);
         context.startService(passalongIntent);
 
     }

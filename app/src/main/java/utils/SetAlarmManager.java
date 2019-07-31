@@ -53,7 +53,7 @@ public class SetAlarmManager {
         //Start alarm
         Intent i1 = new Intent(context, Alarm.class);
         i1.putExtra("operation", "reminder");
-        i1.putExtra("eventName", event.getId());
+        i1.putExtra("eventID", event.getId());
 
         PendingIntent pi1 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, time), i1, 0);
         am.setRepeating(AlarmManager.RTC, time.getTimeInMillis(), weekInterval, pi1);
@@ -72,7 +72,7 @@ public class SetAlarmManager {
         Intent i1 = new Intent(context, Alarm.class);
         i1.putExtra("operation", "enable");
         i1.putExtra("activity", activityID);
-        i1.putExtra("eventName", event.getId());
+        i1.putExtra("eventID", event.getId());
 
         PendingIntent pi1 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, startTime), i1, 0);
         //am.setExact(AlarmManager.RTC, startTime.getTimeInMillis(), pi1);
@@ -83,7 +83,7 @@ public class SetAlarmManager {
         Intent i2 = new Intent(context, Alarm.class);
         i2.putExtra("operation", "disable");
         i2.putExtra("activity", activityID);
-        i2.putExtra("eventName", event.getId());
+        i2.putExtra("eventID", event.getId());
 
         PendingIntent pi2 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, endTime), i1, 0);
         am.setRepeating(AlarmManager.RTC, endTime.getTimeInMillis(), weekInterval, pi2);
