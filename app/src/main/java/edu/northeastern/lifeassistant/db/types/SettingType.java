@@ -2,10 +2,10 @@ package edu.northeastern.lifeassistant.db.types;
 
 public enum SettingType {
 
-    VOLUME("volume"),
-    STEP_COUNT("step_count"),
-    DRIVING_MODE("driving_mode"),
-    NIGHT_MODE("night_mode");
+    VOLUME("Volume"),
+    STEP_COUNT("Step Count"),
+    DRIVING_MODE("Driving Mode"),
+    NIGHT_MODE("Night Mode");
 
     private String value;
 
