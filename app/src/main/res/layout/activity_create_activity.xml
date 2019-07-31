@@ -112,6 +112,7 @@
                 <!--android:layout_marginStart="20dp"-->
                 <!--android:background="@color/blue"/>-->
         <!--</LinearLayout>-->
+
         <Button
             android:id="@+id/createActivityAddRuleButton"
             android:layout_marginTop="25dp"

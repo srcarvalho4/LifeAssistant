@@ -33,17 +33,24 @@ public class DisplayRule implements Rule {
     }
 
     @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public Map<Integer, String> getSettingValues() {
+        return null;
+    }
+
+    @Override
+    public int getSetting() {
+        return 0;
+    }
+
+    @Override
     public void enable() {
 
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
 
-    @Override
-    public Map<Integer, String> getSettingValue() {
-        return new HashMap<>();
-    }
 }
