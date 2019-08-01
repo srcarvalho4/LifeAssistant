@@ -2,8 +2,11 @@ package utils;
 
 import android.app.UiModeManager;
 import android.content.Context;
+import android.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import edu.northeastern.lifeassistant.db.models.RuleDb;
@@ -52,10 +55,10 @@ public class DrivingModeRule implements Rule {
     }
 
     @Override
-    public Map<Integer, String> getSettingValues() {
-        Map<Integer, String> values = new HashMap<>();
-        values.put(1, "On");
-        values.put(0, "Off");
+    public List<Pair<Integer, String>> getSettingValues() {
+        List<Pair<Integer, String>> values = new ArrayList<>();
+        values.add(new Pair(1, "On"));
+        values.add(new Pair(0, "Off"));
         return values;
     }
 }

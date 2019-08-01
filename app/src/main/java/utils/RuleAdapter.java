@@ -1,6 +1,7 @@
 package utils;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,17 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import edu.northeastern.lifeassistant.R;
 
 public class RuleAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<RuleAdapterItem> rules = new ArrayList<>();
-    ArrayList<Integer> values = new ArrayList<>();
+    ArrayList<RuleAdapterItem> rules;
 
     public RuleAdapter(Context context, ArrayList<RuleAdapterItem> rules) {
         this.context = context;
@@ -45,12 +43,8 @@ public class RuleAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public Map<Integer, String> getRules() {
-        Map<Integer, String> ruleValues = new HashMap<>();
-        for (int i = 0; i < rules.size(); i++) {
-            ruleValues.put(values.get(i), rules.get(i).getName());
-        }
-        return ruleValues;
+    public List<RuleAdapterItem> getRules() {
+        return rules;
     }
 
     @Override
@@ -63,6 +57,9 @@ public class RuleAdapter extends BaseAdapter {
             viewHolder = new RuleViewHolder();
 
             viewHolder.textView = view.findViewById(R.id.RuleItemName);
+            viewHolder.button1 = view.findViewById(R.id.RuleItemButton1);
+            viewHolder.button2 = view.findViewById(R.id.RuleItemButton2);
+            viewHolder.button3 = view.findViewById(R.id.RuleItemButton3);
 
             view.setTag(viewHolder);
         }
@@ -72,7 +69,37 @@ public class RuleAdapter extends BaseAdapter {
 
 
         viewHolder.textView.setText(rules.get(i).getName());
+        List<Pair<Integer, String>> settings = rules.get(i).getSettings();
 
+        viewHolder.button1.setText(settings.get(0).second);
+        viewHolder.button1.setText(settings.get(1).second);
+        if (settings.size() == 3) {
+            viewHolder.button3.setVisibility(View.VISIBLE);
+            viewHolder.button3.setText(settings.get(2).second);
+        }
+        else {
+            viewHolder.button3.setVisibility(View.GONE);
+        }
+
+
+        viewHolder.button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rules.get(i).setValue(settings.get(0).first);
+            }
+        });
+        viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rules.get(i).setValue(settings.get(1).first);
+            }
+        });
+        viewHolder.button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rules.get(i).setValue(settings.get(2).first);
+            }
+        });
 
         return view;
     }

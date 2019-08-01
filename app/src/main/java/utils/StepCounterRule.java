@@ -1,6 +1,9 @@
 package utils;
 
 
+import android.util.Pair;
+
+import java.util.List;
 import java.util.Map;
 
 public class StepCounterRule implements Rule {
@@ -24,7 +27,7 @@ public class StepCounterRule implements Rule {
     }
 
     @Override
-    public Map<Integer, String> getSettingValues() {
+    public List<Pair<Integer, String>> getSettingValues() {
         return null;
     }
 

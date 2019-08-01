@@ -2,9 +2,9 @@ package utils;
 
 
 import android.app.UiModeManager;
+import android.util.Pair;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 
@@ -38,7 +38,7 @@ public class DisplayRule implements Rule {
     }
 
     @Override
-    public Map<Integer, String> getSettingValues() {
+    public List<Pair<Integer, String>> getSettingValues() {
         return null;
     }
 

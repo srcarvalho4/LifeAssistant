@@ -2,8 +2,11 @@ package utils;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import edu.northeastern.lifeassistant.db.models.RuleDb;
@@ -44,11 +47,11 @@ public class RingerRule implements Rule {
     }
 
     @Override
-    public Map<Integer, String> getSettingValues() {
-        Map<Integer, String> values = new HashMap<>();
-        values.put(AudioManager.RINGER_MODE_SILENT, "On");
-        values.put(AudioManager.RINGER_MODE_VIBRATE, "Vibrate");
-        values.put(AudioManager.RINGER_MODE_NORMAL, "Off");
+    public List<Pair<Integer, String>> getSettingValues() {
+        List<Pair<Integer, String>> values = new ArrayList<>();
+        values.add(new Pair(AudioManager.RINGER_MODE_SILENT, "On"));
+        values.add(new Pair(AudioManager.RINGER_MODE_VIBRATE, "Vibrate"));
+        values.add(new Pair(AudioManager.RINGER_MODE_NORMAL, "Off"));
         return values;
     }
 
