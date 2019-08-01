@@ -26,6 +26,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayList<HistoryAdapterInfoItem> myHistoryItems = new ArrayList<HistoryAdapterInfoItem>();
+    int imageSelection;
+    String finalValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class HistoryActivity extends AppCompatActivity {
 
 
         listView = findViewById(R.id.myHistoryListView);
+        imageSelection = R.drawable.running;
 
         populateList();
 
@@ -74,10 +77,22 @@ public class HistoryActivity extends AppCompatActivity {
                     Log.d("Details", "Activity Name: " + check2.getName());
                     Log.d("Details", "StepCount: " + check.get(i).getFinalValue());
 
+                    if (check2.getName().equalsIgnoreCase("class")) {
+                        imageSelection = R.drawable.classimg;
+                        finalValue = "";
+                    }
+                    else if (check2.getName().equalsIgnoreCase("running")){
+                        imageSelection = R.drawable.icon_runningman;
+                        finalValue = check.get(i).getFinalValue();
+                    }
+                    else {
+                        imageSelection = R.drawable.random_activity;
+                    }
 
 
-                    myHistoryItems.add(new HistoryAdapterInfoItem(R.drawable.icon_runningman, check2.getName(),
-                            check.get(i).getFinalValue(), check.get(i).getStartTime().getTime().toString(),
+
+                    myHistoryItems.add(new HistoryAdapterInfoItem(imageSelection, check2.getName(),
+                            finalValue, check.get(i).getStartTime().getTime().toString(),
                             check.get(i).getEndTime().getTime().toString(), check.get(i).getActivityId(), check.get(i).getId()));
 
 
