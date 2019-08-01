@@ -35,7 +35,7 @@
     <string name="event_end_time_label">End Time</string>
     <string name="event_end_time_hint">Select End Time</string>
 
-    <string name="cancel_button_text">Cancel</string>
+    <string name="delete_button_text">Delete</string>
     <string name="save_button_text">Save</string>
 
     <string-array name="activities_array">

@@ -18,8 +18,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.types.SettingType;
 import utils.Activity;
 import utils.ColorAdapter;
@@ -39,9 +43,10 @@ public class CreateActivityScreen extends AppCompatActivity {
     private EditText activityNameEditText;
     private Button addRuleButton;
     private Button saveButton;
-    private Button cancelButton;
+    private Button deleteButton;
 
     private ListView ruleListView;
+    private ColorAdapter colorAdapter;
 
     private Button redColor;
     private Button yellowColor;
@@ -61,7 +66,7 @@ public class CreateActivityScreen extends AppCompatActivity {
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
         addRuleButton = findViewById(R.id.createActivityAddRuleButton);
         saveButton = findViewById(R.id.createActivitySaveButton);
-        cancelButton = findViewById(R.id.createActivityCancelButton);
+        deleteButton = findViewById(R.id.createActivityDeleteButton);
         ruleListView = findViewById(R.id.CreateActivityListView);
 
         // Get values from previous screen
@@ -79,7 +84,7 @@ public class CreateActivityScreen extends AppCompatActivity {
         colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.green), false));
         colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.blue), false));
 
-        ColorAdapter adapter = new ColorAdapter(getApplicationContext(), colorOptions);
+        colorAdapter = new ColorAdapter(getApplicationContext(), colorOptions);
 
         GridView colorGrid = findViewById(R.id.createActivityColorGrid);
 
@@ -102,7 +107,7 @@ public class CreateActivityScreen extends AppCompatActivity {
 
 
 
-        colorGrid.setAdapter(adapter);
+        colorGrid.setAdapter(colorAdapter);
 
 
 
@@ -133,23 +138,26 @@ public class CreateActivityScreen extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String activityName = activityNameEditText.getText().toString();
-//                ActivityDb activityDb = new ActivityDb(activityName, Color.BLUE);
-//                db.activityDao().insert(activityDb);
-//
+                String activityName = activityNameEditText.getText().toString();
+                Integer activityColor = colorAdapter.getCurrentColor();
+                ActivityDb activityDb = new ActivityDb(activityName, activityColor);
+                db.activityDao().insert(activityDb);
+
 //                for (RuleAdapterItem rule: rules) {
-//                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.get));
+//                    String ruleName = rule.getName();
+//
+//                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.));
 //                }
             }
         });
 
-        // Abort and redirect onClick
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        // Delete selected activity and associated rules
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
-                intent.putExtra("location", "Activity");
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+//                intent.putExtra("location", "Activity");
+//                startActivity(intent);
             }
         });
 
