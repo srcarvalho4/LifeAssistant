@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.northeastern.lifeassistant">
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HistoryInfoActivity"></activity>
+        <activity android:name=".SpontaneousActive1"></activity>
+        <activity android:name=".HistoryInfoActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".StepsHistory" />
         <activity android:name=".SpontaneousStepCounterActivity" />
@@ -25,13 +27,18 @@
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name="utils.SchedulerService"
-            android:exported="false"/>
-        <receiver android:process=":remote" android:name="utils.Alarm"></receiver>
+            android:exported="false" />
+
+        <receiver
+            android:name="utils.Alarm"
+            android:process=":remote" />
     </application>
 
 </manifest>
