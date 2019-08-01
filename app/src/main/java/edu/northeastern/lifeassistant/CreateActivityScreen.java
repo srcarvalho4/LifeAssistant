@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 
+import android.app.UiModeManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,18 +15,28 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.types.SettingType;
 import utils.Activity;
 import utils.ColorAdapter;
 import utils.ColorPicker;
+import utils.DrivingModeRule;
+import utils.NightModeRule;
+import utils.RingerRule;
+import utils.Rule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
+import utils.StepCounterRule;
 
 public class CreateActivityScreen extends AppCompatActivity {
 
@@ -38,14 +50,18 @@ public class CreateActivityScreen extends AppCompatActivity {
     private EditText activityNameEditText;
     private Button addRuleButton;
     private Button saveButton;
-    private Button cancelButton;
+    private Button deleteButton;
 
     private ListView ruleListView;
+    private ColorAdapter colorAdapter;
 
     private Button redColor;
     private Button yellowColor;
     private Button greenColor;
     private Button blueColor;
+
+    private boolean isEdit;
+    private String selectedActivityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +76,12 @@ public class CreateActivityScreen extends AppCompatActivity {
         activityNameEditText = findViewById(R.id.createActivityNameEditText);
         addRuleButton = findViewById(R.id.createActivityAddRuleButton);
         saveButton = findViewById(R.id.createActivitySaveButton);
-        cancelButton = findViewById(R.id.createActivityCancelButton);
+        deleteButton = findViewById(R.id.createActivityDeleteButton);
         ruleListView = findViewById(R.id.CreateActivityListView);
 
         // Get values from previous screen
-        boolean isEdit = getIntent().getBooleanExtra("edit", false);
-        String activityId = getIntent().getStringExtra("activityId");
+        isEdit = getIntent().getBooleanExtra("edit", false);
+        selectedActivityId = getIntent().getStringExtra("activityId");
 
         // Populate Rule menu items
         for(SettingType settingType: SettingType.values()) {
@@ -78,14 +94,14 @@ public class CreateActivityScreen extends AppCompatActivity {
         colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.green), false));
         colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.blue), false));
 
-        ColorAdapter adapter = new ColorAdapter(getApplicationContext(), colorOptions);
+        colorAdapter = new ColorAdapter(getApplicationContext(), colorOptions);
 
         GridView colorGrid = findViewById(R.id.createActivityColorGrid);
 
 
         // Populate widgets if isEdit
         if (isEdit) {
-            Activity currentActivity = new Activity(getApplicationContext(), activityId);
+            Activity currentActivity = new Activity(getApplicationContext(), selectedActivityId);
             titleTextView.setText(R.string.edit_activity_title);
             activityNameEditText.setText(currentActivity.getName());
             currentActivity.getRules().forEach(rule -> rules.add(new RuleAdapterItem(rule)));
@@ -101,7 +117,7 @@ public class CreateActivityScreen extends AppCompatActivity {
 
 
 
-        colorGrid.setAdapter(adapter);
+        colorGrid.setAdapter(colorAdapter);
 
 
 
@@ -118,6 +134,23 @@ public class CreateActivityScreen extends AppCompatActivity {
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
+//                        String settingString = item.getTitle().toString();
+//                        Rule newRule = null;
+//                        switch(settingString) {
+//                            case "Volume":
+//                                newRule = new RingerRule(getApplicationContext(), AudioManager.RINGER_MODE_NORMAL);
+//                                break;
+//                            case "Driving Mode":
+//                                newRule = new DrivingModeRule(getApplicationContext(), UiModeManager.DISABLE_CAR_MODE_GO_HOME);
+//                                break;
+//                            case "Night Mode":
+//                                newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
+//                                break;
+//                            case "Step Count":
+//                        }
+//
+//                        rules.add(new RuleAdapterItem(newRule));
+
                         Toast.makeText(CreateActivityScreen.this,
                                 item.getTitle(), Toast.LENGTH_SHORT).show();
                         return true;
@@ -132,26 +165,51 @@ public class CreateActivityScreen extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String activityName = activityNameEditText.getText().toString();
-//                ActivityDb activityDb = new ActivityDb(activityName, Color.BLUE);
-//                db.activityDao().insert(activityDb);
+                String activityName = activityNameEditText.getText().toString();
+                Integer activityColor = colorAdapter.getCurrentColor();
+                ActivityDb activityDb = new ActivityDb(activityName, activityColor);
+                db.activityDao().insert(activityDb);
 //
 //                for (RuleAdapterItem rule: rules) {
-//                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.get));
+//                    String ruleName = rule.getName();
+//
+//                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.));
 //                }
+
+                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                intent.putExtra("location", "Schedule");
+                startActivity(intent);
             }
         });
 
-        // Abort and redirect onClick
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        // Delete selected activity and associated rules
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                db.activityDao().deleteActivityById(selectedActivityId);
                 Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                intent.putExtra("location", "Activity");
                 startActivity(intent);
             }
         });
 
 
+        ImageButton backButton = findViewById(R.id.createActivityBackButton);
+        // Abort and redirect onClick
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                intent.putExtra("location", "Activity");
+                startActivity(intent);
+            }
+        });
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+        intent.putExtra("location", "Activity");
+        startActivity(intent);
     }
 }

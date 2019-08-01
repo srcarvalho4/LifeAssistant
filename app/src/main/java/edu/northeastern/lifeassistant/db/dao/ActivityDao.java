@@ -33,4 +33,7 @@ public interface ActivityDao {
             "ON a.id = s.activity_id WHERE s.id = :scheduleEventId")
     public ActivityDb findActivityByEventId(String scheduleEventId);
 
+    @Query("DELETE FROM activities WHERE id = :id")
+    public void deleteActivityById(String id);
+
 }

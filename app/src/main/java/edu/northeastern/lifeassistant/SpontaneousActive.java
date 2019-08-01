@@ -2,6 +2,7 @@ package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -61,8 +62,7 @@ public class SpontaneousActive extends AppCompatActivity {
         String nameRender = activityName;
         if (isRunning) {
             nameRender += ": Active";
-        }
-        else {
+        } else {
             nameRender += ": Inactive";
         }
 
@@ -77,21 +77,7 @@ public class SpontaneousActive extends AppCompatActivity {
         RuleAdapter adapter = new RuleAdapter(this, rules);
 
         listView.setAdapter(adapter);
-
-//        progressBar = findViewById(R.id.spontaneousProgress);
-//        progressBar.setProgress(progress);
-//        progressBar.setMax(100);
-//        timer = new Timer();
     }
-
-//    private class ProgressIncrement extends TimerTask {
-//
-//        @Override
-//        public void run() {
-//            progress += 1;
-//            progressBar.setProgress(progress);
-//        }
-//    }
 
     public void toggleActive(View view) {
 
@@ -111,28 +97,11 @@ public class SpontaneousActive extends AppCompatActivity {
         }
     }
 
-//    public void startButtonClick(View view) {
-//        task = new ProgressIncrement();
-//        if (!isRunning) {
-//            isRunning = true;
-//            timer.schedule(task, 0, 1000);
-//            progressBar.setIndeterminate(true);
-//        } else {
-//            Toast.makeText(this, "Activity already started.", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    public void stopButtonClick(View view) {
-//        if (isRunning) {
-//            isRunning = false;
-//            task.cancel();
-//            timer.purge();
-//            progress = 0;
-//            //progressBar.setProgress(progress);
-//            progressBar.setIndeterminate(false);
-//        } else {
-//            Toast.makeText(this, "No Activity running to stop.", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
+    @Override
+    public void onBackPressed() {
+//        Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+//        intent.putExtra("location", "Spontaneous");
+//        startActivity(intent);
+    }
 }

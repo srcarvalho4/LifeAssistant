@@ -1,6 +1,8 @@
 package utils;
 
-import java.util.Map;
+import android.util.Pair;
+
+import java.util.List;
 
 public interface Rule {
 
@@ -14,7 +16,7 @@ public interface Rule {
     String getName();
 
     //Returns a map of display values to functional values
-    Map<Integer, String> getSettingValues();
+    List<Pair<Integer, String>> getSettingValues();
 
     //Returns the current setting
     int getSetting();

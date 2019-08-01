@@ -12,6 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
+import edu.northeastern.lifeassistant.R;
 import edu.northeastern.lifeassistant.db.converters.CalendarTimeConverter;
 import edu.northeastern.lifeassistant.db.converters.DaysOfWeekConverter;
 import edu.northeastern.lifeassistant.db.converters.SettingTypeConverter;
@@ -79,8 +80,8 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static void prepopulateDb(AppDatabase db) {
-        db.activityDao().insert(new ActivityDb("Running", Color.rgb(229, 115, 115)));
-        db.activityDao().insert(new ActivityDb("Class", Color.rgb(149, 117, 205)));
+        db.activityDao().insert(new ActivityDb("Running", Color.parseColor("#E57373")));
+        db.activityDao().insert(new ActivityDb("Class", Color.parseColor("#64B5F6")));
     }
 
 }

@@ -32,4 +32,7 @@ public interface ScheduleEventDao {
     @Query("SELECT * FROM schedule_events WHERE activity_id = :activityId")
     public List<ScheduleEventDb> findScheduleEventsForActivity(String activityId);
 
+    @Query("DELETE FROM schedule_events WHERE id = :id")
+    public void deleteScheduleEventsById(String id);
+
 }

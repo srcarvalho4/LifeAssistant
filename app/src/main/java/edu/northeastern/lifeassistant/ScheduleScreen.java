@@ -113,6 +113,11 @@ public class ScheduleScreen extends AppCompatActivity {
         });
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        this.finish();
+//    }
+
     private void populateList() {
 
         Activity runningActivity = new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>());

@@ -11,8 +11,8 @@
     <color name="lightGrey">#DADADA</color>
     <color name="textDefault">#808080</color>
     <color name="highlighted">#7896F8</color>
-    <color name="green">#73B342</color>
-    <color name="red">#F85F51</color>
-    <color name="yellow">#EDEC39</color>
-    <color name="blue">#5D82E1</color>
+    <color name="green">#AED581</color>
+    <color name="red">#E57373</color>
+    <color name="yellow">#FFD54F</color>
+    <color name="blue">#64B5F6</color>
 </resources>

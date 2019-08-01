@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
@@ -36,7 +37,7 @@ public class CreateEventScreen extends AppCompatActivity {
     private Switch eventReminderSwitch;
     private EditText eventStartTimeEditText;
     private EditText eventEndTimeEditText;
-    private Button cancelButton;
+    private Button deleteButton;
     private Button saveButton;
 
     private boolean isEdit;
@@ -60,7 +61,7 @@ public class CreateEventScreen extends AppCompatActivity {
         eventReminderSwitch = findViewById(R.id.createEventReminderSwitch);
         eventStartTimeEditText = findViewById(R.id.createEventStartTimeEditText);
         eventEndTimeEditText = findViewById(R.id.createEventEndTimeEditText);
-        cancelButton = findViewById(R.id.createEventCancelButton);
+        deleteButton = findViewById(R.id.createEventDeleteButton);
         saveButton = findViewById(R.id.createEventSaveButton);
 
         // Get extras
@@ -81,9 +82,11 @@ public class CreateEventScreen extends AppCompatActivity {
         // Show TimePicker onClick
         eventEndTimeEditText.setOnClickListener(view -> showTimePicker(eventEndTimeEditText));
 
-        // Redirect to ScheduleScreen onClick
-        cancelButton.setOnClickListener(view -> {
+        // Delete event and redirect onClick
+        deleteButton.setOnClickListener(view -> {
+            db.scheduleEventDao().deleteScheduleEventsById(selectedEventId);
             Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
+            intent.putExtra("location", "Schedule");
             startActivity(intent);
         });
 
@@ -96,6 +99,7 @@ public class CreateEventScreen extends AppCompatActivity {
                     if(timePeriodIsValid()) {
                         saveOrUpdateScheduleEvent(isEdit);
                         Intent intent = new Intent(this, ScheduleScreen.class);
+                        intent.putExtra("location", "Schedule");
                         startActivity(intent);
                     } else {
                         errorMsg = "Invalid Time Period";
@@ -112,6 +116,17 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Set widgets to selected event values if isEdit
         setWidgets(isEdit);
+        
+        ImageButton backButton = findViewById(R.id.createEventBackButton);
+        // Abort and redirect onClick
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
+                intent.putExtra("location", "Schedule");
+                startActivity(intent);
+            }
+        });
     }
 
     private void setWidgets(boolean isEdit) {
@@ -218,4 +233,10 @@ public class CreateEventScreen extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
+        intent.putExtra("location", "Schedule");
+        startActivity(intent);
+    }
 }

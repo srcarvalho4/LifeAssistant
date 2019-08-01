@@ -36,6 +36,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/createEventBackButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -198,9 +199,9 @@
         android:layout_weight="1.5">
 
         <Button
-            android:id="@+id/createEventCancelButton"
+            android:id="@+id/createEventDeleteButton"
             android:background="@color/red"
-            android:text="@string/cancel_button_text"
+            android:text="@string/delete_button_text"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"

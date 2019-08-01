@@ -90,4 +90,9 @@ public class SpontaneousScreen extends AppCompatActivity {
             default: throw new IllegalArgumentException("need a valid state type");
         }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        this.finish();
+//    }
 }
