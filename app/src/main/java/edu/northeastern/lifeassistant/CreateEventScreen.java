@@ -86,6 +86,7 @@ public class CreateEventScreen extends AppCompatActivity {
         deleteButton.setOnClickListener(view -> {
             db.scheduleEventDao().deleteScheduleEventsById(selectedEventId);
             Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
+            intent.putExtra("location", "Schedule");
             startActivity(intent);
         });
 
@@ -98,6 +99,7 @@ public class CreateEventScreen extends AppCompatActivity {
                     if(timePeriodIsValid()) {
                         saveOrUpdateScheduleEvent(isEdit);
                         Intent intent = new Intent(this, ScheduleScreen.class);
+                        intent.putExtra("location", "Schedule");
                         startActivity(intent);
                     } else {
                         errorMsg = "Invalid Time Period";
