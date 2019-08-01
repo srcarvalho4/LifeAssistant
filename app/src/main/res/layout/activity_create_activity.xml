@@ -141,9 +141,9 @@
         >
 
         <Button
-            android:id="@+id/createActivityCancelButton"
+            android:id="@+id/createActivityDeleteButton"
             android:background="@color/red"
-            android:text="@string/cancel_button_text"
+            android:text="@string/delete_button_text"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_gravity="fill"
