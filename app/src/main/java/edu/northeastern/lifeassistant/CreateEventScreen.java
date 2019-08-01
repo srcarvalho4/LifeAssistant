@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -112,6 +114,17 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Set widgets to selected event values if isEdit
         setWidgets(isEdit);
+        
+        ImageButton backButton = findViewById(R.id.createEventBackButton);
+        // Abort and redirect onClick
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
+                intent.putExtra("location", "Schedule");
+                startActivity(intent);
+            }
+        });
     }
 
     private void setWidgets(boolean isEdit) {
@@ -218,4 +231,10 @@ public class CreateEventScreen extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
+        intent.putExtra("location", "Schedule");
+        startActivity(intent);
+    }
 }

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -147,11 +148,28 @@ public class CreateActivityScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                intent.putExtra("location", "Activity");
                 startActivity(intent);
             }
         });
 
 
+        ImageButton backButton = findViewById(R.id.createActivityBackButton);
+        // Abort and redirect onClick
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+                intent.putExtra("location", "Activity");
+                startActivity(intent);
+            }
+        });
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+        intent.putExtra("location", "Activity");
+        startActivity(intent);
     }
 }
