@@ -63,6 +63,8 @@ public class CreateActivityScreen extends AppCompatActivity {
     private boolean isEdit;
     private String selectedActivityId;
 
+    private RuleAdapter ruleAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +124,8 @@ public class CreateActivityScreen extends AppCompatActivity {
 
 
         // Set Rule ListView Adapter
-        ruleListView.setAdapter(new RuleAdapter(this, rules));
+        ruleAdapter = new RuleAdapter(this, rules);
+        ruleListView.setAdapter(ruleAdapter);
 
         // Show menu onClick
         addRuleButton.setOnClickListener(new View.OnClickListener() {
@@ -134,22 +137,21 @@ public class CreateActivityScreen extends AppCompatActivity {
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-//                        String settingString = item.getTitle().toString();
-//                        Rule newRule = null;
-//                        switch(settingString) {
-//                            case "Volume":
-//                                newRule = new RingerRule(getApplicationContext(), AudioManager.RINGER_MODE_NORMAL);
-//                                break;
-//                            case "Driving Mode":
-//                                newRule = new DrivingModeRule(getApplicationContext(), UiModeManager.DISABLE_CAR_MODE_GO_HOME);
-//                                break;
-//                            case "Night Mode":
-//                                newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
-//                                break;
-//                            case "Step Count":
-//                        }
-//
-//                        rules.add(new RuleAdapterItem(newRule));
+                        String settingString = item.getTitle().toString();
+                        Rule newRule = null;
+
+                        if(settingString.equals(SettingType.RINGER.getValue())) {
+                            newRule = new RingerRule(getApplicationContext(), AudioManager.RINGER_MODE_NORMAL);
+                        } else if(settingString.equals(SettingType.DRIVING_MODE.getValue())) {
+                            newRule = new DrivingModeRule(getApplicationContext(), UiModeManager.DISABLE_CAR_MODE_GO_HOME);
+                        } else if(settingString.equals(SettingType.NIGHT_MODE.getValue())) {
+                            newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
+                        } else if(settingString.equals(SettingType.STEP_COUNT.getValue())) {
+
+                        }
+
+                        rules.add(new RuleAdapterItem(newRule));
+                        ruleAdapter.notifyDataSetChanged();
 
                         Toast.makeText(CreateActivityScreen.this,
                                 item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -169,12 +171,23 @@ public class CreateActivityScreen extends AppCompatActivity {
                 Integer activityColor = colorAdapter.getCurrentColor();
                 ActivityDb activityDb = new ActivityDb(activityName, activityColor);
                 db.activityDao().insert(activityDb);
-//
-//                for (RuleAdapterItem rule: rules) {
-//                    String ruleName = rule.getName();
-//
-//                    db.ruleDao().insert(new RuleDb(activityDb.getId(), rule.));
-//                }
+
+                for (RuleAdapterItem rule: rules) {
+                    String ruleName = rule.getName();
+                    RuleDb ruleDb = null;
+
+                    if(ruleName.equals(SettingType.RINGER.getValue())) {
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                    } else if(ruleName.equals(SettingType.DRIVING_MODE.getValue())) {
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                    } else if(ruleName.equals(SettingType.NIGHT_MODE.getValue())) {
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                    } else if(ruleName.equals(SettingType.STEP_COUNT.getValue())) {
+
+                    }
+
+                    db.ruleDao().insert(ruleDb);
+                }
 
                 Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
                 intent.putExtra("location", "Schedule");

@@ -3,13 +3,10 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridLayout;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +83,7 @@ public class SpontaneousScreen extends AppCompatActivity {
         switch (rule.getSetting()) {
             case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
             case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
-            case VOLUME: return new RingerRule(getApplicationContext(), rule.getSettingValue());
+            case RINGER: return new RingerRule(getApplicationContext(), rule.getSettingValue());
             default: throw new IllegalArgumentException("need a valid state type");
         }
     }

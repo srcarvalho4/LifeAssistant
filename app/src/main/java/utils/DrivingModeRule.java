@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.northeastern.lifeassistant.db.models.RuleDb;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 
 public class DrivingModeRule implements Rule {
 
@@ -46,7 +47,7 @@ public class DrivingModeRule implements Rule {
 
     @Override
     public String getName() {
-        return "DrivingMode";
+        return SettingType.DRIVING_MODE.getValue();
     }
 
     @Override
