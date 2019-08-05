@@ -35,6 +35,7 @@ import edu.northeastern.lifeassistant.SpontaneousStepCounterActivity;
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 
 public class StepCounterRule implements Rule, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -123,7 +124,7 @@ public class StepCounterRule implements Rule, GoogleApiClient.ConnectionCallback
 
     @Override
     public String getName() {
-        return null;
+        return SettingType.STEP_COUNT.getValue();
     }
 
     @Override

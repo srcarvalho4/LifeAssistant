@@ -37,6 +37,7 @@ import utils.RingerRule;
 import utils.Rule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
+import utils.StepCounterRule;
 
 public class CreateActivityScreen extends AppCompatActivity {
 
@@ -117,7 +118,7 @@ public class CreateActivityScreen extends AppCompatActivity {
                 } else if(settingString.equals(SettingType.NIGHT_MODE.getValue())) {
                     newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
                 } else if(settingString.equals(SettingType.STEP_COUNT.getValue())) {
-
+                    newRule = new StepCounterRule(getApplicationContext());
                 }
 
                 rulesSet.add(new RuleAdapterItem(newRule));
