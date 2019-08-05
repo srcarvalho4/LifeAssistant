@@ -139,17 +139,15 @@ public class CreateActivityScreen extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         String settingString = item.getTitle().toString();
                         Rule newRule = null;
-                        switch(settingString) {
-                            case "Ringer":
-                                newRule = new RingerRule(getApplicationContext(), AudioManager.RINGER_MODE_NORMAL);
-                                break;
-                            case "Driving Mode":
-                                newRule = new DrivingModeRule(getApplicationContext(), UiModeManager.DISABLE_CAR_MODE_GO_HOME);
-                                break;
-                            case "Night Mode":
-                                newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
-                                break;
-                            case "Step Count":
+
+                        if(settingString.equals(SettingType.RINGER.getValue())) {
+                            newRule = new RingerRule(getApplicationContext(), AudioManager.RINGER_MODE_NORMAL);
+                        } else if(settingString.equals(SettingType.DRIVING_MODE.getValue())) {
+                            newRule = new DrivingModeRule(getApplicationContext(), UiModeManager.DISABLE_CAR_MODE_GO_HOME);
+                        } else if(settingString.equals(SettingType.NIGHT_MODE.getValue())) {
+                            newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
+                        } else if(settingString.equals(SettingType.STEP_COUNT.getValue())) {
+
                         }
 
                         rules.add(new RuleAdapterItem(newRule));
@@ -177,16 +175,15 @@ public class CreateActivityScreen extends AppCompatActivity {
                 for (RuleAdapterItem rule: rules) {
                     String ruleName = rule.getName();
                     RuleDb ruleDb = null;
-                    switch (ruleName) {
-                        case "DrivingMode":
-                            ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
-                            break;
-                        case "Ringer":
-                            ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
-                            break;
-                        case "StepCounter":
-                        case "NightMode":
-                            ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+
+                    if(ruleName.equals(SettingType.RINGER.getValue())) {
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                    } else if(ruleName.equals(SettingType.DRIVING_MODE.getValue())) {
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                    } else if(ruleName.equals(SettingType.NIGHT_MODE.getValue())) {
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                    } else if(ruleName.equals(SettingType.STEP_COUNT.getValue())) {
+
                     }
 
                     db.ruleDao().insert(ruleDb);
