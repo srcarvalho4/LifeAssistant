@@ -199,9 +199,7 @@ public class CreateEventScreen extends AppCompatActivity {
             List<ScheduleEventDb> existingEvents = db.scheduleEventDao().findAllScheduleEvents();
             List<String> existingEventNames = new ArrayList<>();
             existingEvents.forEach(e -> existingEventNames.add(e.getName()));
-            if(!existingEventNames.contains(eventName) || isEdit) {
-                return true;
-            }
+            return !existingEventNames.contains(eventName) || isEdit;
         }
         return false;
     }
