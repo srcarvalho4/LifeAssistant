@@ -72,7 +72,7 @@ public class RuleAdapter extends BaseAdapter {
         List<Pair<Integer, String>> settings = rules.get(i).getSettings();
 
         viewHolder.button1.setText(settings.get(0).second);
-        viewHolder.button1.setText(settings.get(1).second);
+        viewHolder.button2.setText(settings.get(1).second);
         if (settings.size() == 3) {
             viewHolder.button3.setVisibility(View.VISIBLE);
             viewHolder.button3.setText(settings.get(2).second);

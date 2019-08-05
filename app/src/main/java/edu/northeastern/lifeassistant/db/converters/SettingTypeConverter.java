@@ -7,8 +7,8 @@ public class SettingTypeConverter {
 
     @TypeConverter
     public static SettingType fromString(String settingString) {
-        if(settingString.equals(SettingType.VOLUME.getValue())) {
-            return SettingType.VOLUME;
+        if(settingString.equals(SettingType.RINGER.getValue())) {
+            return SettingType.RINGER;
         } else if(settingString.equals(SettingType.STEP_COUNT.getValue())) {
             return SettingType.STEP_COUNT;
         } else if(settingString.equals(SettingType.DRIVING_MODE.getValue())) {
