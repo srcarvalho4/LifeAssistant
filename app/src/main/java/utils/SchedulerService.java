@@ -95,7 +95,8 @@ public class SchedulerService extends Service {
             case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
             case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
             case RINGER: return new RingerRule(getApplicationContext(), rule.getSettingValue());
-            case STEP_COUNT: return new StepCounterRule();
+            case STEP_COUNT: return new StepCounterRule(getApplicationContext());
+
             default: throw new IllegalArgumentException("need a valid state type");
         }
     }

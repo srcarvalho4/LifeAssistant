@@ -59,7 +59,7 @@ public class HistoryActivity extends AppCompatActivity {
     private void populateList() {
 
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
-        List<SpontaneousEventDb> check = db.spontaneousEventDao().findAllSpontaneousEvents();
+        List<SpontaneousEventDb> check = db.spontaneousEventDao().findAllSpontaneousEventsInDescendingOrder();
 
 
         if (check == null)
@@ -78,7 +78,7 @@ public class HistoryActivity extends AppCompatActivity {
                     Log.d("Details", "StepCount: " + check.get(i).getFinalValue());
 
                     if (check2.getName().equalsIgnoreCase("class")) {
-                        imageSelection = R.drawable.classimg;
+                        imageSelection = R.drawable.bookfav;
                         finalValue = "";
                     }
                     else if (check2.getName().equalsIgnoreCase("running")){

@@ -46,6 +46,8 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
                 navView.setSelectedItemId(R.id.navigation_scheduler);
             } else if (selected.equals("Spontaneous")) {
                 navView.setSelectedItemId(R.id.navigation_spontaneous);
+            } else if (selected.equals("History")) {
+                navView.setSelectedItemId(R.id.navigation_history);
             }
         }
         navView.setOnNavigationItemSelectedListener(this);
@@ -68,6 +70,10 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
             case R.id.navigation_spontaneous:
                 intent = new Intent(getContext(), SpontaneousScreen.class);
                 intent.putExtra("location", "Spontaneous");
+                break;
+            case R.id.navigation_history:
+                intent = new Intent(getContext(), HistoryActivity.class);
+                intent.putExtra("location", "History");
                 break;
         }
         startActivity(intent);
