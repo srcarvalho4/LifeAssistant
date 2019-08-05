@@ -52,7 +52,7 @@ public class SpontaneousScreen extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive.class);
+                Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive1.class);
 
                 intent.putExtra("name", activityDb.get(i).getId());
                 intent.putExtra("color", activities.get(i).getColor());
