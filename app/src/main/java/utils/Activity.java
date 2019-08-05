@@ -1,10 +1,7 @@
 package utils;
 
 import android.content.Context;
-import android.graphics.Color;
 
-import java.lang.reflect.Array;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class Activity {
             switch (rule.getSetting()) {
                 case DRIVING_MODE: newRule = new DrivingModeRule(applicationContext, rule.getSettingValue()); break;
                 case NIGHT_MODE: newRule = new NightModeRule(applicationContext, rule.getSettingValue()); break;
-                case VOLUME: newRule = new RingerRule(applicationContext, rule.getSettingValue()); break;
+                case RINGER: newRule = new RingerRule(applicationContext, rule.getSettingValue()); break;
                 default: throw new IllegalArgumentException("need a valid state type");
             }
             rules.add(newRule);

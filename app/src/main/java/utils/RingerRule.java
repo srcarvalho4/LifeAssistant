@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.northeastern.lifeassistant.db.models.RuleDb;
+import edu.northeastern.lifeassistant.db.types.SettingType;
 
 public class RingerRule implements Rule {
 
@@ -43,15 +44,15 @@ public class RingerRule implements Rule {
 
     @Override
     public String getName() {
-        return "Ringer";
+        return SettingType.RINGER.getValue();
     }
 
     @Override
     public List<Pair<Integer, String>> getSettingValues() {
         List<Pair<Integer, String>> values = new ArrayList<>();
         values.add(new Pair(AudioManager.RINGER_MODE_SILENT, "On"));
-        values.add(new Pair(AudioManager.RINGER_MODE_VIBRATE, "Vibrate"));
         values.add(new Pair(AudioManager.RINGER_MODE_NORMAL, "Off"));
+        values.add(new Pair(AudioManager.RINGER_MODE_VIBRATE, "Vibrate"));
         return values;
     }
 
