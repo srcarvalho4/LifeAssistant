@@ -5,6 +5,7 @@
     <string name="Activity">Activity</string>
     <string name="Schedule">Schedule</string>
     <string name="Spontaneous">Spontaneous</string>
+    <string name="History">History</string>
     <string name="Active">Currently Active</string>
     <string name="ActivityDescription">Create an Activity and decide what it does</string>
     <string name="CreateActivityDescription">Decide what this Activity will do</string>

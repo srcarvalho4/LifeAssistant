@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +45,9 @@ public class ScheduleEventDb {
     @ColumnInfo(name = "days_of_week")
     private List<Integer> daysOfWeek;
 
+    @ColumnInfo(name = "alarm_ids")
+    private List<Integer> alarmIds;
+
     @ColumnInfo(name = "reminder_switch_state")
     private Boolean reminderSwitchState;
 
@@ -57,6 +62,7 @@ public class ScheduleEventDb {
         this.startTime = startTime;
         this.endTime = endTime;
         this.daysOfWeek = daysOfWeek;
+        this.alarmIds = new ArrayList<>();
         this.reminderSwitchState = reminderSwitchState;
         this.isActive = false;
     }
@@ -107,6 +113,14 @@ public class ScheduleEventDb {
 
     public void setDaysOfWeek(List<Integer> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
+    }
+
+    public List<Integer> getAlarmIds() {
+        return alarmIds;
+    }
+
+    public void setAlarmIds(List<Integer> alarmIds) {
+        this.alarmIds = alarmIds;
     }
 
     public Boolean getReminderSwitchState() {

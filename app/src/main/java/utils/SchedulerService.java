@@ -11,7 +11,6 @@ import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
-import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao_Impl;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
@@ -95,8 +94,9 @@ public class SchedulerService extends Service {
         switch (rule.getSetting()) {
             case DRIVING_MODE: return new DrivingModeRule(getApplicationContext(), rule.getSettingValue());
             case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
-            case VOLUME: return new RingerRule(getApplicationContext(), rule.getSettingValue());
-            case STEP_COUNT: return new StepCounterRule();
+            case RINGER: return new RingerRule(getApplicationContext(), rule.getSettingValue());
+            case STEP_COUNT: return new StepCounterRule(getApplicationContext());
+
             default: throw new IllegalArgumentException("need a valid state type");
         }
     }

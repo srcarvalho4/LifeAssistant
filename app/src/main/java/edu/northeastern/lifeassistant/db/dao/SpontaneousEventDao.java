@@ -23,6 +23,9 @@ public interface SpontaneousEventDao {
     @Query("SELECT * FROM spontaneous_events")
     public List<SpontaneousEventDb> findAllSpontaneousEvents();
 
+    @Query("SELECT * FROM spontaneous_events ORDER BY start_time DESC")
+    public List<SpontaneousEventDb> findAllSpontaneousEventsInDescendingOrder();
+
     @Query("SELECT * FROM spontaneous_events WHERE id = :id")
     public SpontaneousEventDb findSpontaneousEventById(String id);
 
