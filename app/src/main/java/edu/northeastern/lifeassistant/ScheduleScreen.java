@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 import utils.Activity;
+import utils.ActivityAdapter;
 import utils.EventAdapter;
 import utils.Rule;
 import utils.ScheduleEvent;
@@ -28,8 +32,6 @@ public class ScheduleScreen extends AppCompatActivity {
     ListView listView;
 
     AppDatabase db;
-
-    int current = -1;
 
     ArrayList<ScheduleEvent> events = new ArrayList<>();
     ArrayList<Activity> allActivities = new ArrayList<>();
@@ -50,6 +52,7 @@ public class ScheduleScreen extends AppCompatActivity {
             events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
         }
 
+        allActivities.add(new Activity(Color.LTGRAY, "All", new ArrayList<>()));
         for (int i = 0; i < activityDb.size(); i++) {
             allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
@@ -73,32 +76,45 @@ public class ScheduleScreen extends AppCompatActivity {
 
         Button filterButton = findViewById(R.id.scheduleActivityButtonFilter);
         TextView filterName = findViewById(R.id.scheduleActivityFilterIndicator);
+        LinearLayout filterWindow = findViewById(R.id.scheduleFilterView);
+
+        ActivityAdapter activityAdapter = new ActivityAdapter(this, allActivities);
+        ListView filterView = findViewById(R.id.scheduleListFilterView);
+        filterView.setAdapter(activityAdapter);
 
         filterName.setText("All");
         filterName.setTextColor(Color.BLACK);
 
-        filterButton.setOnClickListener(new View.OnClickListener() {
+        filterView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                current++;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 ArrayList<ScheduleEvent> newEvents = new ArrayList<>();
-                if (current >= allActivities.size()) {
-                    current = -1;
+
+                if (i == 0) {
                     newEvents = events;
                     filterName.setText("All");
                     filterName.setTextColor(Color.BLACK);
                 }
                 else {
-                    Activity filterActivity = allActivities.get(current);
-                    for (int i = 0; i < events.size(); i++) {
-                        if (events.get(i).getActivityType().getName().equals(filterActivity.getName())) {
-                            newEvents.add(events.get(i));
+                    Activity filterActivity = new Activity(getApplicationContext(), activityDb.get(i-1).getId());
+                    for (int j = 0; j < events.size(); j++) {
+                        if (events.get(j).getActivityType().getName().equals(filterActivity.getName())) {
+                            newEvents.add(events.get(j));
                         }
                     }
                     filterName.setText(filterActivity.getName());
                     filterName.setTextColor(filterActivity.getColor());
                 }
+                filterWindow.setVisibility(View.GONE);
                 adapter.updateData(newEvents);
+            }
+        });
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterWindow.setVisibility(View.VISIBLE);
             }
         });
 
