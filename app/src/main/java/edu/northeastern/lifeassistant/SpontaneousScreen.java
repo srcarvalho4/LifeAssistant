@@ -55,7 +55,6 @@ public class SpontaneousScreen extends AppCompatActivity {
                 Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive1.class);
 
                 intent.putExtra("name", activityDb.get(i).getId());
-                intent.putExtra("color", activities.get(i).getColor());
                 intent.putExtra("location", "Spontaneous");
                 startActivity(intent);
             }

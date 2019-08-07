@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/start_button_text"
+            android:backgroundTint="@color/lightGrey"
             android:textSize="20sp"/>
 
 

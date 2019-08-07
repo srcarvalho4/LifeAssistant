@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import utils.SetAlarmManager;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -34,9 +35,17 @@ public class SplashScreen extends AppCompatActivity {
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent explicitIntent = new Intent(SplashScreen.this, ActivityScreen.class);
-                startActivity(explicitIntent);
-
+                Intent intent;
+                String activityId = SetAlarmManager.getActiveScheduleEvent(getApplicationContext());
+                if (activityId == null) {
+                    intent = new Intent(SplashScreen.this, ActivityScreen.class);
+                }
+                else {
+                    intent = new Intent(SplashScreen.this, SpontaneousActive1.class);
+                    intent.putExtra("name", activityId);
+                    intent.putExtra("location", "Spontaneous");
+                }
+                startActivity(intent);
             }
         });
     }

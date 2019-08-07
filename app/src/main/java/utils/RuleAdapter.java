@@ -1,12 +1,17 @@
 package utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +65,7 @@ public class RuleAdapter extends BaseAdapter {
             viewHolder.button1 = view.findViewById(R.id.RuleItemButton1);
             viewHolder.button2 = view.findViewById(R.id.RuleItemButton2);
             viewHolder.button3 = view.findViewById(R.id.RuleItemButton3);
+            viewHolder.deleteButton = view.findViewById(R.id.RuleItemDelete);
 
             view.setTag(viewHolder);
         }
@@ -81,23 +87,55 @@ public class RuleAdapter extends BaseAdapter {
             viewHolder.button3.setVisibility(View.GONE);
         }
 
+        int selectedNum = -1;
+        for(int j = 0; j < rules.get(i).getSettings().size(); j++) {
+            if (rules.get(i).getSettings().get(j).first == rules.get(0).getValue()) {
+                selectedNum = j;
+            }
+        }
+
+        viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+        viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+        viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+        switch (selectedNum) {
+            case 0: viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary)); break;
+            case 1: viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary)); break;
+            case 2: viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary)); break;
+        }
 
         viewHolder.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rules.get(i).setValue(settings.get(0).first);
+                viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
+                viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
             }
         });
         viewHolder.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rules.get(i).setValue(settings.get(1).first);
+                viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
+                viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
             }
         });
         viewHolder.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rules.get(i).setValue(settings.get(2).first);
+                viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
+            }
+        });
+
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rules.remove(i);
+                notifyDataSetChanged();
             }
         });
 
@@ -110,4 +148,5 @@ class RuleViewHolder {
     Button button1;
     Button button2;
     Button button3;
+    ImageButton deleteButton;
 }

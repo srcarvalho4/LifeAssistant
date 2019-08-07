@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_margin="10dp"
         android:background="#BBBBBB">
 
@@ -14,40 +14,56 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/RuleItemName"
             android:textSize="20sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:textColor="#404040"
             android:layout_margin="10dp"
-            android:text="Driving Mode"
             android:gravity="center"/>
 
 
-        <Button
-            android:id="@+id/RuleItemButton1"
-            android:layout_width="60dp"
-            android:layout_gravity="center"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:text="On"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/RuleItemButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
+            <Button
+                android:id="@+id/RuleItemButton1"
+                android:layout_width="65dp"
+                android:layout_gravity="center"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/lightGrey"
+                android:layout_marginEnd="5dp"/>
+
+            <Button
+                android:id="@+id/RuleItemButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/lightGrey"
+                android:layout_marginEnd="5dp"/>
+            <Button
+                android:id="@+id/RuleItemButton2"
+                android:layout_width="65dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/lightGrey"
+                android:layout_height="55dp"/>
+
+        </LinearLayout>
+        <ImageButton
+            android:id="@+id/RuleItemDelete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="5dp"
-            android:text="Vibrate" />
-        <Button
-            android:id="@+id/RuleItemButton2"
-            android:layout_width="60dp"
             android:layout_gravity="center"
-            android:layout_height="50dp"
-            android:layout_marginEnd="5dp"
-            android:text="Off"/>
+            android:background="@drawable/delete_icon"/>
     </LinearLayout>
 
 
