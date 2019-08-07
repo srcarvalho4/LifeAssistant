@@ -54,7 +54,7 @@ public class ScheduleScreen extends AppCompatActivity {
             events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
         }
 
-        allActivities.add(new Activity(Color.WHITE, "All", new ArrayList<>()));
+        allActivities.add(new Activity(Color.BLACK, "All", new ArrayList<>()));
         for (int i = 0; i < activityDb.size(); i++) {
             allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
