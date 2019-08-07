@@ -80,8 +80,8 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static void prepopulateDb(AppDatabase db) {
-        db.activityDao().insert(new ActivityDb("Running", Color.parseColor("#E57373")));
-        db.activityDao().insert(new ActivityDb("Class", Color.parseColor("#64B5F6")));
+        db.activityDao().insert(new ActivityDb("Running", R.color.red));
+        db.activityDao().insert(new ActivityDb("Class", R.color.blue));
     }
 
 }

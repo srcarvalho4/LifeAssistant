@@ -15,7 +15,7 @@
         android:layout_marginBottom="61dp"
         android:gravity="center"
         android:text="Life Assistant"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/balloon"

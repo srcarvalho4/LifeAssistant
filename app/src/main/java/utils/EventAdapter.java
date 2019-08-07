@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,11 +53,11 @@ public class EventAdapter extends BaseAdapter {
         EventViewHolder viewHolder;
 
         if (view == null) {
-            view = View.inflate(context, R.layout.list_event_item, null);
+            view = View.inflate(context, R.layout.list_event_item_1, null);
 
             viewHolder = new EventViewHolder();
 
-            viewHolder.background = view.findViewById(R.id.EventItemGridLayout);
+            viewHolder.background = view.findViewById(R.id.cardViewScheduleScreen1);
             viewHolder.name = view.findViewById(R.id.eventItemName);
             viewHolder.startTime = view.findViewById(R.id.eventItemStartTime);
             viewHolder.endTime = view.findViewById(R.id.eventItemEndTime);
@@ -71,20 +74,20 @@ public class EventAdapter extends BaseAdapter {
         viewHolder.endTime.setText(events.get(i).getEndTimeText());
         viewHolder.background.setBackgroundColor(events.get(i).getColor());
         viewHolder.dayPicker.setSelectedDays(events.get(i).getDayData());
-        int color = events.get(i).getColor();
-        int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
-        int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
-        int darkColorB = (int) (((color) & 0xff) * 3 / 4);
-        int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
-        int lightColorR = (int) (((((color >> 16) & 0xff) - 255) / 2) + 255);
-        int lightColorG = (int) (((((color >>  8) & 0xff) - 255) / 2) + 255);
-        int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
-        int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
+//        int color = events.get(i).getColor();
+//        int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
+//        int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
+//        int darkColorB = (int) (((color) & 0xff) * 3 / 4);
+//        int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
+//        int lightColorR = (int) (((((color >> 16) & 0xff) - 255) / 2) + 255);
+//        int lightColorG = (int) (((((color >>  8) & 0xff) - 255) / 2) + 255);
+//        int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
+//        int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
 
 //        viewHolder.startTime.setTextColor(darkColor);
 //        viewHolder.endTime.setTextColor(lightColor);
-        viewHolder.dayPicker.setHighlightColor(darkColor);
-        viewHolder.dayPicker.setTextColor(lightColor);
+//        viewHolder.dayPicker.setHighlightColor(darkColor);
+//        viewHolder.dayPicker.setTextColor(lightColor);
 
 //        //Set default view to invisible
 //        for (TextView dayView: viewHolder.days) {
@@ -109,7 +112,7 @@ public class EventAdapter extends BaseAdapter {
 }
 
 class EventViewHolder {
-    GridLayout background;
+    LinearLayout background;
     TextView name;
     TextView startTime;
     TextView endTime;
