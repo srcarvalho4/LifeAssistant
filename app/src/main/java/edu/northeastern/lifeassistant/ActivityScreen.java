@@ -65,8 +65,8 @@ public class ActivityScreen extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        this.finish();
-//    }
+    @Override
+    public void onBackPressed() {
+        this.finish();
+    }
 }
