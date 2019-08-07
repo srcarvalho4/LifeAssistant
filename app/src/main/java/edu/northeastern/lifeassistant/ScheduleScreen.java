@@ -32,6 +32,8 @@ public class ScheduleScreen extends AppCompatActivity {
     ListView listView;
 
     AppDatabase db;
+    boolean filterShowing = false;
+    LinearLayout filterWindow;
 
     ArrayList<ScheduleEvent> events = new ArrayList<>();
     ArrayList<Activity> allActivities = new ArrayList<>();
@@ -52,7 +54,7 @@ public class ScheduleScreen extends AppCompatActivity {
             events.add(new ScheduleEvent(getApplicationContext(), scheduleEventDb.get(i).getId()));
         }
 
-        allActivities.add(new Activity(Color.LTGRAY, "All", new ArrayList<>()));
+        allActivities.add(new Activity(Color.WHITE, "All", new ArrayList<>()));
         for (int i = 0; i < activityDb.size(); i++) {
             allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
@@ -76,7 +78,7 @@ public class ScheduleScreen extends AppCompatActivity {
 
         Button filterButton = findViewById(R.id.scheduleActivityButtonFilter);
         TextView filterName = findViewById(R.id.scheduleActivityFilterIndicator);
-        LinearLayout filterWindow = findViewById(R.id.scheduleFilterView);
+        filterWindow = findViewById(R.id.scheduleFilterView);
 
         ActivityAdapter activityAdapter = new ActivityAdapter(this, allActivities);
         ListView filterView = findViewById(R.id.scheduleListFilterView);
@@ -107,6 +109,7 @@ public class ScheduleScreen extends AppCompatActivity {
                     filterName.setTextColor(filterActivity.getColor());
                 }
                 filterWindow.setVisibility(View.GONE);
+                filterShowing = false;
                 adapter.updateData(newEvents);
             }
         });
@@ -115,6 +118,7 @@ public class ScheduleScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 filterWindow.setVisibility(View.VISIBLE);
+                filterShowing = true;
             }
         });
 
@@ -129,10 +133,16 @@ public class ScheduleScreen extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
+    @Override
+    public void onBackPressed() {
+        if (filterShowing) {
+            filterWindow.setVisibility(View.GONE);
+        }
+        else {
+            super.onBackPressed();
+        }
 //        this.finish();
-//    }
+    }
 
     private void populateList() {
 

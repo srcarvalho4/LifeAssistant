@@ -169,21 +169,30 @@ public class CreateActivityScreen extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ActivityDb activityDb;
                 String activityName = activityNameEditText.getText().toString();
                 Integer activityColor = colorAdapter.getCurrentColor();
-                ActivityDb activityDb = new ActivityDb(activityName, activityColor);
-                db.activityDao().insert(activityDb);
+
+                if(isEdit) {
+                    activityDb = db.activityDao().findActivityById(selectedActivityId);
+                    activityDb.setName(activityName);
+                    activityDb.setColor(activityColor);
+                    db.activityDao().update(activityDb);
+                } else {
+                    activityDb = new ActivityDb(activityName, activityColor);
+                    db.activityDao().insert(activityDb);
+                }
 
                 for (RuleAdapterItem rule: rules) {
                     String ruleName = rule.getName();
                     RuleDb ruleDb = null;
 
                     if(ruleName.equals(SettingType.RINGER.getValue())) {
-                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.RINGER, rule.getValue());
                     } else if(ruleName.equals(SettingType.DRIVING_MODE.getValue())) {
                         ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
                     } else if(ruleName.equals(SettingType.NIGHT_MODE.getValue())) {
-                        ruleDb = new RuleDb(activityDb.getId(), SettingType.DRIVING_MODE, rule.getValue());
+                        ruleDb = new RuleDb(activityDb.getId(), SettingType.NIGHT_MODE, rule.getValue());
                     } else if(ruleName.equals(SettingType.STEP_COUNT.getValue())) {
 
                     }

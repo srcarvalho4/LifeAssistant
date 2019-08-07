@@ -1,6 +1,8 @@
 package edu.northeastern.lifeassistant;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -111,7 +113,9 @@ public class CreateEventScreen extends AppCompatActivity {
                 errorMsg = "Invalid Event Name";
             }
 
-            Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+            if (errorMsg != null) {
+                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+            }
         });
 
         // Set widgets to selected event values if isEdit
