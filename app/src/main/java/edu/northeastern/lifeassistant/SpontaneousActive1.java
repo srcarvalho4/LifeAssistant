@@ -142,6 +142,10 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 buttonStart.setEnabled(true);
                 buttonStop.setEnabled(false);
             }
+            else {
+                buttonStart.setEnabled(false);
+                buttonStop.setEnabled(true);
+            }
         }
         //=================================================================================
 
@@ -163,6 +167,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 }
                 //progressBar.setVisibility(View.INVISIBLE);
                 SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
+                sEvent.setActive(true);
                 db.spontaneousEventDao().insert(sEvent);
                 buttonStop.setEnabled(true);
                 buttonStart.setEnabled(false);
@@ -199,6 +204,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 mostRecentEvent.setEndTime(Calendar.getInstance());
                 mostRecentEvent.setEndValue(myTotalSteps);
                 mostRecentEvent.setFinalValue(myFinalStepsString);
+                mostRecentEvent.setActive(false);
 
                 db.spontaneousEventDao().update(mostRecentEvent);
                 buttonStart.setEnabled(true);

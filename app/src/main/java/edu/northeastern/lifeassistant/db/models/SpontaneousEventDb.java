@@ -54,7 +54,7 @@ public class SpontaneousEventDb {
         this.activityId = activityId;
         this.startTime = Calendar.getInstance();
         this.endTime = endTime;
-        this.isActive = true;
+        this.isActive = false;
         this.startValue = startValue;
         this.endValue = endValue;
         this.finalValue = finalValue;
