@@ -84,8 +84,8 @@
             android:id="@+id/createActivityColorGrid"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:numColumns="4"
-            ></GridView>
+            android:numColumns="6"
+            />
 
         <Button
             android:id="@+id/createActivityAddRuleButton"
