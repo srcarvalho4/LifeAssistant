@@ -41,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
                     intent = new Intent(SplashScreen.this, ActivityScreen.class);
                 }
                 else {
-                    intent = new Intent(SplashScreen.this, SpontaneousActive.class);
+                    intent = new Intent(SplashScreen.this, SpontaneousActive1.class);
                     intent.putExtra("name", activityId);
                     intent.putExtra("location", "Spontaneous");
                 }

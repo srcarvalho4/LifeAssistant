@@ -46,6 +46,7 @@
                     android:layout_height="60dp"
                     android:foreground="@drawable/add_icon"
                     android:layout_margin="10dp"
+                    android:backgroundTint="@color/lightGrey"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"/>
         </RelativeLayout>

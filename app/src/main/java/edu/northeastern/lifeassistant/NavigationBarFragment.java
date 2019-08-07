@@ -75,7 +75,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
                     intent = new Intent(getContext(), SpontaneousScreen.class);
                 }
                 else {
-                    intent = new Intent(getContext(), SpontaneousActive.class);
+                    intent = new Intent(getContext(), SpontaneousActive1.class);
                     intent.putExtra("name", activityId);
                     intent.putExtra("location", "Spontaneous");
                 }
