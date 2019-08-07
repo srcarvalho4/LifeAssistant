@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Schedule"
-        android:background="@color/header_green2"
+        android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:gravity="center"
         android:textSize="40sp"/>
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/header_green"
+        android:background="@color/colorAccent"
         android:textColor="@color/white"
         android:gravity="center"
         android:text="@string/ScheduleDescription"
@@ -88,8 +88,8 @@
                 <ImageButton
                     android:id="@+id/scheduleActivityButtonFilter"
                     android:background="@drawable/btn_background"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
                     android:textSize="32sp"
                     android:layout_marginRight="10dp"
@@ -99,8 +99,8 @@
                     android:id="@+id/scheduleActivityButtonAdd"
                     android:background="@drawable/btn_background"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:textSize="32sp"
                     android:src="@drawable/ic_add_icon"/>
 
