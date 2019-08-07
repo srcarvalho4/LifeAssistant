@@ -92,10 +92,12 @@ public class CreateActivityScreen extends AppCompatActivity {
 
         //put colors into the color picker
 
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_maroon), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_lavender), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_yellow), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_blue), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.red), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.orange), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.yellow), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.green), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.blue), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.purple), false));
 
         colorAdapter = new ColorAdapter(getApplicationContext(), colorOptions);
 

@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import java.util.ArrayList;
 
 import edu.northeastern.lifeassistant.R;
@@ -50,6 +52,7 @@ public class ActivityAdapter extends BaseAdapter {
             viewHolder = new ActivityViewHolder();
 
             viewHolder.textView = view.findViewById(R.id.activityItemText);
+            viewHolder.background = view.findViewById(R.id.activityItemWindow);
 
 //            viewHolder.textView.setOnTouchListener(new View.OnTouchListener() {
 //                public boolean onTouch(View v, MotionEvent event) {
@@ -77,5 +80,6 @@ public class ActivityAdapter extends BaseAdapter {
 
 class ActivityViewHolder {
     TextView textView;
+    CardView background;
 
 }
