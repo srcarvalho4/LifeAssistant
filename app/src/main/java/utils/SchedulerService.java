@@ -1,20 +1,32 @@
 package utils;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import edu.northeastern.lifeassistant.R;
+import edu.northeastern.lifeassistant.ScheduleScreen;
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
 public class SchedulerService extends Service {
+
+    private String CHANNEL_ID = "";
 
     public void onCreate()
     {
@@ -29,23 +41,42 @@ public class SchedulerService extends Service {
         String operation = intent.getStringExtra("operation");
         String activity = intent.getStringExtra("activityID");
         String eventID = intent.getStringExtra("eventID");
+        String eventName = intent.getStringExtra("eventName");
+        int alarmID = intent.getIntExtra("alarmID", 0);
 
-        Toast.makeText(getApplicationContext(), "Event " + eventID + " has been " + operation, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Event " + eventName + " has been " + operation, Toast.LENGTH_SHORT).show();
 
         ArrayList<Rule> rules = getRules(activity);
 
-        switch (operation) {
-            case "enable": {
-                handleEnable(rules);
-                setIsActive(eventID, true);
+        if (operation != null) {
+            switch (operation) {
+                case "enable": {
+                    Log.d("setAlarm", "enabling rules!");
+                    handleEnable(rules);
+                    removeAlarmID(alarmID, eventID);
+                    setIsActive(eventID, true);
+                    break;
+                }
+                case "disable": {
+                    Log.d("setAlarm", "disabling rules!");
+                    handleDisable(rules);
+                    removeAlarmID(alarmID, eventID);
+                    setIsActive(eventID, false);
+                    break;
+                }
+                case "setAlarm": {
+                    Log.d("setAlarm", "calling callScheduleAlarm from service");
+                    removeAlarmID(alarmID, eventID);
+                    callScheduleAlarm(eventID);
+                    break;
+                }
+                case "reminder": {
+                    reminderNotification(eventID);
+                    break;
+                }
             }
-            case "disable": {
-                handleDisable(rules);
-                setIsActive(eventID, false);
-            }
-            case "setAlarm": {
-                callScheduleAlarm(eventID);
-            }
+        } else {
+            Log.e("setAlarm", "invalid operation!!");
         }
 
         stopSelf();
@@ -53,12 +84,75 @@ public class SchedulerService extends Service {
         return START_NOT_STICKY;
     }
 
+    private void reminderNotification(String eventID) {
+
+        createNotificationChannel();
+
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
+        ScheduleEventDb eventDb = scheduleEventDao.findScheduleEventById(eventID);
+
+        Intent intent = new Intent(this, ScheduleScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        /*Intent cancelIntent = new Intent(this, Alarm.class);
+        cancelIntent.setAction(ACTION_SNOOZE);
+        cancelIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+        PendingIntent snoozePendingIntent =
+                PendingIntent.getBroadcast(this, 0, snoozeIntent, 0);*/
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.lightning_icon)
+                .setContentTitle("Event starting soon!")
+                .setContentText("Your scheduled event " + eventDb.getName() + " is starting in 10 minutes.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        int notificationID = eventDb.hashCode();
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(notificationID, builder.build());
+
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "ReminderChannel";
+            String description = "Channel for sending event reminders";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void removeAlarmID(int alarmID, String eventId) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
+
+        ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventId);
+
+        List<Integer> alarmIDs = event.getAlarmIds();
+
+        if (alarmIDs != null && alarmIDs.contains(alarmID)) {
+            alarmIDs.remove(alarmID);
+        }
+    }
+
     private void callScheduleAlarm(String eventId) {
         ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
 
         ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventId);
 
-        SetAlarmManager.setSchedulingAlarm(getApplicationContext(), event);
+        SetAlarmManager.setSchedulingAlarm(getApplicationContext(), event.getId());
     }
 
     private void setIsActive(String eventID, boolean enabled) {
@@ -82,8 +176,10 @@ public class SchedulerService extends Service {
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
 
         List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
+        Log.d("gettingRules", "rule size" + dbRules.size());
 
         for (RuleDb rule : dbRules) {
+            Log.d("gettingRules", "got a rule!! " + rule.getSetting());
             rules.add(getRuleInstance(rule));
         }
 
@@ -119,5 +215,6 @@ public class SchedulerService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 
 }
