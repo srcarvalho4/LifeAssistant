@@ -4,11 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".HistoryActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/header_green2"
+        android:gravity="center"
+        android:text="@string/History"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/header_green2"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="Track your activities"
+        android:textSize="16sp"/>
 
 
     <ListView
         android:id="@+id/myHistoryListView"
+        android:layout_margin="15dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="15sp"
         android:layout_width="match_parent"

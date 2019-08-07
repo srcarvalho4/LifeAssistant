@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/cardViewScheduleScreen1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:id="@+id/EventItemGridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/eventItemName"
+                android:textColor="#FFFFFF"
+                android:layout_column="0"
+                android:layout_row="0"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="end"
+                android:text="From:"
+                android:textSize="14sp"
+                />
+
+
+            <TextView
+                android:layout_column="1"
+                android:textColor="@color/white"
+                android:layout_row="1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="end"
+                android:text="To:"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/eventItemStartTime"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_column="2"
+                android:layout_row="0"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="end"
+                android:textSize="15sp"
+                />
+
+
+            <TextView
+                android:id="@+id/eventItemEndTime"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_column="2"
+                android:layout_row="1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="end"
+                android:textSize="15sp"
+                />
+
+            <com.dpro.widgets.WeekdaysPicker
+                android:layout_column="0"
+                android:layout_row="1"
+                android:id="@+id/eventItemDayPicker"
+                android:layout_width="230dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:full_size="false"
+                app:enabled="false"
+                app:highlight_color="#000000"
+                app:sunday_first_day="true"
+                app:text_color="@color/white"
+                app:weekenddarker="false" />
+
+        </GridLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

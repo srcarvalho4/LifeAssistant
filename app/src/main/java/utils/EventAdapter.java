@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,11 +53,11 @@ public class EventAdapter extends BaseAdapter {
         EventViewHolder viewHolder;
 
         if (view == null) {
-            view = View.inflate(context, R.layout.list_event_item, null);
+            view = View.inflate(context, R.layout.list_event_item_1, null);
 
             viewHolder = new EventViewHolder();
 
-            viewHolder.background = view.findViewById(R.id.EventItemGridLayout);
+            viewHolder.background = view.findViewById(R.id.cardViewScheduleScreen1);
             viewHolder.name = view.findViewById(R.id.eventItemName);
             viewHolder.startTime = view.findViewById(R.id.eventItemStartTime);
             viewHolder.endTime = view.findViewById(R.id.eventItemEndTime);
@@ -109,7 +112,7 @@ public class EventAdapter extends BaseAdapter {
 }
 
 class EventViewHolder {
-    GridLayout background;
+    LinearLayout background;
     TextView name;
     TextView startTime;
     TextView endTime;
