@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Activity"
-        android:background="@color/colorPrimary"
+        android:background="#00796B"
         android:textColor="@color/white"
         android:gravity="center"
         android:textSize="40sp"/>
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="#00796B"
         android:textColor="@color/white"
         android:gravity="center"
         android:text="@string/ActivityDescription"
@@ -35,15 +35,17 @@
             android:divider="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-                <Button
+                <ImageButton
                     android:id="@+id/activityListButton"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:foreground="@drawable/add_icon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:layout_margin="10dp"
+                    android:background="@drawable/btn_background"
+                    android:src="@drawable/ic_add_icon"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"/>
         </RelativeLayout>

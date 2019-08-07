@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ActivityScreen extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        Button button = findViewById(R.id.activityListButton);
+        ImageButton button = findViewById(R.id.activityListButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

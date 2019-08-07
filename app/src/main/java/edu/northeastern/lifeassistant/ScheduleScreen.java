@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,7 +61,7 @@ public class ScheduleScreen extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        Button addButton = findViewById(R.id.scheduleActivityButtonAdd);
+        ImageButton addButton = findViewById(R.id.scheduleActivityButtonAdd);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +72,7 @@ public class ScheduleScreen extends AppCompatActivity {
             }
         });
 
-        Button filterButton = findViewById(R.id.scheduleActivityButtonFilter);
+        ImageButton filterButton = findViewById(R.id.scheduleActivityButtonFilter);
         TextView filterName = findViewById(R.id.scheduleActivityFilterIndicator);
 
         filterName.setText("All");
