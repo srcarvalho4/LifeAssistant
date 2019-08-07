@@ -142,9 +142,9 @@ public class ScheduleScreen extends AppCompatActivity {
     public void onBackPressed() {
         if (filterShowing) {
             filterWindow.setVisibility(View.GONE);
-        } else {
-            super.onBackPressed();
         }
-//        this.finish();
+        else {
+            this.finish();
+        }
     }
 }

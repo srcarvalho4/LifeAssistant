@@ -21,6 +21,7 @@ import utils.Activity;
 import utils.DisplayRule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
+import utils.SetAlarmManager;
 
 public class SpontaneousActive extends AppCompatActivity {
 
@@ -100,8 +101,15 @@ public class SpontaneousActive extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
-//        intent.putExtra("location", "Spontaneous");
-//        startActivity(intent);
+        if (SetAlarmManager.getActiveScheduleEvent(getApplicationContext()) == null) {
+            Intent intent = new Intent(getApplicationContext(), SpontaneousScreen.class);
+            intent.putExtra("location", "Spontaneous");
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
+            intent.putExtra("location", "Activity");
+            startActivity(intent);
+        }
     }
 }
