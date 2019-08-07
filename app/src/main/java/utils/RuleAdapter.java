@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -64,6 +65,7 @@ public class RuleAdapter extends BaseAdapter {
             viewHolder.button1 = view.findViewById(R.id.RuleItemButton1);
             viewHolder.button2 = view.findViewById(R.id.RuleItemButton2);
             viewHolder.button3 = view.findViewById(R.id.RuleItemButton3);
+            viewHolder.deleteButton = view.findViewById(R.id.RuleItemDelete);
 
             view.setTag(viewHolder);
         }
@@ -129,6 +131,14 @@ public class RuleAdapter extends BaseAdapter {
             }
         });
 
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rules.remove(i);
+                notifyDataSetChanged();
+            }
+        });
+
         return view;
     }
 }
@@ -138,4 +148,5 @@ class RuleViewHolder {
     Button button1;
     Button button2;
     Button button3;
+    ImageButton deleteButton;
 }

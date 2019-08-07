@@ -56,6 +56,13 @@
                 android:layout_height="55dp"/>
 
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/RuleItemDelete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/delete_icon"/>
     </LinearLayout>
 
 

@@ -183,6 +183,9 @@ public class CreateActivityScreen extends AppCompatActivity {
                     db.activityDao().insert(activityDb);
                 }
 
+                for (RuleDb ruledb: db.ruleDao().findRulesForActivity(selectedActivityId)) {
+                    db.ruleDao().delete(ruledb);
+                }
                 for (RuleAdapterItem rule: rules) {
                     String ruleName = rule.getName();
                     RuleDb ruleDb = null;
