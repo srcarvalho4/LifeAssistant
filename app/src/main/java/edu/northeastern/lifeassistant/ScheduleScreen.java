@@ -59,8 +59,6 @@ public class ScheduleScreen extends AppCompatActivity {
             allActivities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
         }
 
-//        populateList();
-
         EventAdapter adapter = new EventAdapter(this, events);
 
         listView.setAdapter(adapter);
@@ -97,16 +95,20 @@ public class ScheduleScreen extends AppCompatActivity {
                     newEvents = events;
                     filterName.setText("All");
                     filterName.setTextColor(Color.BLACK);
-                }
-                else {
-                    Activity filterActivity = new Activity(getApplicationContext(), activityDb.get(i-1).getId());
+                } else {
+                    Activity filterActivity = new Activity(getApplicationContext(), activityDb.get(i - 1).getId());
                     for (int j = 0; j < events.size(); j++) {
                         if (events.get(j).getActivityType().getName().equals(filterActivity.getName())) {
                             newEvents.add(events.get(j));
                         }
                     }
                     filterName.setText(filterActivity.getName());
-                    filterName.setTextColor(filterActivity.getColor());
+                    int color = filterActivity.getColor();
+                    int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
+                    int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
+                    int darkColorB = (int) (((color) & 0xff) * 3 / 4);
+                    int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
+                    filterName.setTextColor(darkColor);
                 }
                 filterWindow.setVisibility(View.GONE);
                 filterShowing = false;
@@ -137,90 +139,9 @@ public class ScheduleScreen extends AppCompatActivity {
     public void onBackPressed() {
         if (filterShowing) {
             filterWindow.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
 //        this.finish();
-    }
-
-    private void populateList() {
-
-        Activity runningActivity = new Activity(Color.rgb(140,240, 120), "Running", new ArrayList<Rule>());
-        Activity classActivity = new Activity(Color.rgb(220,120, 120), "Class", new ArrayList<Rule>());
-        Activity studyActivity = new Activity(Color.rgb(140,140, 240), "Studying", new ArrayList<Rule>());
-
-        allActivities.add(runningActivity);
-        allActivities.add(classActivity);
-        allActivities.add(studyActivity);
-
-        Calendar startTime1 = Calendar.getInstance();
-        startTime1.set(Calendar.AM_PM, Calendar.AM);
-        startTime1.set(Calendar.MINUTE, 0);
-        startTime1.set(Calendar.HOUR, 8);
-
-        Calendar endTime1 = Calendar.getInstance();
-        endTime1.set(Calendar.AM_PM, Calendar.AM);
-        endTime1.set(Calendar.MINUTE, 0);
-        endTime1.set(Calendar.HOUR, 9);
-
-
-        Calendar startTime2 = Calendar.getInstance();
-        startTime2.set(Calendar.AM_PM, Calendar.AM);
-        startTime2.set(Calendar.MINUTE, 40);
-        startTime2.set(Calendar.HOUR, 11);
-
-        Calendar endTime2 = Calendar.getInstance();
-        endTime2.set(Calendar.AM_PM, Calendar.PM);
-        endTime2.set(Calendar.MINUTE, 20);
-        endTime2.set(Calendar.HOUR, 1);
-
-
-        Calendar startTime3 = Calendar.getInstance();
-        startTime3.set(Calendar.AM_PM, Calendar.PM);
-        startTime3.set(Calendar.MINUTE, 0);
-        startTime3.set(Calendar.HOUR, 6);
-
-        Calendar endTime3 = Calendar.getInstance();
-        endTime3.set(Calendar.AM_PM, Calendar.PM);
-        endTime3.set(Calendar.MINUTE, 0);
-        endTime3.set(Calendar.HOUR, 9);
-
-
-        Calendar startTime4 = Calendar.getInstance();
-        startTime4.set(Calendar.AM_PM, Calendar.PM);
-        startTime4.set(Calendar.MINUTE, 0);
-        startTime4.set(Calendar.HOUR, 3);
-
-        Calendar endTime4 = Calendar.getInstance();
-        endTime4.set(Calendar.AM_PM, Calendar.PM);
-        endTime4.set(Calendar.MINUTE, 0);
-        endTime4.set(Calendar.HOUR, 5);
-
-        ArrayList<Integer> days1 = new ArrayList<>();
-        days1.add(Calendar.SUNDAY);
-        days1.add(Calendar.MONDAY);
-
-        ArrayList<Integer> days2 = new ArrayList<>();
-        days2.add(Calendar.MONDAY);
-        days2.add(Calendar.TUESDAY);
-        days2.add(Calendar.WEDNESDAY);
-        days2.add(Calendar.THURSDAY);
-
-        ArrayList<Integer> days3 = new ArrayList<>();
-        days3.add(Calendar.MONDAY);
-        days3.add(Calendar.TUESDAY);
-        days3.add(Calendar.WEDNESDAY);
-        days3.add(Calendar.THURSDAY);
-        days3.add(Calendar.FRIDAY);
-
-        ArrayList<Integer> days4 = new ArrayList<>();
-        days4.add(Calendar.MONDAY);
-        days4.add(Calendar.WEDNESDAY);
-
-        events.add(new ScheduleEvent(runningActivity, "Morning Jog", startTime1, endTime1, days1));
-        events.add(new ScheduleEvent(classActivity, "Mobile App Development", startTime2, endTime2, days2));
-        events.add(new ScheduleEvent(studyActivity, "Private Study", startTime3, endTime3, days3));
-        events.add(new ScheduleEvent(studyActivity, "Group Work", startTime4, endTime4, days4));
     }
 }
