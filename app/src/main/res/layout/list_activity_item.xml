@@ -10,6 +10,8 @@
         android:id="@+id/activityItemWindow"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:textSize="30sp"
+        android:textColor="@color/white"
         android:layout_margin="10dp"
         android:orientation="vertical"
         app:cardCornerRadius="10dp"
