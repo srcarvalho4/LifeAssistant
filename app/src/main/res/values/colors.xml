@@ -4,9 +4,14 @@
     <color name="daySelected">#4287f5</color>
     <color name="dayDeselected">@android:color/darker_gray</color>
 
-    <color name="colorPrimary">#4287F5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#6297F5</color>
+    <color name="colorPrimary">#00796B</color>
+    <color name="colorPrimaryDark">#00595B</color>
+    <color name="colorAccent">#00796B</color>
+
+    <color name="colorPrimaryOld">#4287F5</color>
+    <color name="colorPrimaryDarkOld">#303F9F</color>
+    <color name="colorAccentOld">#6297F5</color>
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="lightGrey">#DADADA</color>
@@ -18,14 +23,5 @@
     <color name="green">#5EA541</color>
     <color name="blue">#2285F5</color>
     <color name="purple">#8E24AA</color>
-
-    <color name="header_green">#4DB6AC</color>
-    <color name="header_green2">#00796B</color>
-  
-    <color name="activity_lavender">#8E24AA</color>
-    <color name="activity_maroon">#C2185B</color>
-    <color name="activity_yellow">#FFA726</color>
-    <color name="activity_brown">#8D6E63</color>
-    <color name="activity_blue">#42A5F5</color>
   
 </resources>

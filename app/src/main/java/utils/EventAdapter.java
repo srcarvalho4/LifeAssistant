@@ -74,20 +74,20 @@ public class EventAdapter extends BaseAdapter {
         viewHolder.endTime.setText(events.get(i).getEndTimeText());
         viewHolder.background.setBackgroundColor(events.get(i).getColor());
         viewHolder.dayPicker.setSelectedDays(events.get(i).getDayData());
-        int color = events.get(i).getColor();
-        int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
-        int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
-        int darkColorB = (int) (((color) & 0xff) * 3 / 4);
-        int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
-        int lightColorR = (int) (((((color >> 16) & 0xff) - 255) / 2) + 255);
-        int lightColorG = (int) (((((color >>  8) & 0xff) - 255) / 2) + 255);
-        int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
-        int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
+//        int color = events.get(i).getColor();
+//        int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
+//        int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
+//        int darkColorB = (int) (((color) & 0xff) * 3 / 4);
+//        int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
+//        int lightColorR = (int) (((((color >> 16) & 0xff) - 255) / 2) + 255);
+//        int lightColorG = (int) (((((color >>  8) & 0xff) - 255) / 2) + 255);
+//        int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
+//        int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
 
 //        viewHolder.startTime.setTextColor(darkColor);
 //        viewHolder.endTime.setTextColor(lightColor);
-        viewHolder.dayPicker.setHighlightColor(darkColor);
-        viewHolder.dayPicker.setTextColor(lightColor);
+//        viewHolder.dayPicker.setHighlightColor(darkColor);
+//        viewHolder.dayPicker.setTextColor(lightColor);
 
 //        //Set default view to invisible
 //        for (TextView dayView: viewHolder.days) {
