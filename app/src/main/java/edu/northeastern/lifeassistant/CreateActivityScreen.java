@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 
+import android.app.NotificationManager;
 import android.app.UiModeManager;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -115,6 +118,16 @@ public class CreateActivityScreen extends AppCompatActivity {
                 Rule newRule = null;
 
                 if(settingString.equals(SettingType.RINGER.getValue())) {
+                    NotificationManager notificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                            && !notificationManager.isNotificationPolicyAccessGranted()) {
+
+                        Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+                        startActivity(intent);
+                    }
                     newRule = new RingerRule(getApplicationContext(), AudioManager.RINGER_MODE_NORMAL);
                 } else if(settingString.equals(SettingType.DRIVING_MODE.getValue())) {
                     newRule = new DrivingModeRule(getApplicationContext(), UiModeManager.DISABLE_CAR_MODE_GO_HOME);

@@ -30,15 +30,19 @@ import com.google.android.gms.fitness.result.DailyTotalResult;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
+import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
+import edu.northeastern.lifeassistant.db.dao.SpontaneousEventDao;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.SpontaneousEventDb;
 import utils.Activity;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
+import utils.SetAlarmManager;
 
 public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
@@ -177,6 +181,22 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View view) {
                 //progressBar.setVisibility(View.VISIBLE);
+
+                String eventID = SetAlarmManager.getActiveScheduleEvent(getApplicationContext());
+
+                if (eventID != null) {
+                    ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
+                    SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(getApplicationContext()).spontaneousEventDao();
+                    if (scheduleEventDao.findScheduleEventById(eventID) != null) {
+                        SetAlarmManager.endEventEarly(getApplicationContext(), scheduleEventDao.findScheduleEventById(eventID));
+                        return;
+                    } else if (spontaneousEventDao.findSpontaneousEventById(eventID) != null) {
+                        //Disable all the rules
+                    }
+
+
+                }
+
                 new ViewTodaysStepCountTask().execute();
                 try {
                     Thread.sleep(2500);

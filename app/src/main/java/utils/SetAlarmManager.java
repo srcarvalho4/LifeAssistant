@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -58,12 +59,14 @@ public class SetAlarmManager {
                     //Start time has not happened yet today, so set for today
                     calendar.set(Calendar.HOUR, event.getStartTime().get(Calendar.HOUR));
                     calendar.set(Calendar.MINUTE, event.getStartTime().get(Calendar.MINUTE));
+                    calendar.set(Calendar.SECOND, 0);
                     Log.d("actiityID", event.getActivityId());
                     setStartAlarm(context, event.getActivityId(), event, calendar);
                 } else {
                     calendar.add(Calendar.DAY_OF_YEAR, 7);
                     calendar.set(Calendar.HOUR, event.getStartTime().get(Calendar.HOUR));
                     calendar.set(Calendar.MINUTE, event.getStartTime().get(Calendar.MINUTE));
+                    calendar.set(Calendar.SECOND, 0);
                     Log.d("actiityID", event.getActivityId());
                     setStartAlarm(context, event.getActivityId(), event, calendar);
                 }
@@ -73,7 +76,13 @@ public class SetAlarmManager {
                     reminder.setTimeZone(TimeZone.getTimeZone("America/New_York"));
                     reminder.setTimeInMillis(calendar.getTimeInMillis());
                     reminder.add(Calendar.MINUTE, -1 * 10);
-                    setReminder(context, event, reminder);
+                    if (!reminder.after(System.currentTimeMillis())) {
+                        setReminder(context, event, reminder);
+                    } else {
+                        Toast.makeText(context,
+                                "Reminder will not be set because event starts in less than 10 minutes", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
                 Calendar endTime = Calendar.getInstance();
@@ -81,6 +90,7 @@ public class SetAlarmManager {
                 endTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
                 endTime.set(Calendar.HOUR, event.getEndTime().get(Calendar.HOUR));
                 endTime.set(Calendar.MINUTE, event.getEndTime().get(Calendar.MINUTE));
+                endTime.set(Calendar.SECOND, 0);
                 Log.d("actiityID", event.getActivityId());
                 setEndAlarm(context, event.getActivityId(), event, endTime);
 
@@ -104,7 +114,7 @@ public class SetAlarmManager {
 
 
     //Returns the activity ID of the currently active event, else returns null
-    public static String getActiveScheduleEvent(Context context) {
+    public static String getActiveActivity(Context context) {
         ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
         SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(context).spontaneousEventDao();
 
@@ -121,6 +131,30 @@ public class SetAlarmManager {
         for (SpontaneousEventDb s : spontaneousEvents) {
             if (s.getActive()) {
                 return s.getActivityId();
+            }
+        }
+
+        return null;
+    }
+
+    //Returns the event ID of the currently active event, else returns null
+    public static String getActiveScheduleEvent(Context context) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+        SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(context).spontaneousEventDao();
+
+        List<ScheduleEventDb> scheduleEvents = scheduleEventDao.findAllScheduleEvents();
+
+        for (ScheduleEventDb s : scheduleEvents) {
+            if (s.getActive()) {
+                return s.getId();
+            }
+        }
+
+        List<SpontaneousEventDb> spontaneousEvents = spontaneousEventDao.findAllSpontaneousEvents();
+
+        for (SpontaneousEventDb s : spontaneousEvents) {
+            if (s.getActive()) {
+                return s.getId();
             }
         }
 

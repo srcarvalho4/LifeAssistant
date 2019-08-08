@@ -181,6 +181,7 @@ public class CreateEventScreen extends AppCompatActivity {
             scheduleEventDb.setDaysOfWeek(eventDays);
             db.scheduleEventDao().update(scheduleEventDb);
             Log.d("setAlarm", "calling setSchedulingAlarm");
+            SetAlarmManager.cancelAllPending(this, scheduleEventDb.getAlarmIds());
             SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb.getId());
         } else {
             ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, eventName,
