@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.util.List;
 import java.util.concurrent.Executors;
 
 import edu.northeastern.lifeassistant.R;
@@ -80,8 +81,8 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static void prepopulateDb(AppDatabase db) {
-        db.activityDao().insert(new ActivityDb("Running", R.color.red));
-        db.activityDao().insert(new ActivityDb("Class", R.color.blue));
+//        db.activityDao().insert(new ActivityDb("Running", R.color.red));
+//        db.activityDao().insert(new ActivityDb("Class", R.color.blue));
     }
 
 }

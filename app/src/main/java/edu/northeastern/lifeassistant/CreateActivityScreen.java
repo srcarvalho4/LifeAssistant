@@ -140,7 +140,7 @@ public class CreateActivityScreen extends AppCompatActivity {
                     if(activityRulesAreValid()) {
                         saveOrUpdate(isEdit);
                         Intent intent = new Intent(getApplicationContext(), ActivityScreen.class);
-                        intent.putExtra("location", "Schedule");
+                        intent.putExtra("location", "Activity");
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Add a Rule", Toast.LENGTH_LONG).show();
@@ -195,7 +195,14 @@ public class CreateActivityScreen extends AppCompatActivity {
         if(!activityName.isEmpty()) {
             List<String> existingActivityNames = new ArrayList<>();
             db.activityDao().findAllActivities().forEach(a -> existingActivityNames.add(a.getName()));
-            return !existingActivityNames.contains(activityName) || isEdit;
+
+            if(isEdit) {
+                String oldActivityName = db.activityDao().findActivityById(selectedActivityId).getName();
+                if(activityName.equals(oldActivityName)) {
+                    return true;
+                }
+            }
+            return !existingActivityNames.contains(activityName);
         }
         return false;
     }
@@ -217,25 +224,25 @@ public class CreateActivityScreen extends AppCompatActivity {
             activityDb.setName(activityName);
             activityDb.setColor(activityColor);
             db.activityDao().update(activityDb);
-            db.ruleDao().deleteRulesForActivity(selectedActivityId);
         } else {
             ActivityDb activityDb = new ActivityDb(activityName, activityColor);
             db.activityDao().insert(activityDb);
             selectedActivityId = activityDb.getId();
         }
 
-        for (RuleAdapterItem rule: rulesSet) {
+        db.ruleDao().deleteRulesForActivity(selectedActivityId);
+        for (RuleAdapterItem rule: ruleAdapter.getRules()) {
             String ruleName = rule.getName();
             RuleDb ruleDb = null;
 
             if(ruleName.equals(SettingType.RINGER.getValue())) {
-                ruleDb = new RuleDb(selectedActivityId, SettingType.DRIVING_MODE, rule.getValue());
+                ruleDb = new RuleDb(selectedActivityId, SettingType.RINGER, rule.getValue());
             } else if(ruleName.equals(SettingType.DRIVING_MODE.getValue())) {
                 ruleDb = new RuleDb(selectedActivityId, SettingType.DRIVING_MODE, rule.getValue());
             } else if(ruleName.equals(SettingType.NIGHT_MODE.getValue())) {
-                ruleDb = new RuleDb(selectedActivityId, SettingType.DRIVING_MODE, rule.getValue());
+                ruleDb = new RuleDb(selectedActivityId, SettingType.NIGHT_MODE, rule.getValue());
             } else if(ruleName.equals(SettingType.STEP_COUNT.getValue())) {
-
+                ruleDb = new RuleDb(selectedActivityId, SettingType.STEP_COUNT, rule.getValue());
             }
 
             db.ruleDao().insert(ruleDb);

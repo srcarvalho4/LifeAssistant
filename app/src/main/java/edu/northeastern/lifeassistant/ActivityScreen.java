@@ -13,6 +13,7 @@ import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 import utils.Activity;
 import utils.ActivityAdapter;
 
