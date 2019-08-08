@@ -31,8 +31,7 @@ public class SetAlarmManager {
         int firstDay = time.get(Calendar.DAY_OF_WEEK);
 
         ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
-        ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventID)
-;
+        ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventID);
         List<Integer> days = event.getDaysOfWeek();
 
         for (Integer day : days) {
