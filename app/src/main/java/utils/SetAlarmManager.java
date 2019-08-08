@@ -58,11 +58,13 @@ public class SetAlarmManager {
                     //Start time has not happened yet today, so set for today
                     calendar.set(Calendar.HOUR, event.getStartTime().get(Calendar.HOUR));
                     calendar.set(Calendar.MINUTE, event.getStartTime().get(Calendar.MINUTE));
+                    Log.d("actiityID", event.getActivityId());
                     setStartAlarm(context, event.getActivityId(), event, calendar);
                 } else {
                     calendar.add(Calendar.DAY_OF_YEAR, 7);
                     calendar.set(Calendar.HOUR, event.getStartTime().get(Calendar.HOUR));
                     calendar.set(Calendar.MINUTE, event.getStartTime().get(Calendar.MINUTE));
+                    Log.d("actiityID", event.getActivityId());
                     setStartAlarm(context, event.getActivityId(), event, calendar);
                 }
 
@@ -79,6 +81,7 @@ public class SetAlarmManager {
                 endTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
                 endTime.set(Calendar.HOUR, event.getEndTime().get(Calendar.HOUR));
                 endTime.set(Calendar.MINUTE, event.getEndTime().get(Calendar.MINUTE));
+                Log.d("actiityID", event.getActivityId());
                 setEndAlarm(context, event.getActivityId(), event, endTime);
 
                 scheduleEventDao.update(event);

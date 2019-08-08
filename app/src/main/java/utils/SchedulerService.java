@@ -39,12 +39,15 @@ public class SchedulerService extends Service {
 
         Log.d("service", "service started command");
         String operation = intent.getStringExtra("operation");
-        String activity = intent.getStringExtra("activityID");
+        String activity = intent.getStringExtra("activity");
         String eventID = intent.getStringExtra("eventID");
         String eventName = intent.getStringExtra("eventName");
         int alarmID = intent.getIntExtra("alarmID", 0);
 
         Toast.makeText(getApplicationContext(), "Event " + eventName + " has been " + operation, Toast.LENGTH_SHORT).show();
+
+        Log.d("actiityID", "in service ! " + activity);
+        Log.d("operation", "in service ! " + operation);
 
         ArrayList<Rule> rules = getRules(activity);
 
@@ -143,7 +146,8 @@ public class SchedulerService extends Service {
         List<Integer> alarmIDs = event.getAlarmIds();
 
         if (alarmIDs != null && alarmIDs.contains(alarmID)) {
-            alarmIDs.remove(alarmID);
+            int index = alarmIDs.indexOf(alarmID);
+            alarmIDs.remove(index);
         }
     }
 
@@ -176,7 +180,7 @@ public class SchedulerService extends Service {
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
 
         List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
-        Log.d("gettingRules", "rule size" + dbRules.size());
+        Log.d("gettingRules", "activity ID: " + activityID + " rule size" + dbRules.size());
 
         for (RuleDb rule : dbRules) {
             Log.d("gettingRules", "got a rule!! " + rule.getSetting());
