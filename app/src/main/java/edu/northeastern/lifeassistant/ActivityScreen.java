@@ -13,6 +13,7 @@ import java.util.List;
 
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
+import edu.northeastern.lifeassistant.db.models.RuleDb;
 import utils.Activity;
 import utils.ActivityAdapter;
 
@@ -31,8 +32,10 @@ public class ActivityScreen extends AppCompatActivity {
 
         listView = findViewById(R.id.activityListView);
 
+        //load database reference
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
+        //load activity table
         List<ActivityDb> activityDb = db.activityDao().findAllActivities();
 
         for (int i = 0; i < activityDb.size(); i++) {
@@ -45,6 +48,7 @@ public class ActivityScreen extends AppCompatActivity {
 
         ImageButton button = findViewById(R.id.activityListButton);
 
+        //navigation to the activity edit screen
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +72,7 @@ public class ActivityScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        Intent intent = new Intent(ActivityScreen.this, SplashScreen.class);
+        startActivity(intent);
     }
 }

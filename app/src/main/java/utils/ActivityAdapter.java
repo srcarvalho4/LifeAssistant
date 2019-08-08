@@ -46,6 +46,7 @@ public class ActivityAdapter extends BaseAdapter {
 
         ActivityViewHolder viewHolder;
 
+        //viewholder setup
         if (view == null) {
             view = View.inflate(context, R.layout.list_activity_item, null);
 
@@ -70,6 +71,7 @@ public class ActivityAdapter extends BaseAdapter {
         }
 
 
+        //set value based on data
         viewHolder.textView.setText(activities.get(i).getName());
         viewHolder.textView.setBackgroundColor(activities.get(i).getColor());
 

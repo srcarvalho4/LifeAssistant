@@ -1,5 +1,7 @@
 package edu.northeastern.lifeassistant.db.models;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -120,7 +122,13 @@ public class ScheduleEventDb {
     }
 
     public void setAlarmIds(List<Integer> alarmIds) {
-        this.alarmIds = alarmIds;
+        //this.alarmIds = alarmIds;
+        this.alarmIds = new ArrayList<>();
+        if (alarmIds == null) return;
+        Log.d("alarmIDs", "setting alarm in DB, length of input " + alarmIds.size());
+        for (Integer i : alarmIds) {
+            this.alarmIds.add(i);
+        }
     }
 
     public Boolean getReminderSwitchState() {

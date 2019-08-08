@@ -10,7 +10,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import edu.northeastern.lifeassistant.db.AppDatabase;
 import utils.SetAlarmManager;
 
 public class SplashScreen extends AppCompatActivity {
@@ -36,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent;
-                String activityId = SetAlarmManager.getActiveScheduleEvent(getApplicationContext());
+                String activityId = SetAlarmManager.getActiveActivity(getApplicationContext());
                 if (activityId == null) {
                     intent = new Intent(SplashScreen.this, ActivityScreen.class);
                 }
@@ -48,5 +47,10 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
     }
 }

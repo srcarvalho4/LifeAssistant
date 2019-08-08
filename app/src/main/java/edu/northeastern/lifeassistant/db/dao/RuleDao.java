@@ -29,4 +29,7 @@ public interface RuleDao {
     @Query("SELECT * FROM rules WHERE activity_id = :activityId")
     public List<RuleDb> findRulesForActivity(String activityId);
 
+    @Query("DELETE FROM rules WHERE activity_id = :activityId")
+    public void deleteRulesForActivity(String activityId);
+
 }

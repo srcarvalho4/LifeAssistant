@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -86,6 +87,8 @@ public class CreateEventScreen extends AppCompatActivity {
 
         // Delete event and redirect onClick
         deleteButton.setOnClickListener(view -> {
+            ScheduleEventDb eventDb = db.scheduleEventDao().findScheduleEventById(selectedEventId);
+            SetAlarmManager.cancelAllPending(this, eventDb.getAlarmIds());
             db.scheduleEventDao().deleteScheduleEventsById(selectedEventId);
             Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
             intent.putExtra("location", "Schedule");
@@ -177,12 +180,15 @@ public class CreateEventScreen extends AppCompatActivity {
             scheduleEventDb.setReminderSwitchState(reminderSwitchState);
             scheduleEventDb.setDaysOfWeek(eventDays);
             db.scheduleEventDao().update(scheduleEventDb);
-            SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb);
+            Log.d("setAlarm", "calling setSchedulingAlarm");
+            SetAlarmManager.cancelAllPending(this, scheduleEventDb.getAlarmIds());
+            SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb.getId());
         } else {
             ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, eventName,
                     eventStartTime, eventEndTime, eventDays, reminderSwitchState);
             db.scheduleEventDao().insert(scheduleEventDb);
-            SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb);
+            Log.d("setAlarm", "calling setSchedulingAlarm");
+            SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb.getId());
         }
     }
 
@@ -200,12 +206,16 @@ public class CreateEventScreen extends AppCompatActivity {
     private boolean eventNameIsValid() {
         String eventName = eventNameEditText.getText().toString();
         if(!eventName.isEmpty()) {
-            List<ScheduleEventDb> existingEvents = db.scheduleEventDao().findAllScheduleEvents();
             List<String> existingEventNames = new ArrayList<>();
-            existingEvents.forEach(e -> existingEventNames.add(e.getName()));
-            if(!existingEventNames.contains(eventName) || isEdit) {
-                return true;
+            db.scheduleEventDao().findAllScheduleEvents().forEach(e -> existingEventNames.add(e.getName()));
+
+            if(isEdit) {
+                String oldEventName = db.scheduleEventDao().findScheduleEventById(selectedEventId).getName();
+                if(eventName.equals(oldEventName)) {
+                    return true;
+                }
             }
+            return !existingEventNames.contains(eventName);
         }
         return false;
     }
