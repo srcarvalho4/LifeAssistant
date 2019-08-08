@@ -89,7 +89,7 @@ public class RuleAdapter extends BaseAdapter {
 
         int selectedNum = -1;
         for(int j = 0; j < rules.get(i).getSettings().size(); j++) {
-            if (rules.get(i).getSettings().get(j).first == rules.get(0).getValue()) {
+            if (rules.get(i).getSettings().get(j).first == rules.get(i).getValue()) {
                 selectedNum = j;
             }
         }
