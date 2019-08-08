@@ -51,6 +51,7 @@ public class ColorAdapter extends BaseAdapter {
 
         ColorAdapterHolder viewHolder;
 
+        //viewholder setup
         if (view == null) {
             view = View.inflate(context, R.layout.color_picker_item, null);
 
@@ -67,7 +68,8 @@ public class ColorAdapter extends BaseAdapter {
             viewHolder = (ColorAdapterHolder) view.getTag();
         }
 
-
+        //a light blue view sitting behind the colored button has its visibility
+        //toggled to visualize which color is currently selected
         viewHolder.button.setBackgroundColor(colorPickers.get(i).getColor());
         if (colorPickers.get(i).isSelected()) {
             viewHolder.imageView.setVisibility(View.VISIBLE);
@@ -76,6 +78,7 @@ public class ColorAdapter extends BaseAdapter {
             viewHolder.imageView.setVisibility(View.INVISIBLE);
         }
 
+        //bind to each button a function which selects that color and deselects all others
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +93,7 @@ public class ColorAdapter extends BaseAdapter {
         return view;
     }
 
+    //return currently selected color
     public Integer getCurrentColor() {
         for (int i = 0; i < colorPickers.size(); i++) {
             if (colorPickers.get(i).isSelected()) {

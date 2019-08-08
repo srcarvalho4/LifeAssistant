@@ -87,8 +87,10 @@ public class SpontaneousScreen extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        this.finish();
-//    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SpontaneousScreen.this, SplashScreen.class);
+        startActivity(intent);
+    }
 }

@@ -18,7 +18,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import utils.Activity;
-import utils.DisplayRule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
 import utils.SetAlarmManager;
@@ -75,7 +74,7 @@ public class SpontaneousActive extends AppCompatActivity {
 
         listView = findViewById(R.id.SpontaneousActiveList);
 
-        RuleAdapter adapter = new RuleAdapter(this, rules);
+        RuleAdapter adapter = new RuleAdapter(this, rules, false);
 
         listView.setAdapter(adapter);
     }

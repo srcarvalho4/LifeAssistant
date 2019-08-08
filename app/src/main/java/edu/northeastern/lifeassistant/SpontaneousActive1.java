@@ -122,7 +122,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
 
         listView = findViewById(R.id.SpontaneousActiveList);
 
-        RuleAdapter adapter = new RuleAdapter(this, rules);
+        RuleAdapter adapter = new RuleAdapter(this, rules, false);
 
         listView.setAdapter(adapter);
 
