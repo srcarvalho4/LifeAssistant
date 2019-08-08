@@ -104,7 +104,7 @@ public class CreateActivityScreen extends AppCompatActivity {
 
         // Set Rule ListView Adapter
         rulesSet = new TreeSet<>((ruleAdapterItem, t1) -> ruleAdapterItem.getName().compareTo(t1.getName()));
-        ruleAdapter = new RuleAdapter(this, new ArrayList<>(rulesSet));
+        ruleAdapter = new RuleAdapter(this, new ArrayList<>(rulesSet), true);
         ruleListView.setAdapter(ruleAdapter);
 
         // Show menu onClick

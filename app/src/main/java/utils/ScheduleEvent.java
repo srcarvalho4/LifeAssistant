@@ -22,6 +22,7 @@ public class ScheduleEvent {
     String startText = null;
     String endText = null;
 
+    //construction directly using data
     public ScheduleEvent(Activity activityType, String name, Calendar startTime, Calendar endTime, ArrayList<Integer> days) {
         this.activityType = activityType;
         this.name = name;
@@ -88,6 +89,7 @@ public class ScheduleEvent {
         return endText;
     }
 
+    //function to format time value into a clock style
     private void parseTimes() {
         startText = "";
 

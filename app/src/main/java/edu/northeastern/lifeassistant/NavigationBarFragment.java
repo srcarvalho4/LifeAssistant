@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import utils.SetAlarmManager;
@@ -39,6 +40,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         BottomNavigationView navView = getView().findViewById(R.id.nav_view);
+        //highlight the toolbar based on the location of the application
         String selected = getActivity().getIntent().getStringExtra("location");
         if (selected != null ) {
             if (selected.equals("Activity")) {
@@ -58,6 +60,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
 
         @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        //create an intent to navigate to the chosen screen with a location for tracking the current tab
         Intent intent = null;
         switch (menuItem.getItemId()) {
             case R.id.navigation_activity:
@@ -69,7 +72,11 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
                 intent.putExtra("location", "Schedule");
                 break;
             case R.id.navigation_spontaneous:
-                String activityId = SetAlarmManager.getActiveActivity(getActivity().getApplicationContext());
+                String activityId = SetAlarmManager.getActiveScheduleEvent(getActivity().getApplicationContext());
+                //when navigating to the spontaneous tab, go to spontaneous active if an event is running
+                //go to the general spontaneous screen if nothing is running
+                //the main spontaneous screen is inaccessible when an activity is running
+                //stop the running activity to get to it.
                 if (activityId == null) {
                     intent = new Intent(getContext(), SpontaneousScreen.class);
                 }

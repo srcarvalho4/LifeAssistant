@@ -86,19 +86,21 @@ public class ScheduleScreen extends AppCompatActivity {
         filterView.setAdapter(activityAdapter);
 
         filterName.setText("All");
-        filterName.setTextColor(Color.BLACK);
+        filterName.setTextColor(Color.WHITE);
 
         filterView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                //update the filter based on the chosen value
                 ArrayList<ScheduleEvent> newEvents = new ArrayList<>();
 
                 if (i == 0) {
+                    //if the value is zero, the "ALL" option was picked
                     newEvents = events;
                     filterName.setText("All");
-                    filterName.setTextColor(Color.BLACK);
                 } else {
+                    //otherwise, the real value is i-1, as index 0 has the "ALL" option
                     Activity filterActivity = new Activity(getApplicationContext(), activityDb.get(i - 1).getId());
                     for (int j = 0; j < events.size(); j++) {
                         if (events.get(j).getActivityType().getName().equals(filterActivity.getName())) {
@@ -106,12 +108,12 @@ public class ScheduleScreen extends AppCompatActivity {
                         }
                     }
                     filterName.setText(filterActivity.getName());
-                    int color = filterActivity.getColor();
-                    int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
-                    int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
-                    int darkColorB = (int) (((color) & 0xff) * 3 / 4);
-                    int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
-                    filterName.setTextColor(darkColor);
+//                    int color = filterActivity.getColor();
+//                    int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
+//                    int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
+//                    int darkColorB = (int) (((color) & 0xff) * 3 / 4);
+//                    int darkColor = Color.rgb(darkColorR, darkColorG, darkColorB);
+//                    filterName.setTextColor(darkColor);
                 }
                 filterWindow.setVisibility(View.GONE);
                 filterShowing = false;
@@ -142,9 +144,9 @@ public class ScheduleScreen extends AppCompatActivity {
     public void onBackPressed() {
         if (filterShowing) {
             filterWindow.setVisibility(View.GONE);
-        }
-        else {
-            this.finish();
+        } else {
+            Intent intent = new Intent(ScheduleScreen.this, SplashScreen.class);
+            startActivity(intent);
         }
     }
 }

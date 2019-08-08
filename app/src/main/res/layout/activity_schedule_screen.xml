@@ -51,6 +51,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="80dp"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:textSize="32sp"/>
+
             <ListView
                 android:id="@+id/scheduleListFilterView"
                 android:divider="@null"
@@ -77,13 +79,26 @@
                 android:layout_margin="10dp"
                 android:layout_alignParentEnd="true"
                 android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/scheduleActivityFilterIndicator"
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
+                    app:cardBackgroundColor="@color/buttonBackground"
                     android:layout_gravity="center_vertical"
-                    android:textSize="32sp"
-                    android:layout_marginEnd="20dp"/>
+                    android:layout_marginEnd="20dp">
+
+                    <TextView
+                        android:id="@+id/scheduleActivityFilterIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"/>
+                </androidx.cardview.widget.CardView>
 
                 <ImageButton
                     android:id="@+id/scheduleActivityButtonFilter"

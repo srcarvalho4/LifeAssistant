@@ -52,6 +52,7 @@ public class EventAdapter extends BaseAdapter {
 
         EventViewHolder viewHolder;
 
+        //viewholder setup
         if (view == null) {
             view = View.inflate(context, R.layout.list_event_item_1, null);
 
@@ -69,11 +70,14 @@ public class EventAdapter extends BaseAdapter {
             viewHolder = (EventViewHolder) view.getTag();
         }
 
+        //value changing
         viewHolder.name.setText(events.get(i).getName());
         viewHolder.startTime.setText(events.get(i).getStartTimeText());
         viewHolder.endTime.setText(events.get(i).getEndTimeText());
         viewHolder.background.setBackgroundColor(events.get(i).getColor());
         viewHolder.dayPicker.setSelectedDays(events.get(i).getDayData());
+
+        //color modification code
 //        int color = events.get(i).getColor();
 //        int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
 //        int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
@@ -84,29 +88,6 @@ public class EventAdapter extends BaseAdapter {
 //        int lightColorB = (int) (((((color) & 0xff) - 255) / 2) + 255);
 //        int lightColor = Color.rgb(lightColorR, lightColorG, lightColorB);
 
-//        viewHolder.startTime.setTextColor(darkColor);
-//        viewHolder.endTime.setTextColor(lightColor);
-//        viewHolder.dayPicker.setHighlightColor(darkColor);
-//        viewHolder.dayPicker.setTextColor(lightColor);
-
-//        //Set default view to invisible
-//        for (TextView dayView: viewHolder.days) {
-//            dayView.setVisibility(View.INVISIBLE);
-//        }
-//
-//        //Sets days to visible if included in the activity's days.
-//        ArrayList<Integer> dayData = events.get(i).getDayData();
-//        for (Integer day: dayData) {
-//            switch (day) {
-//                case Calendar.SUNDAY: viewHolder.days.get(0).setVisibility((View.VISIBLE)); break;
-//                case Calendar.MONDAY: viewHolder.days.get(1).setVisibility((View.VISIBLE)); break;
-//                case Calendar.TUESDAY: viewHolder.days.get(2).setVisibility((View.VISIBLE)); break;
-//                case Calendar.WEDNESDAY: viewHolder.days.get(3).setVisibility((View.VISIBLE)); break;
-//                case Calendar.THURSDAY: viewHolder.days.get(4).setVisibility((View.VISIBLE)); break;
-//                case Calendar.FRIDAY: viewHolder.days.get(5).setVisibility((View.VISIBLE)); break;
-//                case Calendar.SATURDAY: viewHolder.days.get(6).setVisibility((View.VISIBLE)); break;
-//            }
-//        }
         return view;
     }
 }

@@ -15,12 +15,14 @@ public class Activity {
     String name;
     ArrayList<Rule> rules;
 
+    //used to construct an activity with data directly
     public Activity(int color, String name, ArrayList<Rule> rules) {
         this.color = color;
         this.name = name;
         this.rules = rules;
     }
 
+    //used to construct an activity using the database reference
     public Activity(Context applicationContext, String activityID) {
         ArrayList<Rule> rules = new ArrayList<>();
 
@@ -29,6 +31,7 @@ public class Activity {
 
         List<RuleDb> dbRules = db.ruleDao().findRulesForActivity(activityID);
 
+        //construct rule items from the database entries
         for (RuleDb rule : dbRules) {
             Rule newRule;
 

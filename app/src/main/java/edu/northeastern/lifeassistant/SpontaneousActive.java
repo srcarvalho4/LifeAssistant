@@ -71,7 +71,7 @@ public class SpontaneousActive extends AppCompatActivity {
 
         listView = findViewById(R.id.SpontaneousActiveList);
 
-        RuleAdapter adapter = new RuleAdapter(this, rules);
+        RuleAdapter adapter = new RuleAdapter(this, rules, false);
 
         listView.setAdapter(adapter);
     }

@@ -1,8 +1,6 @@
 package utils;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +20,12 @@ public class RuleAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<RuleAdapterItem> rules;
+    boolean editable;
 
-    public RuleAdapter(Context context, ArrayList<RuleAdapterItem> rules) {
+    public RuleAdapter(Context context, ArrayList<RuleAdapterItem> rules, boolean editable) {
         this.context = context;
         this.rules = rules;
+        this.editable = editable;
     }
 
     @Override
@@ -56,11 +56,13 @@ public class RuleAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup){
         RuleViewHolder viewHolder;
 
+        //viewholder setup
         if (view == null) {
             view = View.inflate(context, R.layout.list_rule_item, null);
 
             viewHolder = new RuleViewHolder();
 
+            //set up the viewholder
             viewHolder.textView = view.findViewById(R.id.RuleItemName);
             viewHolder.button1 = view.findViewById(R.id.RuleItemButton1);
             viewHolder.button2 = view.findViewById(R.id.RuleItemButton2);
@@ -75,10 +77,15 @@ public class RuleAdapter extends BaseAdapter {
 
 
         viewHolder.textView.setText(rules.get(i).getName());
+
+        //data is a list of pairs. the pairs are the enum value for a setting matched with its name
         List<Pair<Integer, String>> settings = rules.get(i).getSettings();
 
+        //assign the name of the setting values to the buttons
         viewHolder.button1.setText(settings.get(0).second);
         viewHolder.button2.setText(settings.get(1).second);
+
+        //enable the third button only if it is needed
         if (settings.size() == 3) {
             viewHolder.button3.setVisibility(View.VISIBLE);
             viewHolder.button3.setText(settings.get(2).second);
@@ -87,6 +94,7 @@ public class RuleAdapter extends BaseAdapter {
             viewHolder.button3.setVisibility(View.GONE);
         }
 
+        //convert between the saved setting value and the rule option's index in the list<pair>
         int selectedNum = -1;
         for(int j = 0; j < rules.get(i).getSettings().size(); j++) {
             if (rules.get(i).getSettings().get(j).first == rules.get(i).getValue()) {
@@ -94,6 +102,7 @@ public class RuleAdapter extends BaseAdapter {
             }
         }
 
+        //set all buttons to white except the one currently selected
         viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
         viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
         viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
@@ -103,41 +112,50 @@ public class RuleAdapter extends BaseAdapter {
             case 2: viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary)); break;
         }
 
-        viewHolder.button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rules.get(i).setValue(settings.get(0).first);
-                viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
-                viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
-                viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
-            }
-        });
-        viewHolder.button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rules.get(i).setValue(settings.get(1).first);
-                viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
-                viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
-                viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
-            }
-        });
-        viewHolder.button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rules.get(i).setValue(settings.get(2).first);
-                viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
-                viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
-                viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
-            }
-        });
+        if (editable) {
+            //update visuals and internal data when a button is pressed. The buttons act as radio buttons internally
+            viewHolder.button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rules.get(i).setValue(settings.get(0).first);
+                    viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
+                    viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                    viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                }
+            });
+            viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rules.get(i).setValue(settings.get(1).first);
+                    viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                    viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
+                    viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                }
+            });
+            viewHolder.button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rules.get(i).setValue(settings.get(2).first);
+                    viewHolder.button1.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                    viewHolder.button2.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.lightGrey));
+                    viewHolder.button3.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
+                }
+            });
 
-        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rules.remove(i);
-                notifyDataSetChanged();
-            }
-        });
+            //bind the delete button which removes the rule
+            viewHolder.deleteButton.setVisibility(View.VISIBLE);
+            viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rules.remove(i);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+        else {
+            //delete button is invisible and buttons are not functional when not on an editable screen
+            viewHolder.deleteButton.setVisibility(View.INVISIBLE);
+        }
 
         return view;
     }
