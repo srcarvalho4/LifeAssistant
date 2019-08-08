@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.TreeSet;
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.models.ActivityDb;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
+import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 import edu.northeastern.lifeassistant.db.types.SettingType;
 import utils.Activity;
 import utils.ColorAdapter;
@@ -141,8 +143,8 @@ public class CreateActivityScreen extends AppCompatActivity {
                     rulesSet.clear();
                     rulesSet.addAll(ruleAdapter.getRules());
                     rulesSet.add(new RuleAdapterItem(newRule));
+                    ruleAdapter.updateData(new ArrayList<>(rulesSet));
                 }
-                ruleAdapter.updateData(new ArrayList<>(rulesSet));
 
                 return true;
             });
