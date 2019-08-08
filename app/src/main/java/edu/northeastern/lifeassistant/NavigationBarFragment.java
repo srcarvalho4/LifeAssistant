@@ -72,7 +72,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
                 intent.putExtra("location", "Schedule");
                 break;
             case R.id.navigation_spontaneous:
-                String activityId = SetAlarmManager.getActiveScheduleEvent(getActivity().getApplicationContext());
+                String activityId = SetAlarmManager.getActiveActivity(getActivity().getApplicationContext());
                 //when navigating to the spontaneous tab, go to spontaneous active if an event is running
                 //go to the general spontaneous screen if nothing is running
                 //the main spontaneous screen is inaccessible when an activity is running
