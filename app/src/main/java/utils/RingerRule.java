@@ -1,7 +1,10 @@
 package utils;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.Log;
 import android.util.Pair;
 
@@ -35,6 +38,7 @@ public class RingerRule implements Rule {
     @Override
     public void enable() {
         Log.d("setAlarm", "ringer rule enabled!");
+
         previousState = audioManager.getRingerMode();
         audioManager.setRingerMode(ruleState);
     }
