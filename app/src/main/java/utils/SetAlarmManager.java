@@ -114,7 +114,7 @@ public class SetAlarmManager {
 
 
     //Returns the activity ID of the currently active event, else returns null
-    public static String getActiveScheduleEvent(Context context) {
+    public static String getActiveActivity(Context context) {
         ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
         SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(context).spontaneousEventDao();
 
@@ -131,6 +131,30 @@ public class SetAlarmManager {
         for (SpontaneousEventDb s : spontaneousEvents) {
             if (s.getActive()) {
                 return s.getActivityId();
+            }
+        }
+
+        return null;
+    }
+
+    //Returns the event ID of the currently active event, else returns null
+    public static String getActiveScheduleEvent(Context context) {
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+        SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(context).spontaneousEventDao();
+
+        List<ScheduleEventDb> scheduleEvents = scheduleEventDao.findAllScheduleEvents();
+
+        for (ScheduleEventDb s : scheduleEvents) {
+            if (s.getActive()) {
+                return s.getId();
+            }
+        }
+
+        List<SpontaneousEventDb> spontaneousEvents = spontaneousEventDao.findAllSpontaneousEvents();
+
+        for (SpontaneousEventDb s : spontaneousEvents) {
+            if (s.getActive()) {
+                return s.getId();
             }
         }
 

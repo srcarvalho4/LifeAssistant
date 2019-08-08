@@ -26,6 +26,7 @@ public class Alarm extends BroadcastReceiver {
         passalongIntent.putExtra("activity", activity);
         passalongIntent.putExtra("eventID", eventID);
         passalongIntent.putExtra("alarmID", alarmID);
+        passalongIntent.putExtra("eventName", eventName);
         context.startService(passalongIntent);
 
     }
