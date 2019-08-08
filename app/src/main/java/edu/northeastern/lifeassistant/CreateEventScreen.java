@@ -99,13 +99,28 @@ public class CreateEventScreen extends AppCompatActivity {
         saveButton.setOnClickListener(view -> {
             String errorMsg = null;
 
+            Calendar eventStartTime = Calendar.getInstance();
+            Calendar eventEndTime = Calendar.getInstance();
+
             if(eventNameIsValid()) {
                 if(daysIsValid()) {
                     if(timePeriodIsValid()) {
-                        saveOrUpdateScheduleEvent(isEdit);
-                        Intent intent = new Intent(this, ScheduleScreen.class);
-                        intent.putExtra("location", "Schedule");
-                        startActivity(intent);
+                        try {
+                            eventStartTime.setTime(timeFormatter.parse(eventStartTimeEditText.getText().toString()));
+                            eventEndTime.setTime(timeFormatter.parse(eventEndTimeEditText.getText().toString()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(isScheduleConflict(eventStartTime, eventEndTime)) {
+                            saveOrUpdateScheduleEvent(isEdit);
+                            Intent intent = new Intent(this, ScheduleScreen.class);
+                            intent.putExtra("location", "Schedule");
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Time Conflict With Another Event", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         errorMsg = "Invalid Time Period";
                     }
@@ -244,6 +259,10 @@ public class CreateEventScreen extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    private boolean isScheduleConflict(Calendar startTime, Calendar endTime) {
+        return db.scheduleEventDao().findConflicts(startTime, endTime, selectedEventId).isEmpty();
     }
 
     @Override
