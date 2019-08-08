@@ -254,7 +254,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 activityNameDisplay.setText(nameRender + ": Inactive");
                 buttonStart.setEnabled(true);
                 buttonStop.setEnabled(false);
-                printData();
+                //printData();
             }
         });
 

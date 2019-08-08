@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-
+        //Pulling spontaneous activity data from database
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
         List<SpontaneousEventDb> check = db.spontaneousEventDao().findAllSpontaneousEventsInDescendingOrder();
 
@@ -70,7 +70,7 @@ public class HistoryActivity extends AppCompatActivity {
             for (int i = 0; i < check.size(); i++) {
                 if (check.get(i).getEndTime() != null) {
 
-
+                    //Setting activity specific logos
                     AppDatabase db1 = AppDatabase.getAppDatabase(getApplicationContext());
                     ActivityDb check2 = db1.activityDao().findActivityById(check.get(i).getActivityId());
 
@@ -89,8 +89,7 @@ public class HistoryActivity extends AppCompatActivity {
                         imageSelection = R.drawable.random_activity;
                     }
 
-
-
+                    //populating the History listview - myHistoryItems arraylist
                     myHistoryItems.add(new HistoryAdapterInfoItem(imageSelection, check2.getName(),
                             finalValue, check.get(i).getStartTime().getTime().toString(),
                             check.get(i).getEndTime().getTime().toString(), check.get(i).getActivityId(), check.get(i).getId()));

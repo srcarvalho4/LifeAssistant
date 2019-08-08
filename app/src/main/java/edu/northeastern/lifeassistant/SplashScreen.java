@@ -25,9 +25,11 @@ public class SplashScreen extends AppCompatActivity {
 
         getStarted = findViewById(R.id.getStarted);
         balloon = findViewById(R.id.balloon);
+        //Adding the frombottom animation layout to getStarted button
         frombottom = AnimationUtils.loadAnimation(this, R.anim.frombotton);
         getStarted.setAnimation(frombottom);
 
+        //Adding the fromtop animation layout to balloon image
         fromtop = AnimationUtils.loadAnimation(this, R.anim.fromtop);
         balloon.setAnimation(fromtop);
 
