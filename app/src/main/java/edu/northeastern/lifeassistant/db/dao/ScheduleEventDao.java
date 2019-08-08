@@ -5,6 +5,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import java.util.Calendar;
 import java.util.List;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 
@@ -34,5 +36,11 @@ public interface ScheduleEventDao {
 
     @Query("DELETE FROM schedule_events WHERE id = :id")
     public void deleteScheduleEventsById(String id);
+
+    @Query("SELECT * FROM schedule_events WHERE " +
+            "((:startTime BETWEEN start_time AND end_time) OR " +
+            "(:endTime BETWEEN start_time AND end_time)) AND " +
+            "id NOT IN (:id)")
+    public List<ScheduleEventDb> findConflicts(Calendar startTime, Calendar endTime, String id);
 
 }
