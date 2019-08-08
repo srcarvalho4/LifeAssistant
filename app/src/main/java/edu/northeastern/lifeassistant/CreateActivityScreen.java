@@ -121,10 +121,14 @@ public class CreateActivityScreen extends AppCompatActivity {
                 } else if(settingString.equals(SettingType.NIGHT_MODE.getValue())) {
                     newRule = new NightModeRule(getApplicationContext(), UiModeManager.MODE_NIGHT_NO);
                 } else if(settingString.equals(SettingType.STEP_COUNT.getValue())) {
-                    newRule = new StepCounterRule(getApplicationContext());
+//                    newRule = new StepCounterRule(getApplicationContext());
                 }
 
-                rulesSet.add(new RuleAdapterItem(newRule));
+                if(newRule != null) {
+                    rulesSet.clear();
+                    rulesSet.addAll(ruleAdapter.getRules());
+                    rulesSet.add(new RuleAdapterItem(newRule));
+                }
                 ruleAdapter.updateData(new ArrayList<>(rulesSet));
 
                 return true;

@@ -69,8 +69,6 @@ public class StepCounterRule implements Rule, GoogleApiClient.ConnectionCallback
                 .addConnectionCallbacks(this)
                 .enableAutoManage((FragmentActivity) context, 0, this)
                 .build();
-
-
     }
 
 
