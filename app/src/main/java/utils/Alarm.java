@@ -19,6 +19,8 @@ public class Alarm extends BroadcastReceiver {
         int alarmID = intent.getIntExtra("alarmID", 0);
         Toast.makeText(context, "Received intent! " + operation, Toast.LENGTH_SHORT).show();
 
+        Log.d("actiityID", "in alarm! " + activity);
+
         Intent passalongIntent = new Intent(context, SchedulerService.class);
         passalongIntent.putExtra("operation", operation);
         passalongIntent.putExtra("activity", activity);
