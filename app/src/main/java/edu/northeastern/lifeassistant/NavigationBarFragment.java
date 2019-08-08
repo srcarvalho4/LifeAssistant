@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import utils.SetAlarmManager;
@@ -70,7 +69,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
                 intent.putExtra("location", "Schedule");
                 break;
             case R.id.navigation_spontaneous:
-                String activityId = SetAlarmManager.getActiveScheduleEvent(getActivity().getApplicationContext());
+                String activityId = SetAlarmManager.getActiveActivity(getActivity().getApplicationContext());
                 if (activityId == null) {
                     intent = new Intent(getContext(), SpontaneousScreen.class);
                 }

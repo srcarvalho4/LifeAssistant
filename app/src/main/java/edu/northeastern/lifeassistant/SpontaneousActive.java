@@ -3,7 +3,6 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,14 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import utils.Activity;
-import utils.DisplayRule;
 import utils.RuleAdapter;
 import utils.RuleAdapterItem;
 import utils.SetAlarmManager;
@@ -101,7 +97,7 @@ public class SpontaneousActive extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (SetAlarmManager.getActiveScheduleEvent(getApplicationContext()) == null) {
+        if (SetAlarmManager.getActiveActivity(getApplicationContext()) == null) {
             Intent intent = new Intent(getApplicationContext(), SpontaneousScreen.class);
             intent.putExtra("location", "Spontaneous");
             startActivity(intent);

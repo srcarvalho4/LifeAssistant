@@ -278,7 +278,7 @@ public class SetAlarmManager {
         }
 
         //Remove the alarm ID from the list of alarm IDs
-        alarmIDs.remove(index);
+        if (index != -1) alarmIDs.remove(index);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("America/New_York"));
