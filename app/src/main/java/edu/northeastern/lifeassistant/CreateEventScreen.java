@@ -205,12 +205,16 @@ public class CreateEventScreen extends AppCompatActivity {
     private boolean eventNameIsValid() {
         String eventName = eventNameEditText.getText().toString();
         if(!eventName.isEmpty()) {
-            List<ScheduleEventDb> existingEvents = db.scheduleEventDao().findAllScheduleEvents();
             List<String> existingEventNames = new ArrayList<>();
-            existingEvents.forEach(e -> existingEventNames.add(e.getName()));
-            if(!existingEventNames.contains(eventName) || isEdit) {
-                return true;
+            db.scheduleEventDao().findAllScheduleEvents().forEach(e -> existingEventNames.add(e.getName()));
+
+            if(isEdit) {
+                String oldEventName = db.scheduleEventDao().findScheduleEventById(selectedEventId).getName();
+                if(eventName.equals(oldEventName)) {
+                    return true;
+                }
             }
+            return !existingEventNames.contains(eventName);
         }
         return false;
     }

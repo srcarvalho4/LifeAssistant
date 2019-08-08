@@ -30,4 +30,17 @@ public class RuleAdapterItem {
     public void setValue(int value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+
+        if(!(obj instanceof RuleAdapterItem)) {
+            return false;
+        }
+
+        return ((RuleAdapterItem) obj).getName().equals(this.getName());
+    }
 }
