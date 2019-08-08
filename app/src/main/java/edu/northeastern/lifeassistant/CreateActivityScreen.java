@@ -125,6 +125,8 @@ public class CreateActivityScreen extends AppCompatActivity {
                 }
 
                 if(newRule != null) {
+                    rulesSet.clear();
+                    rulesSet.addAll(ruleAdapter.getRules());
                     rulesSet.add(new RuleAdapterItem(newRule));
                 }
                 ruleAdapter.updateData(new ArrayList<>(rulesSet));
