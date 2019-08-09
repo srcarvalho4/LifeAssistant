@@ -3,6 +3,7 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,6 +38,10 @@ public class ActivityScreen extends AppCompatActivity {
 
         //load activity table
         List<ActivityDb> activityDb = db.activityDao().findAllActivities();
+
+        ActivityDb activityDb1 = db.activityDao().findActivityByName("Class");
+
+        //Log.d("MyColor", activityDb1.getColor().toString());
 
         for (int i = 0; i < activityDb.size(); i++) {
             activities.add(new Activity(getApplicationContext(), activityDb.get(i).getId()));
