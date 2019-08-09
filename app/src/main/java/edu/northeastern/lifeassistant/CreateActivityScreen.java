@@ -95,12 +95,19 @@ public class CreateActivityScreen extends AppCompatActivity {
 
         //put colors into the color picker
 
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_maroon), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_green), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_yellow), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.actvity_brown1), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_blue), false));
-        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_lavender), false));
+//        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_maroon), false));
+////        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_green), false));
+////        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_yellow), false));
+////        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.actvity_brown1), false));
+////        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_blue), false));
+////        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.activity_lavender), false));
+
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.palette2), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.palette3), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.palette4), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.palette5), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.palette6), false));
+        colorOptions.add(new ColorPicker(ContextCompat.getColor(getApplicationContext(), R.color.palette7), false));
 
         colorAdapter = new ColorAdapter(getApplicationContext(), colorOptions);
         GridView colorGrid = findViewById(R.id.createActivityColorGrid);
