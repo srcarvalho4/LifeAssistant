@@ -55,7 +55,7 @@
         <TextView
             android:id="@+id/createEventNameLabel"
             android:text="@string/event_name_label"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:labelFor="@id/createEventNameEditText"
             android:layout_marginTop="25dp"
             android:layout_marginStart="4dp"
@@ -73,7 +73,7 @@
         <TextView
             android:id="@+id/createEventActivityLabel"
             android:text="@string/activity_label"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:labelFor="@id/createEventActivitySpinner"
             android:layout_marginTop="25dp"
             android:layout_marginStart="4dp"
@@ -83,7 +83,7 @@
 
         <Spinner
             android:id="@+id/createEventActivitySpinner"
-            android:spinnerMode="dialog"
+            android:spinnerMode="dropdown"
             android:prompt="@string/activity_spinner_hint"
             android:layout_gravity="center"
             android:layout_width="300dp"
@@ -132,7 +132,7 @@
                 <TextView
                     android:id="@+id/createEventStartTimeLabel"
                     android:labelFor="@id/createEventStartTimeEditText"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:text="@string/event_start_time_label"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="25dp"
@@ -166,7 +166,7 @@
                     android:id="@+id/createEventEndTimeLabel"
                     android:labelFor="@id/createEventEndTimeEditText"
                     android:text="@string/event_end_time_label"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="25dp"
                     android:layout_gravity="center"
