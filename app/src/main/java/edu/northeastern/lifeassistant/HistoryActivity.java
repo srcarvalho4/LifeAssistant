@@ -93,7 +93,7 @@ public class HistoryActivity extends AppCompatActivity {
                     String[] expected1 = check.get(i).getStartTime().getTime().toString().split(" ");
                     String myTimeString1 = expected1[1] + " " + expected1[2] + "\n" + expected1[3] + expected1[4];
 
-                    String[] expected2 = check.get(i).getStartTime().getTime().toString().split(" ");
+                    String[] expected2 = check.get(i).getEndTime().getTime().toString().split(" ");
                     String myTimeString2 = expected2[1] + " " + expected2[2] + "\n" + expected2[3] + expected2[4];
 
                     //populating the History listview - myHistoryItems arraylist
