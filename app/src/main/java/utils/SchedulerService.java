@@ -16,13 +16,18 @@ import androidx.core.app.NotificationManagerCompat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
+import edu.northeastern.lifeassistant.ActivityScreen;
 import edu.northeastern.lifeassistant.R;
 import edu.northeastern.lifeassistant.ScheduleScreen;
+import edu.northeastern.lifeassistant.SpontaneousActive1;
 import edu.northeastern.lifeassistant.db.AppDatabase;
 import edu.northeastern.lifeassistant.db.dao.ScheduleEventDao;
 import edu.northeastern.lifeassistant.db.models.RuleDb;
 import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
+
+import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 
 public class SchedulerService extends Service {
 
@@ -44,10 +49,9 @@ public class SchedulerService extends Service {
         String eventName = intent.getStringExtra("eventName");
         int alarmID = intent.getIntExtra("alarmID", 0);
 
-        Toast.makeText(getApplicationContext(), "Event " + eventName + " has been " + operation, Toast.LENGTH_SHORT).show();
-
-        Log.d("actiityID", "in service ! " + activity);
-        Log.d("operation", "in service ! " + operation);
+        Log.d("service", "activityID " + activity);
+        Log.d("service", "operation " + operation);
+        Log.d("service", "eventID: " + eventID);
 
         ArrayList<Rule> rules = getRules(activity);
 
@@ -55,6 +59,10 @@ public class SchedulerService extends Service {
             switch (operation) {
                 case "enable": {
                     Log.d("setAlarm", "enabling rules!");
+                    //enableNotification(eventID);
+                    makeNotification(eventID, "enable", "Event started",
+                            "Your scheduled event " + eventName + " has been started and its rules are currently enabled.",
+                            "Disable Event Now");
                     handleEnable(rules);
                     removeAlarmID(alarmID, eventID);
                     setIsActive(eventID, true);
@@ -62,6 +70,9 @@ public class SchedulerService extends Service {
                 }
                 case "disable": {
                     Log.d("setAlarm", "disabling rules!");
+                    makeNotification(eventID, "disable", "Event Ended",
+                            "Your scheduled event " + eventName + " has ended, and its rules are now disabled.",
+                            null);
                     handleDisable(rules);
                     removeAlarmID(alarmID, eventID);
                     setIsActive(eventID, false);
@@ -74,7 +85,23 @@ public class SchedulerService extends Service {
                     break;
                 }
                 case "reminder": {
-                    reminderNotification(eventID);
+                    removeAlarmID(alarmID, eventID);
+                    //reminderNotification(eventID);
+                    makeNotification(eventID, "reminder", "Event starting soon",
+                            "Your scheduled event " + eventName + " is starting in 10 minutes.",
+                            "Cancel event");
+                    Log.d("setAlarm", "reminder being sent!");
+                    break;
+                }
+                case "cancelUpcoming": {
+                    Log.d("service", "calling cancel upcoming on eventID: " + eventID);
+                    cancelNotification(getNoficationID(eventID, "reminder"));
+                    SetAlarmManager.cancelUpcomingNotStarted(getApplicationContext(), eventID);
+                    break;
+                }
+                case "endEventEarly": {
+                    cancelNotification(getNoficationID(eventID, "enable"));
+                    SetAlarmManager.endEventEarly(getApplicationContext(), eventID);
                     break;
                 }
             }
@@ -87,39 +114,78 @@ public class SchedulerService extends Service {
         return START_NOT_STICKY;
     }
 
-    private void reminderNotification(String eventID) {
+    // Creates a unique notification ID for the notification/operation.
+    private int getNoficationID(String eventID, String operation) {
+        return (eventID + operation).hashCode();
+    }
 
+    //Abstracted code for creating a notification
+    private void makeNotification(String eventID, String operation, String notifTitle, String notifBody, String buttonText) {
         createNotificationChannel();
 
         ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
         ScheduleEventDb eventDb = scheduleEventDao.findScheduleEventById(eventID);
 
-        Intent intent = new Intent(this, ScheduleScreen.class);
+        Class<?> nextActivity;
+
+        switch (operation) {
+            case "enable": {
+                nextActivity = SpontaneousActive1.class;
+                break;
+            }
+            case "reminder": {
+                nextActivity = ScheduleScreen.class;
+                break;
+            }
+            case "disable": {
+                nextActivity = ScheduleScreen.class;
+                break;
+            }
+            default: {
+                nextActivity = ActivityScreen.class;
+                break;
+            }
+
+        }
+
+        Intent intent = new Intent(this, nextActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        /*Intent cancelIntent = new Intent(this, Alarm.class);
-        cancelIntent.setAction(ACTION_SNOOZE);
-        cancelIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
-        PendingIntent snoozePendingIntent =
-                PendingIntent.getBroadcast(this, 0, snoozeIntent, 0);*/
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.lightning_icon)
-                .setContentTitle("Event starting soon!")
-                .setContentText("Your scheduled event " + eventDb.getName() + " is starting in 10 minutes.")
+                .setContentTitle(notifTitle)
+                .setContentText(notifBody)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
+                //.addAction(R.drawable.delete_icon, buttonText, cancelEventPendingIntent)
                 .setAutoCancel(true);
+
+        if (buttonText != null) {
+            Intent buttonIntent = new Intent(this, ActionReceiverAlarm.class);
+            //buttonIntent.setAction(ACTION_SNOOZE);
+            buttonIntent.putExtra("operation", operation);
+            buttonIntent.putExtra("eventID", eventDb.getId());
+            buttonIntent.putExtra(EXTRA_NOTIFICATION_ID, 0);
+            PendingIntent buttonPendingEvent = PendingIntent.getBroadcast(
+                    this, buttonIntent.hashCode(), buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.delete_icon, buttonText, buttonPendingEvent);
+        }
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
-        int notificationID = eventDb.hashCode();
+        int notificationID = getNoficationID(eventID, operation);
 
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(notificationID, builder.build());
+    }
 
+    //Clear the notification from the notifications bar - to be called when action button is hit.
+    private void cancelNotification(int notificationID) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        notificationManager.cancel(notificationID);
     }
 
     private void createNotificationChannel() {
@@ -152,11 +218,7 @@ public class SchedulerService extends Service {
     }
 
     private void callScheduleAlarm(String eventId) {
-        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
-
-        ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventId);
-
-        SetAlarmManager.setSchedulingAlarm(getApplicationContext(), event.getId());
+        SetAlarmManager.setSchedulingAlarm(getApplicationContext(), eventId);
     }
 
     private void setIsActive(String eventID, boolean enabled) {

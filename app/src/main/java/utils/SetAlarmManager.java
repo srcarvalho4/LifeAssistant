@@ -92,7 +92,7 @@ public class SetAlarmManager {
                 endTime.set(Calendar.MINUTE, event.getEndTime().get(Calendar.MINUTE));
                 endTime.set(Calendar.SECOND, 0);
                 Log.d("actiityID", event.getActivityId());
-                setEndAlarm(context, event.getActivityId(), event, endTime);
+                setEndAlarm(context, event, endTime);
 
                 scheduleEventDao.update(event);
 
@@ -187,6 +187,7 @@ public class SetAlarmManager {
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
         int alarmID = makeHashRequestCode(eventDb, time);
+        Log.d("setAlarm", "start alarm ID: " + alarmID);
 
         List<Integer> alarmIDs = eventDb.getAlarmIds();
         if (alarmIDs == null) {
@@ -206,9 +207,13 @@ public class SetAlarmManager {
         am.setExactAndAllowWhileIdle(AlarmManager.RTC, time.getTimeInMillis(), pi1);
     }
 
-    private static void setEndAlarm(Context context, String activityID, ScheduleEventDb eventDb, Calendar time) {
+    private static void setEndAlarm(Context context, ScheduleEventDb eventDb, Calendar time) {
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
         int alarmID = makeHashRequestCode(eventDb, time);
+        Log.d("setAlarm", "end alarm ID: " + alarmID);
+
+        String activityID = eventDb.getActivityId();
 
         List<Integer> alarmIDs = eventDb.getAlarmIds();
         if (alarmIDs == null) {
@@ -232,7 +237,11 @@ public class SetAlarmManager {
 
 
     //Called when an event is deleted / edited - cancels all pending alarms.
-    public static void cancelAllPending(Context context, List<Integer> alarms) {
+    public static void cancelAllPending(Context context, ScheduleEventDb event) {
+
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+
+        List<Integer> alarms = event.getAlarmIds();
 
         if (alarms != null) {
             for (int alarm : alarms) {
@@ -243,22 +252,68 @@ public class SetAlarmManager {
             }
         }
 
+        event.setAlarmIds(new ArrayList<Integer>());
+        scheduleEventDao.update(event);
+
+    }
+
+    //Cancel the upcoming event start/end alarms for today - called when "Cancel" is hit from notification.
+    public static void cancelUpcomingNotStarted(Context context, String eventID) {
+        // 1) Find the event
+        // 2) Create start/end time calendars (setting with correct day of week and time)
+        // 3) Cancel both those alarms w the alarm IDs (call cancelAlarm)
+        //      a) Remove the alarm IDs from the list
+        //      b) Update the DB
+
+        Log.d("setAlarm", "in cancelUpcoming, eventID: " + eventID);
+
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+        ScheduleEventDb eventDb = scheduleEventDao.findScheduleEventById(eventID);
+
+        Calendar startTime = Calendar.getInstance();
+        Calendar endTime = Calendar.getInstance();
+
+        if (eventDb == null) {
+            throw new IllegalArgumentException("event is null!!! ????");
+        } else if (eventDb.getStartTime() == null) {
+            throw new IllegalArgumentException("start time is null ahhhh");
+        }
+
+        startTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        startTime.setTimeInMillis(System.currentTimeMillis());
+        startTime.set(Calendar.HOUR, eventDb.getStartTime().get(Calendar.HOUR));
+        startTime.set(Calendar.MINUTE, eventDb.getStartTime().get(Calendar.MINUTE));
+        startTime.set(Calendar.SECOND, 0);
+
+        int startAlarmID = makeHashRequestCode(eventDb, startTime);
+        Log.d("setAlarm", "start alarm ID trying to cancel: " + startAlarmID);
+
+        cancelAlarm(context, eventDb, startAlarmID);
+
+        endTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+        endTime.setTimeInMillis(System.currentTimeMillis());
+        endTime.set(Calendar.HOUR, eventDb.getEndTime().get(Calendar.HOUR));
+        endTime.set(Calendar.MINUTE, eventDb.getEndTime().get(Calendar.MINUTE));
+        endTime.set(Calendar.SECOND, 0);
+
+        int endAlarmID = makeHashRequestCode(eventDb, endTime);
+        Log.d("setAlarm", "end alarm ID trying to cancel: " + endAlarmID);
+
+        cancelAlarm(context, eventDb, endAlarmID);
+
+        scheduleEventDao.update(eventDb);
+
     }
 
 
     //To be called when someone wants to end their currently running event before it is supposed to end.
-    public static void endEventEarly(Context context, ScheduleEventDb event) {
+    public static void endEventEarly(Context context, String eventID) {
         // 1) cancel ending alarm (only for today!)
-        // 2) remove that alarm ID from the event list of alarmIDs.
+        // 2) remove that alarm ID from the event list of alarmIDs. (in cancelAlarm)
         // 3) DISABLE ALL THE RULES!!
 
-        List<Integer> alarmIDs = event.getAlarmIds();
-        if (alarmIDs == null) {
-            alarmIDs = new ArrayList<>();
-        }
-
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
+        ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(context).scheduleEventDao();
+        ScheduleEventDb event = scheduleEventDao.findScheduleEventById(eventID);
 
         //Cancel the pending alarm for today
         Calendar time = Calendar.getInstance();
@@ -267,57 +322,55 @@ public class SetAlarmManager {
 
         time.set(Calendar.HOUR, event.getEndTime().get(Calendar.HOUR));
         time.set(Calendar.MINUTE, event.getEndTime().get(Calendar.MINUTE));
+        time.set(Calendar.SECOND, 0);
 
-        int alarmID = makeHashRequestCode(event, time);
-        int index = alarmIDs.indexOf(alarmID);
+        int alarmID = makeHashRequestCode(event, time);;
 
-        if (index != -1) {
-            Intent i = new Intent(context, Alarm.class);
-            PendingIntent pi = PendingIntent.getBroadcast(context, alarmID, i, 0);
-            am.cancel(pi);
-        }
+        cancelAlarm(context, event, alarmID);
 
-        //Remove the alarm ID from the list of alarm IDs
-        if (index != -1) alarmIDs.remove(index);
-
+        //Disable Rules - set endAlarm for in 2 seconds
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        calendar.setTimeInMillis(System.currentTimeMillis());
-
-        int newAlarmID = makeHashRequestCode(event, calendar);
-
-        alarmIDs.add(newAlarmID);
-        event.setAlarmIds(alarmIDs);
-
-        Intent i = new Intent(context, Alarm.class);
-        i.putExtra("operation", "disable");
-        i.putExtra("activity", event.getActivityId());
-        i.putExtra("eventID", event.getId());
-        i.putExtra("alarmID", newAlarmID);
-        PendingIntent pi = PendingIntent.getBroadcast(context, newAlarmID, i, 0);
-        am.setExactAndAllowWhileIdle(AlarmManager.RTC, calendar.getTimeInMillis(), pi);
+        calendar.setTimeInMillis(System.currentTimeMillis() + 2000);
+        setEndAlarm(context, event, calendar);
 
     }
 
+    //Cancel the pending alarm for the given that has the given alarmID
+    private static void cancelAlarm(Context context, ScheduleEventDb event, int alarmID) {
 
-    private static void cancelAlarm(Context context, ScheduleEventDb event, Calendar startTime, Calendar endTime) {
-        AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        List<Integer> alarmIDs = event.getAlarmIds();
+        if (alarmIDs == null) {
+            Log.d("cancelAlarm", "alarmIDs from event is null ahhhhh");
+            alarmIDs = new ArrayList<>();
+        }
 
-        //Start alarm
-        Intent i1 = new Intent(context, Alarm.class);
-        PendingIntent pi1 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, startTime), i1, 0);
-        am.cancel(pi1);
-        Log.d("cancelAlarm", "canceled start alarm for  " + event.getId());
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        //End Alarm
-        Intent i2 = new Intent(context, Alarm.class);
-        PendingIntent pi2 = PendingIntent.getBroadcast(context, makeHashRequestCode(event, endTime), i1, 0);
-        am.cancel(pi2);
-        Log.d("cancelAlarm", "canceled end alarm for  " + event.getId());
+        int index = alarmIDs.indexOf(alarmID);
+
+        if (index != -1) {
+            Log.d("cancelAlarm", "alarmID found!");
+            Intent i = new Intent(context, Alarm.class);
+            PendingIntent pi = PendingIntent.getBroadcast(context, alarmID, i, 0);
+            am.cancel(pi);
+            alarmIDs.remove(index);
+        } else {
+            Log.d("cancelAlarm", "alarmID not found in event: " + event.getName() + " " + alarmID);
+        }
+
+        event.setAlarmIds(alarmIDs);
+
     }
 
     //Makes unique request code for the pending intent broadcast.
     private static int makeHashRequestCode(ScheduleEventDb event, Calendar time) {
-        return event.hashCode() + time.hashCode();
+
+        String eventID = event.getId();
+        String toHash = eventID + time.getTime().toString();
+        Log.d("hashing", event.getActivityId() + " " + time.getTime().toString() + " "
+        + toHash.hashCode());
+
+        return toHash.hashCode();
     }
 }

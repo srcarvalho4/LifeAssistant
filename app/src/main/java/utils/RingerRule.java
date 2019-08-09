@@ -4,6 +4,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.util.Log;
 import android.util.Pair;
@@ -40,12 +42,24 @@ public class RingerRule implements Rule {
         Log.d("setAlarm", "ringer rule enabled!");
 
         previousState = audioManager.getRingerMode();
-        audioManager.setRingerMode(ruleState);
+        if (ruleState == AudioManager.RINGER_MODE_SILENT) {
+            setSilent();
+        } else {
+            audioManager.setRingerMode(ruleState);
+        }
+    }
+
+    private void setSilent() {
+        audioManager.setStreamVolume(AudioManager.STREAM_RING, 0, 0);
     }
 
     @Override
     public void disable() {
-        audioManager.setRingerMode(previousState);
+        if (previousState == AudioManager.RINGER_MODE_SILENT) {
+            setSilent();
+        } else {
+            audioManager.setRingerMode(previousState);
+        }
     }
 
     @Override
@@ -56,8 +70,8 @@ public class RingerRule implements Rule {
     @Override
     public List<Pair<Integer, String>> getSettingValues() {
         List<Pair<Integer, String>> values = new ArrayList<>();
-        values.add(new Pair(AudioManager.RINGER_MODE_SILENT, "On"));
-        values.add(new Pair(AudioManager.RINGER_MODE_NORMAL, "Off"));
+        values.add(new Pair(AudioManager.RINGER_MODE_NORMAL, "On"));
+        values.add(new Pair(AudioManager.RINGER_MODE_SILENT, "Off"));
         values.add(new Pair(AudioManager.RINGER_MODE_VIBRATE, "Vibrate"));
         return values;
     }
