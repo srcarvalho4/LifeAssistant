@@ -79,6 +79,7 @@ public class NavigationBarFragment extends Fragment implements BottomNavigationV
                 //stop the running activity to get to it.
                 if (activityId == null) {
                     intent = new Intent(getContext(), SpontaneousScreen.class);
+                    intent.putExtra("location", "Spontaneous");
                 }
                 else {
                     intent = new Intent(getContext(), SpontaneousActive1.class);

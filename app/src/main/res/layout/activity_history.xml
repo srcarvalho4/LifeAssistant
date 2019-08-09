@@ -25,12 +25,25 @@
         android:text="Track your activities"
         android:textSize="16sp"/>
 
-
-    <ListView
-        android:id="@+id/myHistoryListView"
-        android:layout_margin="15dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="15sp"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_weight="15"
+        android:layout_height="0dp">
+
+        <ListView
+            android:id="@+id/myHistoryListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="15sp" />
+
+    </FrameLayout>
+
+    <fragment
+        android:id="@+id/ActivityNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:layout_weight="2"/>
 </LinearLayout>
