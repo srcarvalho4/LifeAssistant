@@ -17,7 +17,23 @@ public class GoogleFitPopUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google_fit_pop_up);
+        String selectLayout = getIntent().getStringExtra("FitInstalled");
+
+        if (selectLayout.equals("no")) {
+            setContentView(R.layout.activity_google_fit_pop_up);
+            googleFitDownload = findViewById(R.id.googleFitDownloadButton);
+            googleFitDownload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent implicitIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.fitness&hl=en_US"));
+                    startActivity(implicitIntent);
+                }
+            });
+
+        }
+        else {
+            setContentView(R.layout.activity_google_fit_pop_up2);
+        }
 
         //DisplayMetrics dm = new DisplayMetrics();
         //getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -27,15 +43,13 @@ public class GoogleFitPopUp extends AppCompatActivity {
 
         //getWindow().setLayout((int) (width*.8), (int) (height*.6));
 
-        googleFitDownload = findViewById(R.id.googleFitDownloadButton);
-        googleFitDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent implicitIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.fitness&hl=en_US"));
-                startActivity(implicitIntent);
-            }
-        });
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), SpontaneousScreen.class);
+        intent.putExtra("location", "Spontaneous");
+        startActivity(intent);
     }
 }

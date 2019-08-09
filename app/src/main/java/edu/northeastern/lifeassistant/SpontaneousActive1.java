@@ -182,15 +182,25 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 catch (Exception e) {
 
                 }
-                //Adding/Inserting a new entry to the spontaneous activity database
-                SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
-                sEvent.setActive(true);
-                db.spontaneousEventDao().insert(sEvent);
+                if (myTotalSteps.equals("lol"))
+                {
+                    buttonStop.setEnabled(false);
+                    buttonStart.setEnabled(true);
+                    Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
+                    intent.putExtra("FitInstalled", "yes");
+                    startActivity(intent);
+                }
+                else {
+                    //Adding/Inserting a new entry to the spontaneous activity database
+                    SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
+                    sEvent.setActive(true);
+                    db.spontaneousEventDao().insert(sEvent);
 
 
-                //SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
-                //mostRecentEvent.setEndTime(Calendar.getInstance());
-                //mostRecentEvent.setEndValue(null);
+                    //SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
+                    //mostRecentEvent.setEndTime(Calendar.getInstance());
+                    //mostRecentEvent.setEndValue(null);
+                }
             }
         });
 
@@ -228,10 +238,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 catch (Exception e) {
 
                 }
-                if (myTotalSteps.equals("lol")) {
-                    Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
-                    startActivity(intent);
-                }
+
                 // Pulling the most recent event from the spontaneous activity table
                 SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
 
