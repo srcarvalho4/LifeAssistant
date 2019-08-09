@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoogleFitPopUp"></activity>
+        <activity android:name=".GoogleFitPopUp" />
         <activity android:name=".SpontaneousActive1" />
         <activity android:name=".HistoryInfoActivity" />
         <activity android:name=".HistoryActivity" />

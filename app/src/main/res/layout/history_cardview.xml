@@ -8,13 +8,14 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
         <ImageView
             android:id="@+id/imageViewHistoryIcon1"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:scaleType="centerInside"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_runningman" />
 
@@ -27,8 +28,10 @@
             <TextView
                 android:id="@+id/textViewActivityName1"
                 android:layout_width="match_parent"
-                android:textSize="30sp"
-                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:text="Activity Name" />
 
@@ -40,15 +43,19 @@
                 <TextView
                     android:id="@+id/textViewStartTime1"
                     android:text="Start Time"
+                    android:gravity="center_horizontal"
                     android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:textSize="15dp"
                     android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/textViewEndTime1"
                     android:text="End Time"
+                    android:gravity="center_horizontal"
                     android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:textSize="15dp"
                     android:layout_height="match_parent" />
 
             </LinearLayout>
@@ -58,7 +65,7 @@
                 android:text="Entry ID"
                 android:visibility="invisible"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="0dp" />
 
 
 
@@ -69,9 +76,9 @@
         <TextView
             android:id="@+id/textViewStepCount1"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp"
-            android:textSize="30sp"
+            android:layout_weight="0.75"
+            android:layout_gravity="center_vertical"
+            android:textSize="25sp"
             android:gravity="center"
             android:layout_height="wrap_content"
             android:text="TextView" />

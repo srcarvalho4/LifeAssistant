@@ -169,6 +169,10 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Enabling the stop button and disabling the stop button for reflecting the activity state
+                activityNameDisplay.setText(nameRender + ": Active");
+                buttonStop.setEnabled(true);
+                buttonStart.setEnabled(false);
                 //sets the myTotalSteps variable with current step count
                 new ViewTodaysStepCountTask().execute();
                 try {
@@ -182,10 +186,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
                 sEvent.setActive(true);
                 db.spontaneousEventDao().insert(sEvent);
-                //Enabling the stop button and disabling the stop button for reflecting the activity state
-                activityNameDisplay.setText(nameRender + ": Active");
-                buttonStop.setEnabled(true);
-                buttonStart.setEnabled(false);
+
 
                 //SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
                 //mostRecentEvent.setEndTime(Calendar.getInstance());
@@ -197,6 +198,10 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
         buttonStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Enabling the stop button and disabling the stop button for reflecting the activity state
+                activityNameDisplay.setText(nameRender + ": Inactive");
+                buttonStart.setEnabled(true);
+                buttonStop.setEnabled(false);
 
 
                 String eventID = SetAlarmManager.getActiveScheduleEvent(getApplicationContext());
@@ -213,6 +218,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
 
 
                 }
+
                 //sets the myTotalSteps variable with current step count
                 new ViewTodaysStepCountTask().execute();
                 try {
@@ -250,10 +256,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 mostRecentEvent.setActive(false);
                 db.spontaneousEventDao().update(mostRecentEvent);
 
-                //Enabling the stop button and disabling the stop button for reflecting the activity state
-                activityNameDisplay.setText(nameRender + ": Inactive");
-                buttonStart.setEnabled(true);
-                buttonStop.setEnabled(false);
+
                 //printData();
             }
         });
