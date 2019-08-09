@@ -210,7 +210,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                     ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
                     SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(getApplicationContext()).spontaneousEventDao();
                     if (scheduleEventDao.findScheduleEventById(eventID) != null) {
-                        SetAlarmManager.endEventEarly(getApplicationContext(), scheduleEventDao.findScheduleEventById(eventID));
+                        SetAlarmManager.endEventEarly(getApplicationContext(), eventID);
                         return;
                     } else if (spontaneousEventDao.findSpontaneousEventById(eventID) != null) {
                         //Disable all the rules

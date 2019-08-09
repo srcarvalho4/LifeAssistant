@@ -39,6 +39,10 @@
         <receiver
             android:name="utils.Alarm"
             android:process=":remote" />
+
+        <receiver
+            android:name="utils.ActionReceiverAlarm"
+            android:process=":remote" />
     </application>
 
 </manifest>

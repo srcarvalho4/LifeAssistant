@@ -17,7 +17,6 @@ public class Alarm extends BroadcastReceiver {
         String eventID = intent.getStringExtra("eventID");
         String eventName = intent.getStringExtra("eventName");
         int alarmID = intent.getIntExtra("alarmID", 0);
-        Toast.makeText(context, "Received intent! " + operation, Toast.LENGTH_SHORT).show();
 
         Log.d("actiityID", "in alarm! " + activity);
 
