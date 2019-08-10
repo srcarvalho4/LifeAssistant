@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LifeAssistant</string>
+    <string name="app_name">Life Assistant</string>
     <string name="MainPageTitle">Life Assistant</string>
     <string name="MainPageStartButton">Let\'s Begin</string>
     <string name="Activity">Activity</string>
