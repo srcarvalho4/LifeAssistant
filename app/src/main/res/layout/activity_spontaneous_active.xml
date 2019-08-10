@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SpontaneousActive">
+    tools:context=".activities.spontaneous.SpontaneousActive">
 
     <TextView
         android:layout_width="match_parent"
@@ -43,20 +43,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Running"
+                android:textColor="@color/white"
                 android:textSize="30sp"
                 android:layout_margin="20dp"/>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/SpontaneousActiveStartButton"
+                android:backgroundTint="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_button_text"
+                android:textSize="20sp"/>
+
+
+            <Button
+                android:id="@+id/SpontaneousActiveStopButton"
+                android:backgroundTint="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stop_button_text"
+                android:textSize="20sp"/>
+
+
+
+        </LinearLayout>
+
         <Button
-            android:id="@+id/SpontaneousActiveButton"
-            android:onClick="toggleActive"
+            android:id="@+id/SpontaneousActiveViewHistoryButton"
+            android:backgroundTint="@color/lightGrey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/start_button_text"
-            android:backgroundTint="@color/lightGrey"
+            android:text="@string/view_history_button"
             android:textSize="20sp"/>
+
 
 
         <TextView
@@ -64,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textSize="0sp"/>
 
@@ -90,7 +119,7 @@
         android:id="@+id/ActivityNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:name="edu.northeastern.lifeassistant.activities.NavigationBarFragment"
         android:layout_weight="2"/>
 
 </LinearLayout>

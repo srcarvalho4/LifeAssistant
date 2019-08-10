@@ -14,33 +14,36 @@ import edu.northeastern.lifeassistant.db.models.ScheduleEventDb;
 public interface ScheduleEventDao {
 
     @Insert
-    public void insert(ScheduleEventDb scheduleEventDb);
+    void insert(ScheduleEventDb scheduleEventDb);
 
     @Update
-    public void update(ScheduleEventDb scheduleEventDb);
+    void update(ScheduleEventDb scheduleEventDb);
 
     @Delete
-    public void delete(ScheduleEventDb scheduleEventDb);
+    void delete(ScheduleEventDb scheduleEventDb);
 
     @Query("SELECT * FROM schedule_events")
-    public List<ScheduleEventDb> findAllScheduleEvents();
+    List<ScheduleEventDb> findAllScheduleEvents();
 
     @Query("SELECT * FROM schedule_events WHERE id = :id")
-    public ScheduleEventDb findScheduleEventById(String id);
+    ScheduleEventDb findScheduleEventById(String id);
 
     @Query("SELECT * FROM schedule_events WHERE name = :name")
-    public ScheduleEventDb findScheduleEventByName(String name);
+    ScheduleEventDb findScheduleEventByName(String name);
 
     @Query("SELECT * FROM schedule_events WHERE activity_id = :activityId")
-    public List<ScheduleEventDb> findScheduleEventsForActivity(String activityId);
+    List<ScheduleEventDb> findScheduleEventsForActivity(String activityId);
 
     @Query("DELETE FROM schedule_events WHERE id = :id")
-    public void deleteScheduleEventsById(String id);
+    void deleteScheduleEventsById(String id);
 
     @Query("SELECT * FROM schedule_events WHERE " +
             "((:startTime BETWEEN start_time AND end_time) OR " +
             "(:endTime BETWEEN start_time AND end_time)) AND " +
             "id NOT IN (:id)")
-    public List<ScheduleEventDb> findConflicts(Calendar startTime, Calendar endTime, String id);
+    List<ScheduleEventDb> findConflicts(Calendar startTime, Calendar endTime, String id);
+
+    @Query("SELECT * FROM schedule_events WHERE active = 1")
+    List<ScheduleEventDb> findActiveEvents();
 
 }

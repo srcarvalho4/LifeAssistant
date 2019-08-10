@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SpontaneousScreen">
+    tools:context=".activities.spontaneous.SpontaneousScreen">
 
     <TextView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:id="@+id/SpontaneousNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:name="edu.northeastern.lifeassistant.activities.NavigationBarFragment"
         android:layout_weight="2"/>
 
 </LinearLayout>
