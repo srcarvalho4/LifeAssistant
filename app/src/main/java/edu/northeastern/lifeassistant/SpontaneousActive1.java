@@ -71,6 +71,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
     Button buttonStart;
     Button buttonStop;
     Button viewHistoryButton;
+    TextView spontaneousActiveStepCounter;
     //=============================================
 
     //ProgressBar progressBar;
@@ -262,6 +263,13 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 mostRecentEvent.setFinalValue(myFinalStepsString);
                 mostRecentEvent.setActive(false);
                 db.spontaneousEventDao().update(mostRecentEvent);
+
+                //Setting the SpontaneousActiveStepCounter textView
+                spontaneousActiveStepCounter = findViewById(R.id.SpontaneousActiveStepCounter);
+                if (nameRender.equals("Running")) {
+                    spontaneousActiveStepCounter.setText("Step Count: " + myFinalStepsString);
+                    spontaneousActiveStepCounter.setTextSize(20);
+                }
 
 
                 //printData();
