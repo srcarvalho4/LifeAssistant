@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoogleFitPopUp" />
-        <activity android:name=".SpontaneousActive1" />
-        <activity android:name=".HistoryInfoActivity" />
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".StepsHistory" />
-        <activity android:name=".SpontaneousStepCounterActivity" />
-        <activity android:name=".SpontaneousScreen" />
-        <activity android:name=".ScheduleScreen" />
-        <activity android:name=".ActivityScreen" />
-        <activity android:name=".CreateActivityScreen" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".CreateEventScreen" />
-        <activity android:name=".SpontaneousActive" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".GoogleFitPopUp" android:screenOrientation="portrait" />
+        <activity android:name=".SpontaneousActive1" android:screenOrientation="portrait" />
+        <activity android:name=".HistoryInfoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".HistoryActivity" android:screenOrientation="portrait" />
+        <activity android:name=".StepsHistory" android:screenOrientation="portrait" />
+        <activity android:name=".SpontaneousStepCounterActivity" android:screenOrientation="portrait" />
+        <activity android:name=".SpontaneousScreen" android:screenOrientation="portrait" />
+        <activity android:name=".ScheduleScreen" android:screenOrientation="portrait" />
+        <activity android:name=".ActivityScreen" android:screenOrientation="portrait" />
+        <activity android:name=".CreateActivityScreen" android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".CreateEventScreen" android:screenOrientation="portrait" />
+        <activity android:name=".SpontaneousActive" android:screenOrientation="portrait" />
+        <activity android:name=".SplashScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
