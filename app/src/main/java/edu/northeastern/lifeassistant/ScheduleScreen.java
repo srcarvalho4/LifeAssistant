@@ -85,8 +85,7 @@ public class ScheduleScreen extends AppCompatActivity {
         ListView filterView = findViewById(R.id.scheduleListFilterView);
         filterView.setAdapter(activityAdapter);
 
-        filterName.setText("All");
-        filterName.setTextColor(Color.WHITE);
+        filterName.setVisibility(View.GONE);
 
         filterView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,7 +97,7 @@ public class ScheduleScreen extends AppCompatActivity {
                 if (i == 0) {
                     //if the value is zero, the "ALL" option was picked
                     newEvents = events;
-                    filterName.setText("All");
+                    filterName.setVisibility(View.GONE);
                 } else {
                     //otherwise, the real value is i-1, as index 0 has the "ALL" option
                     Activity filterActivity = new Activity(getApplicationContext(), activityDb.get(i - 1).getId());
@@ -108,6 +107,7 @@ public class ScheduleScreen extends AppCompatActivity {
                         }
                     }
                     filterName.setText(filterActivity.getName());
+                    filterName.setVisibility(View.VISIBLE);
 //                    int color = filterActivity.getColor();
 //                    int darkColorR = (int) (((color >> 16) & 0xff) * 3 / 4);
 //                    int darkColorG = (int) (((color >>  8) & 0xff) * 3 / 4);
