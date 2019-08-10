@@ -40,6 +40,12 @@
             android:paddingBottom="80dp"
             android:clipToPadding="false"/>
 
+        <ImageView
+            android:id="@+id/scheduleFilterViewCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/greyTransparent"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/scheduleFilterView"
@@ -68,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"

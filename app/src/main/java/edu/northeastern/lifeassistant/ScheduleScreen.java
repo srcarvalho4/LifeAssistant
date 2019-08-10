@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.ListView;
@@ -37,6 +38,7 @@ public class ScheduleScreen extends AppCompatActivity {
     AppDatabase db;
     boolean filterShowing = false;
     LinearLayout filterWindow;
+    ImageView filterWindowCover;
 
     ArrayList<ScheduleEvent> events = new ArrayList<>();
     ArrayList<Activity> allActivities = new ArrayList<>();
@@ -80,6 +82,7 @@ public class ScheduleScreen extends AppCompatActivity {
         ImageButton filterButton = findViewById(R.id.scheduleActivityButtonFilter);
         TextView filterName = findViewById(R.id.scheduleActivityFilterIndicator);
         filterWindow = findViewById(R.id.scheduleFilterView);
+        filterWindowCover = findViewById(R.id.scheduleFilterViewCover);
 
         ActivityAdapter activityAdapter = new ActivityAdapter(this, allActivities);
         ListView filterView = findViewById(R.id.scheduleListFilterView);
@@ -116,6 +119,7 @@ public class ScheduleScreen extends AppCompatActivity {
 //                    filterName.setTextColor(darkColor);
                 }
                 filterWindow.setVisibility(View.GONE);
+                filterWindowCover.setVisibility(View.GONE);
                 filterShowing = false;
                 adapter.updateData(newEvents);
             }
@@ -125,6 +129,16 @@ public class ScheduleScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 filterWindow.setVisibility(View.VISIBLE);
+                filterWindowCover.setVisibility(View.VISIBLE);
+                filterShowing = true;
+            }
+        });
+
+        filterName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterWindow.setVisibility(View.VISIBLE);
+                filterWindowCover.setVisibility(View.VISIBLE);
                 filterShowing = true;
             }
         });
