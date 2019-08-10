@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScheduleScreen"
+    tools:context=".activities.event.ScheduleScreen"
     android:orientation="vertical">
 
     <TextView
@@ -133,7 +133,7 @@
 
     <fragment
         android:id="@+id/ScheduleNavigationBar"
-        android:name="edu.northeastern.lifeassistant.NavigationBarFragment"
+        android:name="edu.northeastern.lifeassistant.activities.NavigationBarFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"/>

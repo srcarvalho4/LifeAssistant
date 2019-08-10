@@ -11,20 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoogleFitPopUp" android:screenOrientation="portrait" />
-        <activity android:name=".SpontaneousActive1" android:screenOrientation="portrait" />
-        <activity android:name=".HistoryInfoActivity" android:screenOrientation="portrait" />
-        <activity android:name=".HistoryActivity" android:screenOrientation="portrait" />
-        <activity android:name=".StepsHistory" android:screenOrientation="portrait" />
-        <activity android:name=".SpontaneousStepCounterActivity" android:screenOrientation="portrait" />
-        <activity android:name=".SpontaneousScreen" android:screenOrientation="portrait" />
-        <activity android:name=".ScheduleScreen" android:screenOrientation="portrait" />
-        <activity android:name=".ActivityScreen" android:screenOrientation="portrait" />
-        <activity android:name=".CreateActivityScreen" android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".CreateEventScreen" android:screenOrientation="portrait" />
-        <activity android:name=".SpontaneousActive" android:screenOrientation="portrait" />
-        <activity android:name=".SplashScreen" android:screenOrientation="portrait">
+        <activity android:name=".activities.GoogleFitPopUp" android:screenOrientation="portrait" />
+        <activity android:name=".activities.spontaneous.SpontaneousActive" android:screenOrientation="portrait" />
+        <activity android:name=".activities.history.HistoryInfoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activities.history.HistoryActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activities.history.StepsHistory" android:screenOrientation="portrait" />
+        <activity android:name=".activities.spontaneous.SpontaneousStepCounterActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activities.spontaneous.SpontaneousScreen" android:screenOrientation="portrait" />
+        <activity android:name=".activities.event.ScheduleScreen" android:screenOrientation="portrait" />
+        <activity android:name=".activities.activity.ActivityScreen" android:screenOrientation="portrait" />
+        <activity android:name=".activities.activity.CreateActivityScreen" android:screenOrientation="portrait" />
+        <activity android:name=".activities.event.CreateEventScreen" android:screenOrientation="portrait" />
+        <activity android:name=".activities.SplashScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,15 +31,15 @@
         </activity>
 
         <service
-            android:name="utils.SchedulerService"
+            android:name="edu.northeastern.lifeassistant.utils.services.SchedulerService"
             android:exported="false" />
 
         <receiver
-            android:name="utils.Alarm"
+            android:name="edu.northeastern.lifeassistant.utils.services.Alarm"
             android:process=":remote" />
 
         <receiver
-            android:name="utils.ActionReceiverAlarm"
+            android:name="edu.northeastern.lifeassistant.utils.services.ActionReceiverAlarm"
             android:process=":remote" />
     </application>
 
