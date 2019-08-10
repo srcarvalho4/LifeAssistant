@@ -391,6 +391,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
         else {
             //checkInstallation.setText("Fit is not installed");
             Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
+            intent.putExtra("FitInstalled", "no");
             startActivity(intent);
         }
     }
