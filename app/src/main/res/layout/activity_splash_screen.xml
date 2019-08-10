@@ -14,7 +14,7 @@
         android:layout_marginTop="37dp"
         android:layout_marginBottom="61dp"
         android:gravity="center"
-        android:text="Life Assistant"
+        android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
