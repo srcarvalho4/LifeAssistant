@@ -11,14 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckGoogleFitInstalled"></activity>
+        <activity android:name=".GoogleFitPopUp" />
         <activity android:name=".SpontaneousActive1" />
         <activity android:name=".HistoryInfoActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".StepsHistory" />
         <activity android:name=".SpontaneousStepCounterActivity" />
-        <activity android:name=".StepsCounterActivity" />
-        <activity android:name=".StepsActivity" />
         <activity android:name=".SpontaneousScreen" />
         <activity android:name=".ScheduleScreen" />
         <activity android:name=".ActivityScreen" />
@@ -40,6 +38,10 @@
 
         <receiver
             android:name="utils.Alarm"
+            android:process=":remote" />
+
+        <receiver
+            android:name="utils.ActionReceiverAlarm"
             android:process=":remote" />
     </application>
 

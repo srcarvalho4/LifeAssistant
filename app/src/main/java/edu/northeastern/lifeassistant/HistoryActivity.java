@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-
+        //Pulling spontaneous activity data from database
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
         List<SpontaneousEventDb> check = db.spontaneousEventDao().findAllSpontaneousEventsInDescendingOrder();
 
@@ -70,7 +70,7 @@ public class HistoryActivity extends AppCompatActivity {
             for (int i = 0; i < check.size(); i++) {
                 if (check.get(i).getEndTime() != null) {
 
-
+                    //Setting activity specific logos
                     AppDatabase db1 = AppDatabase.getAppDatabase(getApplicationContext());
                     ActivityDb check2 = db1.activityDao().findActivityById(check.get(i).getActivityId());
 
@@ -86,14 +86,19 @@ public class HistoryActivity extends AppCompatActivity {
                         finalValue = check.get(i).getFinalValue();
                     }
                     else {
-                        imageSelection = R.drawable.random_activity;
+                        imageSelection = R.drawable.icon_custom_activity;
+                        finalValue = "";
                     }
 
+                    String[] expected1 = check.get(i).getStartTime().getTime().toString().split(" ");
+                    String myTimeString1 = expected1[1] + " " + expected1[2] + "\n" + expected1[3] + expected1[4];
 
+                    String[] expected2 = check.get(i).getEndTime().getTime().toString().split(" ");
+                    String myTimeString2 = expected2[1] + " " + expected2[2] + "\n" + expected2[3] + expected2[4];
 
+                    //populating the History listview - myHistoryItems arraylist
                     myHistoryItems.add(new HistoryAdapterInfoItem(imageSelection, check2.getName(),
-                            finalValue, check.get(i).getStartTime().getTime().toString(),
-                            check.get(i).getEndTime().getTime().toString(), check.get(i).getActivityId(), check.get(i).getId()));
+                            finalValue, myTimeString1, myTimeString2, check.get(i).getActivityId(), check.get(i).getId()));
 
 
 

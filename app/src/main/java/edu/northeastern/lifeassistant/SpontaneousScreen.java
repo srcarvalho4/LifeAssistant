@@ -3,6 +3,7 @@ package edu.northeastern.lifeassistant;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,11 +53,12 @@ public class SpontaneousScreen extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Intent intent = new Intent(SpontaneousScreen.this, SpontaneousActive1.class);
 
                 intent.putExtra("name", activityDb.get(i).getId());
                 intent.putExtra("location", "Spontaneous");
-                startActivity(intent);
+                checkFitStatus(intent);
             }
         });
     }
@@ -84,6 +86,33 @@ public class SpontaneousScreen extends AppCompatActivity {
             case NIGHT_MODE: return new NightModeRule(getApplicationContext(), rule.getSettingValue());
             case RINGER: return new RingerRule(getApplicationContext(), rule.getSettingValue());
             default: throw new IllegalArgumentException("need a valid state type");
+        }
+    }
+
+    private boolean appInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+
+        return false;
+    }
+
+    public void checkFitStatus(Intent intent)
+    {
+        boolean isAppInstalled = appInstalledOrNot("com.google.android.apps.fitness");
+
+        if(isAppInstalled) {
+            //checkInstallation.setText("Fit is installed");
+            startActivity(intent);
+        }
+        else {
+            //checkInstallation.setText("Fit is not installed");
+            Intent myIntent = new Intent(SpontaneousScreen.this, GoogleFitPopUp.class);
+            myIntent.putExtra("FitInstalled", "no");
+            startActivity(myIntent);
         }
     }
 

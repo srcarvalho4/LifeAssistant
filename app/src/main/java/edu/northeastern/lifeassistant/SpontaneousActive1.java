@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,9 +49,10 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
         GoogleApiClient.OnConnectionFailedListener{
 
 
-    //================
+    //===========================================
     private GoogleApiClient mGoogleApiClient;
     String myTotalSteps = "lol";
+
     //to store startValue
     String myStartStepsString = "";
     int myStartSteps = 0;
@@ -68,7 +70,6 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
 
     Button buttonStart;
     Button buttonStop;
-    //ProgressBar progressBar;
     Button viewHistoryButton;
     //=============================================
 
@@ -97,6 +98,9 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                 .addConnectionCallbacks(this)
                 .enableAutoManage(this, 0, this)
                 .build();
+
+        //check if google fit is installed
+        checkFitStatus();
 
         //=====================================================
 
@@ -143,8 +147,14 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
         {
             if (mostRecentEvent.getEndTime() != null) {
                 //enable the start button and disable stop button
+                activityNameDisplay.setText(nameRender + ": Inactive");
                 buttonStart.setEnabled(true);
                 buttonStop.setEnabled(false);
+            }
+            else {
+                activityNameDisplay.setText(nameRender + ": Active");
+                buttonStart.setEnabled(false);
+                buttonStop.setEnabled(true);
             }
         }
         //=================================================================================
@@ -153,34 +163,56 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
         ActivityDb activity = db.activityDao().findActivityByName(activityName);
 
         //============== 4. Button onClicklisteners ========================================
+
+
+        //=========================  START Button code  ====================================
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //progressBar.setVisibility(View.VISIBLE);
+                //Enabling the stop button and disabling the stop button for reflecting the activity state
+                activityNameDisplay.setText(nameRender + ": Active");
+                buttonStop.setEnabled(true);
+                buttonStart.setEnabled(false);
+                //sets the myTotalSteps variable with current step count
                 new ViewTodaysStepCountTask().execute();
                 try {
-                    //progressBar.setVisibility(View.VISIBLE);
+                    //Added delay of 2.5 seconds to make an API call and fetch stepcount information
                     Thread.sleep(2500);
                 }
                 catch (Exception e) {
 
                 }
-                //progressBar.setVisibility(View.INVISIBLE);
-                SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
-                db.spontaneousEventDao().insert(sEvent);
-                buttonStop.setEnabled(true);
-                buttonStart.setEnabled(false);
-                SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
-                mostRecentEvent.setEndTime(Calendar.getInstance());
-                mostRecentEvent.setEndValue(null);
+                if (myTotalSteps.equals("lol"))
+                {
+                    buttonStop.setEnabled(false);
+                    buttonStart.setEnabled(true);
+                    Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
+                    intent.putExtra("FitInstalled", "yes");
+                    startActivity(intent);
+                }
+                else {
+                    //Adding/Inserting a new entry to the spontaneous activity database
+                    SpontaneousEventDb sEvent = new SpontaneousEventDb(activity.getId(), null, myTotalSteps, null, null);
+                    sEvent.setActive(true);
+                    db.spontaneousEventDao().insert(sEvent);
+
+
+                    //SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
+                    //mostRecentEvent.setEndTime(Calendar.getInstance());
+                    //mostRecentEvent.setEndValue(null);
+                }
             }
         });
 
-
+        //========================  STOP Button code ===============================================
         buttonStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //progressBar.setVisibility(View.VISIBLE);
+                //Enabling the stop button and disabling the stop button for reflecting the activity state
+                activityNameDisplay.setText(nameRender + ": Inactive");
+                buttonStart.setEnabled(true);
+                buttonStop.setEnabled(false);
+
 
                 String eventID = SetAlarmManager.getActiveScheduleEvent(getApplicationContext());
 
@@ -188,7 +220,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
                     ScheduleEventDao scheduleEventDao = AppDatabase.getAppDatabase(getApplicationContext()).scheduleEventDao();
                     SpontaneousEventDao spontaneousEventDao = AppDatabase.getAppDatabase(getApplicationContext()).spontaneousEventDao();
                     if (scheduleEventDao.findScheduleEventById(eventID) != null) {
-                        SetAlarmManager.endEventEarly(getApplicationContext(), scheduleEventDao.findScheduleEventById(eventID));
+                        SetAlarmManager.endEventEarly(getApplicationContext(), eventID);
                         return;
                     } else if (spontaneousEventDao.findSpontaneousEventById(eventID) != null) {
                         //Disable all the rules
@@ -197,36 +229,46 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
 
                 }
 
+                //sets the myTotalSteps variable with current step count
                 new ViewTodaysStepCountTask().execute();
                 try {
+                    //Added delay of 2.5 seconds to make an API call and fetch stepcount information
                     Thread.sleep(2500);
                 }
                 catch (Exception e) {
 
                 }
-                //progressBar.setVisibility(View.INVISIBLE);
+
+                // Pulling the most recent event from the spontaneous activity table
                 SpontaneousEventDb mostRecentEvent = db.spontaneousEventDao().findMostRecentEvent();
+
+                //Fetching the starting value of the step count to calculate the actual steps covered
                 myStartStepsString = mostRecentEvent.getStartValue();
                 //Log.d("MYTAG", myStartStepsString);
                 myStartSteps = Integer.parseInt(myStartStepsString);
 
+                //Fetching the ending value of the step count to calculate the actual steps covered
                 myCurrentSteps = Integer.parseInt(myTotalSteps);
                 //Log.d("MYTAG", Integer.toString(myStartSteps));
 
+
+                //Calculating the final step count
                 myFinalSteps = myCurrentSteps - myStartSteps;
                 myFinalStepsString = Integer.toString(myFinalSteps);
 
+                //Updating the most recent event with - endTime, endValue, finalValue and Active flag status
                 mostRecentEvent.setEndTime(Calendar.getInstance());
                 mostRecentEvent.setEndValue(myTotalSteps);
                 mostRecentEvent.setFinalValue(myFinalStepsString);
-
+                mostRecentEvent.setActive(false);
                 db.spontaneousEventDao().update(mostRecentEvent);
-                buttonStart.setEnabled(true);
-                buttonStop.setEnabled(false);
-                printData();
+
+
+                //printData();
             }
         });
 
+        //========================  View History Button code ===============================================
         viewHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -235,10 +277,10 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
             }
         });
 
+    } //End of OnCreate
 
 
-    }
-
+    //For debugging purposes - Displays the Final step count
     public void printData() {
         AppDatabase db = AppDatabase.getAppDatabase(getApplicationContext());
         SpontaneousEventDb check = db.spontaneousEventDao().findMostRecentEvent();
@@ -254,8 +296,6 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
 
         Toast.makeText(getApplicationContext(), printString, Toast.LENGTH_LONG).show();
 
-
-
         Log.d("Steps", startTime.getTime().toString());
         Log.d("Steps", startValue);
         Log.d("Steps", endtime.getTime().toString());
@@ -265,16 +305,18 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
 
     }
 
+
+    //Parses the result string to get the stepcount
     private void showDataSet(DataSet dataSet) {
-        Log.e("History", "Data returned for Data type: " + dataSet.getDataType().getName());
-        DateFormat dateFormat = DateFormat.getDateInstance();
-        DateFormat timeFormat = DateFormat.getTimeInstance();
+        //Log.e("History", "Data returned for Data type: " + dataSet.getDataType().getName());
+        //DateFormat dateFormat = DateFormat.getDateInstance();
+        //DateFormat timeFormat = DateFormat.getTimeInstance();
 
         for (DataPoint dp : dataSet.getDataPoints()) {
-            Log.e("History", "Data point:");
-            Log.e("History", "\tType: " + dp.getDataType().getName());
-            Log.e("History", "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)) + " " + timeFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)));
-            Log.e("History", "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MILLISECONDS)) + " " + timeFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)));
+            //Log.e("History", "Data point:");
+            //Log.e("History", "\tType: " + dp.getDataType().getName());
+            //Log.e("History", "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)) + " " + timeFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)));
+            //Log.e("History", "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MILLISECONDS)) + " " + timeFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)));
             for(Field field : dp.getDataType().getFields()) {
                 Log.e("History", "\tField: " + field.getName() +
                         " Value: " + dp.getValue(field));
@@ -292,25 +334,57 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
     @Override
     public void onConnectionSuspended(int i) {
         Log.e("HistoryAPI", "onConnectionSuspended");
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e("HistoryAPI", "onConnectionFailed");
-
     }
 
+    //Method making the API call using the created GoogleApiClient
     private void displayStepDataForToday() {
-        DailyTotalResult result = Fitness.HistoryApi.readDailyTotal( mGoogleApiClient, DataType.TYPE_STEP_COUNT_DELTA ).await(1, TimeUnit.MINUTES);
-        showDataSet(result.getTotal());
+        try {
+            //makes a call to the History API (One of the fitness APIs) to get the Daily total
+            DailyTotalResult result = Fitness.HistoryApi.readDailyTotal(mGoogleApiClient, DataType.TYPE_STEP_COUNT_DELTA).await(1, TimeUnit.MINUTES);
+            showDataSet(result.getTotal());
+        }
+        catch (Exception e) {
+            Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
+            startActivity(intent);
+        }
     }
 
-
+    //Async task initiating the call to the Fitness History API
     private class ViewTodaysStepCountTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
             displayStepDataForToday();
             return null;
         }
     }
+
+    private boolean appInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+
+        return false;
+    }
+
+    public void checkFitStatus()
+    {
+        boolean isAppInstalled = appInstalledOrNot("com.google.android.apps.fitness");
+
+        if(isAppInstalled) {
+            //checkInstallation.setText("Fit is installed");
+        }
+        else {
+            //checkInstallation.setText("Fit is not installed");
+            Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
+            startActivity(intent);
+        }
+    }
 }
+

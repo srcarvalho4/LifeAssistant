@@ -88,7 +88,7 @@ public class CreateEventScreen extends AppCompatActivity {
         // Delete event and redirect onClick
         deleteButton.setOnClickListener(view -> {
             ScheduleEventDb eventDb = db.scheduleEventDao().findScheduleEventById(selectedEventId);
-            SetAlarmManager.cancelAllPending(this, eventDb.getAlarmIds());
+            SetAlarmManager.cancelAllPending(this, eventDb);
             db.scheduleEventDao().deleteScheduleEventsById(selectedEventId);
             Intent intent = new Intent(getApplicationContext(), ScheduleScreen.class);
             intent.putExtra("location", "Schedule");
@@ -196,7 +196,7 @@ public class CreateEventScreen extends AppCompatActivity {
             scheduleEventDb.setDaysOfWeek(eventDays);
             db.scheduleEventDao().update(scheduleEventDb);
             Log.d("setAlarm", "calling setSchedulingAlarm");
-            SetAlarmManager.cancelAllPending(this, scheduleEventDb.getAlarmIds());
+            SetAlarmManager.cancelAllPending(this, scheduleEventDb);
             SetAlarmManager.setSchedulingAlarm(this, scheduleEventDb.getId());
         } else {
             ScheduleEventDb scheduleEventDb = new ScheduleEventDb(selectedActivityId, eventName,

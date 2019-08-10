@@ -154,6 +154,7 @@ public class SpontaneousStepCounterActivity extends AppCompatActivity implements
                 mostRecentEvent.setEndTime(Calendar.getInstance());
                 mostRecentEvent.setEndValue(myTotalSteps);
                 mostRecentEvent.setFinalValue(myFinalStepsString);
+                //mostRecentEvent.setActive(true);
 
                 db.spontaneousEventDao().update(mostRecentEvent);
                 buttonStart.setEnabled(true);
