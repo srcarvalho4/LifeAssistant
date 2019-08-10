@@ -357,8 +357,7 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
             showDataSet(result.getTotal());
         }
         catch (Exception e) {
-            Intent intent = new Intent(SpontaneousActive1.this, GoogleFitPopUp.class);
-            startActivity(intent);
+            
         }
     }
 
