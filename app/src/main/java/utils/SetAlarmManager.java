@@ -177,6 +177,7 @@ public class SetAlarmManager {
         Intent i1 = new Intent(context, Alarm.class);
         i1.putExtra("operation", "reminder");
         i1.putExtra("eventID", eventDb.getId());
+        i1.putExtra("eventName", eventDb.getName());
         i1.putExtra("alarmID", alarmID);
 
         PendingIntent pi1 = PendingIntent.getBroadcast(context, alarmID, i1, 0);

@@ -12,28 +12,28 @@ import edu.northeastern.lifeassistant.db.models.ActivityDb;
 public interface ActivityDao {
 
     @Insert
-    public void insert(ActivityDb activityDb);
+    void insert(ActivityDb activityDb);
 
     @Update
-    public void update(ActivityDb activityDb);
+    void update(ActivityDb activityDb);
 
     @Delete
-    public void delete(ActivityDb activityDb);
+    void delete(ActivityDb activityDb);
 
     @Query("SELECT * FROM activities")
-    public List<ActivityDb> findAllActivities();
+    List<ActivityDb> findAllActivities();
 
     @Query("SELECT * FROM activities WHERE id = :id")
-    public ActivityDb findActivityById(String id);
+    ActivityDb findActivityById(String id);
 
     @Query("SELECT * FROM activities WHERE name = :name")
-    public ActivityDb findActivityByName(String name);
+    ActivityDb findActivityByName(String name);
 
     @Query("SELECT a.* FROM activities a JOIN schedule_events s " +
             "ON a.id = s.activity_id WHERE s.id = :scheduleEventId")
-    public ActivityDb findActivityByEventId(String scheduleEventId);
+    ActivityDb findActivityByEventId(String scheduleEventId);
 
     @Query("DELETE FROM activities WHERE id = :id")
-    public void deleteActivityById(String id);
+    void deleteActivityById(String id);
 
 }

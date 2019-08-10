@@ -12,24 +12,24 @@ import edu.northeastern.lifeassistant.db.models.RuleDb;
 public interface RuleDao {
 
     @Insert
-    public void insert(RuleDb rules);
+    void insert(RuleDb rules);
 
     @Update
-    public void update(RuleDb ruleDb);
+    void update(RuleDb ruleDb);
 
     @Delete
-    public void delete(RuleDb ruleDb);
+    void delete(RuleDb ruleDb);
 
     @Query("SELECT * FROM rules")
-    public List<RuleDb> findAllRules();
+    List<RuleDb> findAllRules();
 
     @Query("SELECT * FROM rules WHERE id = :id")
-    public RuleDb findRuleById(String id);
+    RuleDb findRuleById(String id);
 
     @Query("SELECT * FROM rules WHERE activity_id = :activityId")
-    public List<RuleDb> findRulesForActivity(String activityId);
+    List<RuleDb> findRulesForActivity(String activityId);
 
     @Query("DELETE FROM rules WHERE activity_id = :activityId")
-    public void deleteRulesForActivity(String activityId);
+    void deleteRulesForActivity(String activityId);
 
 }

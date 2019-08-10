@@ -155,7 +155,11 @@ public class SpontaneousActive1 extends AppCompatActivity implements GoogleApiCl
             else {
                 activityNameDisplay.setText(nameRender + ": Active");
                 buttonStart.setEnabled(false);
-                buttonStop.setEnabled(true);
+                if(db.scheduleEventDao().findActiveEvents().isEmpty()) {
+                    buttonStop.setEnabled(true);
+                } else {
+                    buttonStop.setEnabled(false);
+                }
             }
         }
         //=================================================================================
